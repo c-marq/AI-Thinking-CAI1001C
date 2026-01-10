@@ -26,7 +26,7 @@ This guided project helps you practice the Python fundamentals introduced in Cha
 
 1. Go to the course GitHub repository: [your-repo-link-here]
 2. Navigate to **Guided Projects → GP01_Python_Basics_Demo**
-3. Click on `Chapter_01_Python_Basics_Demo.ipynb`
+3. Click on `GP01-Python-Basics-Demo.ipynb`
 4. Click the **"Open in Colab"** badge at the top of the notebook
    - OR click the **Raw** button, copy the URL, then go to [colab.research.google.com](https://colab.research.google.com) and use **File → Open notebook → GitHub** and paste the URL
 5. **Important**: Once opened, click **File → Save a copy in Drive** so your work is saved to your Google Drive!
