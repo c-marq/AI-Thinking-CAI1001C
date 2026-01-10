@@ -1,5 +1,5 @@
 # Final Portfolio Guide
-**CAI1001C: AI Thinking | 100 Points | Due: May 2, 2026**
+**CAI1001C: AI Thinking | 100 Points**
 
 ## Portfolio Components
 
@@ -39,6 +39,6 @@ For each project provide:
 
 ## Submission Requirements
 
-Submit all three components via Canvas by May 2, 11:59 PM.
+Submit all three components via Canvas
 
 See full rubric for detailed grading criteria.
