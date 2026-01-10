@@ -1,0 +1,28 @@
+# Core Data Science Libraries
+numpy>=1.24.0
+pandas>=2.0.0
+matplotlib>=3.7.0
+seaborn>=0.12.0
+
+# Machine Learning
+scikit-learn>=1.3.0
+tensorflow>=2.13.0
+keras>=2.13.0
+
+# Natural Language Processing
+nltk>=3.8.0
+spacy>=3.6.0
+
+# Computer Vision
+opencv-python>=4.8.0
+Pillow>=10.0.0
+
+# Utilities
+jupyter>=1.0.0
+notebook>=7.0.0
+ipywidgets>=8.0.0
+
+# Google Colab compatibility (these are pre-installed in Colab)
+# google-colab
+# torch
+# torchvision
