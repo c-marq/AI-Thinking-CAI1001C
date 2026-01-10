@@ -916,7 +916,7 @@ print(f"You were aware of {knew_count} out of {total_systems} ({awareness_percen
 
 **Extension Ideas** (for advanced students):
 - Create a dictionary to count categories more elegantly
-- Make a simple bar chart visualization (we'll learn this formally in Chapter 2)
+- Make a simple bar chart visualization (we'll learn this formally in Chapter 5)
 - Compare your findings with a classmate's
 - Research one system deeply: How does it work? What data does it use?
 
