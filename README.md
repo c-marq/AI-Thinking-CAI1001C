@@ -1,5 +1,5 @@
 # AI Thinking: CAI1001C
-**Miami Dade College | Spring 2026**  
+**Miami Dade College 
 **Instructor:** Professor Carlos Marquez
 
 ## 📚 Course Description
