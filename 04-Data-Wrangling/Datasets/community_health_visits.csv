@@ -1,0 +1,105 @@
+visit_id,zip_code,neighborhood,visit_type,age_group,gender,insurance_type,preferred_language,wait_time_minutes,satisfaction_score,follow_up_needed
+5030,33132,Downtown Miami,COVID Vaccination,26-35,Non-Binary,PRIVATE,Spanish,60.0,5.0,Yes
+5065,33139,Miami Beach,MENTAL HEALTH CONSULTATION,26-35,Male,Uninsured,Spanish,79.0,3.0,Yes
+5064,33145,Coral Way,Vision Screening,18-25,Male,Medicare,English,90.0,1.0,Yes
+5053,33132,Downtown Miami,Diabetes Screening,65+,Male,uninsured ,Spanish,55.0,2.0,No
+5045,33130,Brickell,Dental Cleaning,26-35,Male,Private,English,480.0,3.0,Yes
+5093,33012,Hialeah Gardens,Vision Screening,26-35,Female,Private,English,47.0,3.0,No
+5091,33135,Flagami,Diabetes Screening,36-45,Male,Medicaid,Spanish,45.0,,Yes
+5047,33010,,Annual Checkup,18-25,Female,Uninsured,Portuguese,67.0,4.0,Yes
+5010,33142,Liberty City,FLU VACCINATION,18-25,Male,Medicaid,Spanish,64.0,2.0,No
+5000,33132,Downtown Miami,Mental Health Consultation,26-35,Female,Uninsured,English,65.0,5.0,Yes
+5018,33139,,Dental Cleaning,36-45,Female,Private,Spanish,89.0,4.0,Yes
+5031,33155,Westchester,Dental Cleaning,65+,Female,Uninsured,English,61.0,5.0,No
+5088,33139,,Flu Vaccination,26-35,Male,Uninsured,Spanish,65.0,4.0,Yes
+5095,33139,Miami Beach,Annual Checkup,65+,Non-Binary,Medicare,Spanish,85.0,5.0,Yes
+5077,33012,Hialeah Gardens,Dental Cleaning,18-25,Male,Medicaid,English,66.0,4.0,Yes
+5004,33012,,Flu Vaccination,65+,Male,Private,Creole,17.0,5.0,No
+5080,33142,Liberty City,Diabetes Screening,56-65,Non-Binary,Medicaid,Spanish,60.0,4.0,Yes
+5033,33010,Hialeah,COVID Vaccination,36-45,Female,Uninsured,Spanish,7.0,5.0,no
+5012,33010,Hialeah,Annual Checkup,26-35,Male,medicaid,Portuguese,78.0,5.0,No
+5026,33142,Liberty City,Dental Cleaning,56-65,Female,Private,Spanish,30.0,4.0,Yes
+5098,33010,Hialeah,COVID Vaccination,46-55,Female,Medicare,English,6.0,3.0,Yes
+5055,33125,Little Havana,Diabetes Screening,65+,Male,Medicaid,Spanish,16.0,,Yes
+5022,33012,Hialeah Gardens,Mental Health Consultation,46-55,Male,,English,62.0,3.0,No
+5076,33132,Downtown Miami,Annual Checkup,18-25,Female,Private,English,20.0,,No
+5044,33010,Hialeah,Annual Checkup,56-65,Female,Uninsured,,8.0,4.0,Yes
+5072,33139,Miami Beach,Dental Cleaning,46-55,Female,Private,,69.0,5.0,No
+5015,33012,Hialeah Gardens,Diabetes Screening,65+,Female,Medicare,English,,4.0,No
+5042,33142,Liberty City,Dental Cleaning,65+,Female,Medicare,English,20.0,5.0,No
+5040,33125,Little Havana,Diabetes Screening,36-45,Female,Medicare,Spanish,73.0,2.0,Yes
+5009,33012,Hialeah Gardens,Annual Checkup,46-55,Male,Uninsured,Spanish,78.0,1.0,Yes
+5085,33135,Flagami,Annual Checkup,18-25,Male,Uninsured,English,,4.0,Yes
+5011,33142,Liberty City,Flu Vaccination,26-35,Female,Medicaid,Creole,25.0,,No
+5080,33142,Liberty City,Diabetes Screening,56-65,Non-Binary,Medicaid,Spanish,60.0,4.0,Yes
+5078,33012,Hialeah Gardens,COVID Vaccination,36-45,Female,Medicare,English,19.0,5.0,No
+5028,33135,Flagami,Diabetes Screening,36-45,Female,Medicaid,English,90.0,3.0,No
+5079,33012,Hialeah Gardens,Blood Pressure Screening,18-25,Female,,English,57.0,2.0,Yes
+5005,33012,Hialeah Gardens,Flu Vaccination,36-45,Female,Private,Spanish,20.0,4.0,yes
+5062,33139,Miami Beach,Diabetes Screening,46-55,Female,Uninsured,English,-5.0,4.0,No
+5056,33145,Coral Way,Diabetes Screening,65+,Female,,English,8.0,3.0,No
+5039,33012,Hialeah Gardens,Diabetes Screening,56-65,Female,Medicaid,Creole,9.0,5.0,No
+5035,33012,Hialeah Gardens,Vision Screening,65+,Male,Medicaid,Spanish,42.0,4.0,No
+5016,33142,Liberty City,Vision Screening,56-65,Male,Private,English,88.0,4.0,YES
+5066,33139,Miami Beach,Vision Screening,18-25,Female,Private,Portuguese,52.0,5.0,No
+5034,33139,Miami Beach,Mental Health Consultation,36-45,Male,Private,Creole,49.0,,No
+5007,33139,hialeah,Annual Checkup,18-25,Female,Private,Spanish,60.0,2.0,No
+5043,33132, Brickell,Mental Health Consultation,65+,Female,Uninsured,English,45.0,3.0,Yes
+5068,33139,Miami Beach,Mental Health Consultation,46-55,Male,Uninsured,English,56.0,5.0,Yes
+5069,33010,Hialeah,Dental Cleaning,65+,Male,Private,Spanish,6.0,5.0,Yes
+5027,33130,Brickell,COVID Vaccination,65+,Male,Medicare,Spanish,29.0,,Yes
+5019,33132,Downtown Miami,Flu Vaccination,26-35,Female,Uninsured,Spanish,32.0,,Yes
+5084,33130,Brickell,Annual Checkup,65+,Female,Private,Creole,47.0,2.0,No
+5025,33125,miami beach ,Vision Screening,26-35,Male,Private,English,65.0,3.0,No
+5073,33125,Little Havana,Diabetes Screening,56-65,Male,Medicaid,Portuguese,56.0,2.0,No
+5049,33125,Little Havana,Mental Health Consultation,46-55,Non-Binary,Medicaid,Spanish,76.0,4.0,No
+5013,33142,Liberty City,COVID Vaccination,56-65,Male,Medicaid,Spanish,42.0,5.0,No
+5024,33132,Downtown Miami,Blood Pressure Screening,56-65,Male,Medicaid,English,54.0,5.0,Yes
+5003,33130,Brickell,annual checkup,26-35,Female,Uninsured,Spanish,61.0,5.0,Yes
+5017,33132,Downtown Miami,Flu Vaccination,56-65,Female,Uninsured,Spanish,52.0,5.0,Yes
+5038,33139,Miami Beach,Annual Checkup,18-25,Female,Private,Spanish,,4.0,Yes
+5008,33145,Coral Way,Vision Screening,18-25,Male,,Spanish,23.0,4.0,Yes
+5081,33145,Coral Way,Annual Checkup,65+,Male,Medicaid,Portuguese,75.0,5.0,Yes
+5006,33010,Hialeah,Dental Cleaning,56-65,Male,Private,,65.0,4.0,No
+5067,33012,Hialeah Gardens,Annual Checkup,18-25,Male,Uninsured,English,41.0,,No
+5036,33012,Hialeah Gardens,diabetes screening ,26-35,Female,Medicare,English,80.0,2.0,Yes
+5090,33145,Coral Way,Blood Pressure Screening,46-55,Female,Medicare,Spanish,21.0,5.0,No
+5083,33139,Miami Beach,Annual Checkup,46-55,Female,Uninsured,English,80.0,5.0,Yes
+5054,33010,Hialeah,Flu Vaccination,56-65,Male,Medicaid,Spanish,62.0,4.0,Yes
+5050,33012,Hialeah Gardens,COVID vaccination,56-65,Female,Medicaid,English,33.0,4.0,No
+5070,33012,liberty city ,Flu Vaccination,46-55,Female,Medicare,English,64.0,5.0,No
+5046,33135,Flagami,Vision Screening,56-65,Male,Medicaid,English,57.0,3.0,No
+5099,33132,Downtown Miami,Mental Health Consultation,18-25,Female,Medicare,Creole,54.0,5.0,No
+5061,33130,Brickell,COVID Vaccination,18-25,Male,Private,Portuguese,42.0,2.0,No
+5009,33012,Hialeah Gardens,Annual Checkup,46-55,Male,Uninsured,Spanish,78.0,1.0,Yes
+5096,33132,Downtown Miami,COVID Vaccination,56-65,Female,Medicare,Spanish,13.0,1.0,No
+5041,33130,Brickell,Mental Health Consultation,65+,Female,,Portuguese,19.0,5.0,No
+5058,33155,HIALEAH,Blood Pressure Screening,26-35,Male,Medicare,English,13.0,5.0,Yes
+5048,33142,Liberty City,Flu Vaccination,36-45,Female,Uninsured,Spanish,83.0,,Yes
+5089,33132,Downtown Miami,Mental Health Consultation,26-35,Male,Medicare,Portuguese,61.0,5.0,Yes
+5057,33010,Hialeah,Diabetes Screening,46-55,Male,Medicaid,Spanish,72.0,5.0,No
+5075,33142,Liberty City,Vision Screening,56-65,Male,Medicare,English,44.0,3.0,No
+5032,33142,Liberty City,Vision Screening,46-55,Male,Medicare,Creole,59.0,5.0,No
+5097,33139,Miami Beach,Diabetes Screening,65+,Female,Private,Spanish,9.0,3.0,No
+5059,33012,Hialeah Gardens,Annual Checkup,46-55,Male,Private,English,42.0,3.0,Yes
+5063,33010,,COVID Vaccination,65+,Male,Medicare,Portuguese,85.0,1.0,No
+5026,33142,Liberty City,Dental Cleaning,56-65,Female,Private,Spanish,30.0,4.0,Yes
+5037,33139,Miami Beach,Diabetes Screening,26-35,Male,Private,Portuguese,66.0,8.0,Yes
+5029,33145,,Vision Screening,36-45,Female,Medicaid,Portuguese,66.0,5.0,Yes
+5001,33130,Brickell,Blood Pressure Screening,56-65,Male,Private,Creole,8.0,5.0,No
+5052,33010,Hialeah,Dental Cleaning,65+,Female,Uninsured,English,44.0,2.0,NO
+5021,33125,Little Havana, Blood Pressure Screening,18-25,Male,Private,Spanish,53.0,2.0,No
+5002,33130,Brickell,Dental Cleaning,26-35,Female,Medicaid,Spanish,38.0,,No
+5023,33139,Miami Beach,Flu Vaccination,46-55,Female,Medicaid,Spanish,9.0,4.0,Yes
+5087,33132,Downtown Miami,Vision Screening,18-25,Male,Medicare,Spanish,24.0,0.0,No
+5094,33139,Miami Beach,Dental Cleaning,36-45,Female,Medicare,Spanish,23.0,5.0,No
+5074,33145,Coral Way,Annual Checkup,65+,Female, Medicare,English,7.0,1.0,Yes
+5086,33010,Hialeah,Vision Screening,26-35,Non-Binary,Private,Portuguese,85.0,3.0,Yes
+5082,33130,Brickell, dental cleaning,26-35,Male,Medicaid,English,82.0,4.0,Yes
+5020,33145,Coral Way,Annual Checkup,56-65,Female,Private,Spanish,-15.0,3.0,No
+5060,33130,Brickell,Vision Screening,18-25,Female,Medicare,Spanish,,1.0,Yes
+5071,33135,Flagami,Blood Pressure Screening,56-65,Female,Private,Creole,25.0,4.0, Yes
+5014,33132,LITTLE HAVANA,Vision Screening,26-35,Female,Medicare,English,23.0,1.0,Yes
+5092,33012,Hialeah Gardens,COVID Vaccination,56-65,Female,Private,Portuguese,77.0,5.0,Yes
+5051,33135,Flagami,Blood Pressure Screening,65+,Female,Private,Portuguese,66.0,3.0,Yes
+5054,33010,Hialeah,Flu Vaccination,56-65,Male,Medicaid,Spanish,62.0,4.0,Yes
