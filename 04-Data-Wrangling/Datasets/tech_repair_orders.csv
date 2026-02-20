@@ -1,0 +1,64 @@
+order_id,customer_name,device_brand,service_type,price,technician,status,customer_rating,days_to_complete
+4055,Marco Ramirez,HP,Virus Removal,,Eddie,Picked Up,5.0,3
+4016,Diego Perez,Asus,Hard Drive Replacement,-45.0,Yami,Picked Up,5.0,3
+4007,Sofia Martinez,Acer,Screen Replacement,,Yami,Completed,4.0,7
+4024,Andres Reyes,Asus,Fan Cleaning,132.07,Eddie,In Progress,2.0,3
+4006,Gabriela Flores,Asus,Battery Replacement,98.03,Jorge,Waiting for Parts,,2
+4031,,Apple,Data Recovery,88.71,Eddie,Picked Up,5.0,1
+4036,Carlos Rodriguez,Apple,Charging Port Repair,143.11,Jorge,In Progress,1.0,5
+4014,Miguel Santos,Lenovo,Software Install,,Yami,Picked Up,5.0,2
+4045,Roberto Hernandez,Acer,Battery Replacement,153.94,Yami,Waiting for Parts,3.0,2
+4010,Diego Perez,Acer,Software Install,87.63,,Picked Up,5.0,6
+4039,Elena Guerrero,Asus,Charging Port Repair,,Yami,In Progress,5.0,2
+4047,Carlos Rodriguez,Acer,Battery Replacement,126.07,Yami,Completed,1.0,3
+4013,Daniel Vargas,Acer,Hard Drive Replacement,133.65,Yami,In Progress,4.0,6
+4028,Daniel Vargas,HP,Hard Drive Replacement,,Jorge,Picked Up,5.0,4
+4046,Camila Torres,Acer,Virus Removal,171.36,Yami,Picked Up,0.0,7
+4050,Miguel Santos,Apple,Keyboard Repair,62.4,Yami,Waiting for Parts,1.0,-2
+4030,Camila Torres,HP, Data Recovery,76.19,Jorge,Picked Up,3.0,4
+4025,Maria Garcia,Asus,Charging Port Repair,84.47,Eddie,Completed,,6
+4011,Miguel Santos,Acer,BATTERY REPLACEMENT,104.72,Eddie,In Progress,1.0,7
+4044,Paula Castillo,Acer,Screen Replacement,210.68,Yami,Completed,,3
+4048,Ana Lopez,HP,Data Recovery,194.36,,Picked Up,5.0,1
+4033,Daniel Vargas,Apple,Virus Removal,229.03,Eddie,Picked Up,,4
+4042,Valentina Cruz,Lenovo,SCREEN REPLACEMENT,63.48,Yami,Completed,4.0,3
+4041,Sofia Martinez,Apple,Screen Replacement,168.55,Jorge,Completed,2.0,5
+4054,Roberto Hernandez,Dell,Hard Drive Replacement,219.6,Eddie,In Progress,4.0,3
+4056,Sofia Martinez,Lenovo,Data Recovery,172.92,Yami,Waiting for Parts,1.0,1
+4026,Carlos Rodriguez,Dell,Virus Removal,229.67,Yami,Completed,5.0,2
+4022,Daniel Vargas,Asus,Battery Replacement,199.65,YAMI,Picked Up,5.0,2
+4019,Diego Perez,Dell,virus removal ,222.16,Yami,In Progress,3.0,3
+4003,,Dell,Data Recovery,198.14,Eddie,Picked Up,5.0,3
+4034,Isabella Diaz,Lenovo,Fan Cleaning,125.95,Jorge,Picked Up,3.0,2
+4037,Sofia Martinez,Dell,Keyboard Repair,-120.5,Jorge,In Progress,4.0,1
+4021,Roberto Hernandez,Lenovo,RAM Upgrade,86.48,Eddie,Completed,7.0,6
+4032,Carlos Rodriguez,Dell,Software Install,243.33,Eddie,In Progress,4.0,4
+4058,Javier Rojas,Acer,RAM Upgrade,204.08,Yami,Completed,,5
+4017,,Acer,Screen Replacement,189.96,Jorge,Waiting for Parts,5.0,1
+4027,Isabella Diaz,HP,Fan Cleaning,150.94,Jorge,Picked Up,4.0,7
+4015,Ana Lopez,Apple,Software Install,54.55, Jorge,Completed,3.0,6
+4020,Diego Perez,Asus,Software Install,232.48,Jorge,Waiting for Parts,,1
+4008,Roberto Hernandez,Lenovo,Hard Drive Replacement,132.48,Yami,In Progress,5.0,3
+4008,Roberto Hernandez,Lenovo,Hard Drive Replacement,132.48,Yami,In Progress,5.0,3
+4012,Camila Torres,Lenovo,Hard Drive Replacement,49.23,Jorge,Waiting for Parts,,6
+4000,Roberto Hernandez,Acer,Screen Replacement,94.13,Eddie,In Progress,2.0,6
+4002,Paula Castillo,Dell,Charging Port Repair,155.67,eddie,Picked Up,4.0,4
+4051,Valentina Cruz,Acer,Virus Removal,57.1,Jorge,Picked Up,3.0,6
+4043,Marco Ramirez,Apple,Keyboard Repair,214.26,Jorge,Waiting for Parts,3.0,7
+4038,Elena Guerrero,Asus,Virus Removal,162.82,Jorge,Completed,4.0,6
+4029,Javier Rojas,Acer,Fan Cleaning,46.65,Jorge,Completed,1.0,4
+4053,Camila Torres,Acer,Hard Drive Replacement,220.77,Eddie,Waiting for Parts,3.0,7
+4049,Roberto Hernandez,Acer,Battery Replacement,229.34,Jorge,Completed,5.0,5
+4023,Isabella Diaz,Asus,Software Install,125.97,Eddie,In Progress,5.0,4
+4023,Isabella Diaz,Asus,Software Install,125.97,Eddie,In Progress,5.0,4
+4045,Roberto Hernandez,Acer,Battery Replacement,153.94,Yami,Waiting for Parts,3.0,2
+4052,,HP,Virus Removal,244.88,Eddie,Picked Up,1.0,2
+4005,Andres Reyes,Lenovo,Charging Port Repair,208.53,EDDIE,Picked Up,5.0,1
+4004,Ana Lopez,Lenovo,screen replacement,56.98,Yami,Completed,5.0,7
+4018,Marco Ramirez,HP,Hard Drive Replacement,132.55,Jorge,Waiting for Parts,5.0,7
+4059,Valentina Cruz,Dell,Data Recovery,187.39,Eddie,In Progress,5.0,4
+4009,Valentina Cruz,Acer,Data Recovery,236.38,yami ,Completed,3.0,6
+4040,Isabella Diaz,HP,Hard Drive Replacement,179.41, eddie ,Picked Up,5.0,7
+4057,Isabella Diaz,Asus,Keyboard Repair,241.94,Yami,Completed,2.0,5
+4035,Marco Ramirez,Dell,Virus Removal,159.52,jorge,Completed,5.0,1
+4001,Miguel Santos,Asus,Battery Replacement,125.71,Eddie,Completed,,2
