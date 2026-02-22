@@ -529,10 +529,8 @@ Prof. Reyes smiled. "And the source?"
 
 *Technical Connection*: This story illustrates the three most common techniques for creating misleading visualizations: truncated axes (starting above zero to exaggerate differences), cherry-picked time ranges (selecting dates that support a narrative), and source bias (data presented by parties with a financial interest in the conclusion). Learning to spot these is a critical skill for data literacy.
 
-[IN-CHAPTER IMAGE 3]
-Prompt: "A detective with a magnifying glass examining a large wall of charts and graphs, some charts circled in red with warning signs indicating they are misleading, others glowing green as trustworthy, noir-meets-Miami-pastel color scheme, digital watercolor style"
-Placement: After Section 5.6
-Purpose: Reinforces the critical literacy theme — charts as evidence that require careful analysis
+![Generated Image February 22, 2026 - 1_13AM](https://github.com/user-attachments/assets/e1469a25-f9ad-46d2-bc36-82db4a12f9a7)
+
 
 ```mermaid
 graph TD
