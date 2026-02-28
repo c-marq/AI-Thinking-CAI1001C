@@ -1,9 +1,6 @@
 # Chapter 7: Classification Part 1 — k-Nearest Neighbors & Decision Trees
 
-<!-- [IMAGE: images/ch07/fig-7-0-classification-sorting-machine.png]
-Alt text: A futuristic robotic sorting mechanism directing glowing data orbs into two channels.
-Nano Banana Pro Prompt: "A sleek futuristic sorting machine in a dark, polished environment. A stream of small glowing data orbs — each orb a translucent sphere with faint numeric patterns visible inside — flows downward from a wide funnel at the top of the machine. At the center, a precision robotic arm with brushed-titanium joints and a glowing turquoise sensor eye scans each orb as it passes. The arm directs orbs into two diverging transparent tubes: the left tube glows warm coral and curves toward a collection chamber with a small illuminated placard reading 'Positive,' the right tube glows cool silver-blue and curves toward a chamber with a placard reading 'Negative.' Several orbs are mid-flight in each tube, leaving faint light trails. The machine sits on a reflective dark surface. Behind it, a large translucent holographic screen displays a simple scatter plot with two color-coded clusters (coral and blue). The lighting is a mix of cool ambient blue from above and warm coral glow emanating from the left tube, creating a split-tone effect across the machine. Style: editorial textbook illustration with soft digital watercolor textures, clean lines, and a warm coral-and-turquoise color palette. Composition is a straight-on medium shot centered on the robotic arm and the diverging tubes, with the holographic screen as a secondary background element. No text other than the two placards 'Positive' and 'Negative.'"
--->
+<img width="1408" height="768" alt="image" src="https://github.com/user-attachments/assets/c933fc8a-799d-401e-9756-1551ed46b45a" />
 
 ## The Sorting Hat Problem
 
