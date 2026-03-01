@@ -1,9 +1,6 @@
 # Chapter 8: Classification Part 2 — Linear Classifiers & Support Vector Machines
 
-<!-- [IMAGE: images/ch08/fig-8-0-four-robotic-sorters.png]
-Alt text: Four sleek robotic sorting arms arranged around a circular conveyor belt, each using a different sorting mechanism — proximity sensors, branching rails, a laser dividing line, and a glowing margin corridor — to sort geometric data objects in a futuristic facility.
-Nano Banana Pro Prompt: "Four sleek robotic sorting arms arranged in a circle around a central circular conveyor belt in a futuristic data processing facility. Each arm has a distinct sorting mechanism: the first uses an array of small blue proximity sensors to scan nearby objects on the belt (k-NN), the second follows a branching metallic rail system with decision nodes marked by small amber indicator lights (decision tree), the third projects a sharp coral-colored laser line across the belt surface dividing objects into two clean zones (linear classifier), and the fourth generates a wide turquoise glowing margin corridor between two groups of objects with small highlighted anchor points at the corridor edges (SVM). The conveyor belt carries dozens of small glowing geometric data objects — spheres and cubes in coral and turquoise colors. The facility has polished dark floors reflecting the colored light and subtle ambient lighting from recessed ceiling panels. The primary light comes from the glowing mechanisms and data objects themselves, creating colorful reflections on the brushed-aluminum robotic arms and the dark conveyor surface. Style: editorial textbook illustration with soft digital watercolor textures, clean lines, and a warm coral-and-turquoise color palette. Composition is a slight overhead angle centered on the circular conveyor belt, with all four robotic arms visible and balanced in the frame, each occupying a quadrant. No text or labels in this image."
--->
+<img width="1408" height="768" alt="image" src="https://github.com/user-attachments/assets/8ba00eb9-c942-48b8-a646-2b22dee17aa0" />
 
 ## Four Opinions, One Question
 
