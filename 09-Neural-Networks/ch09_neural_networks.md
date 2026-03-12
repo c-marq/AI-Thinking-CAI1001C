@@ -1,9 +1,6 @@
 # Chapter 9: Neural Networks
 
-<!-- [IMAGE: images/ch09/fig-9-0-neural-network-lattice.png]
-Alt text: A futuristic three-dimensional neural network rendered as interconnected glowing nodes arranged in four vertical layers, with luminous filaments of varying brightness connecting them and small floating digits streaming from left to right through the structure, set against a deep navy-black background with coral and turquoise accents.
-Nano Banana Pro Prompt: "A futuristic visualization of a neural network rendered as a three-dimensional lattice of interconnected glowing nodes suspended in dark space. The nodes are arranged in four distinct vertical layers — a wide input layer on the left with many small nodes, two progressively narrower hidden layers in the center with medium-sized nodes pulsing with warm coral light, and a compact output layer on the right with a few large nodes glowing bright turquoise. Thin luminous filaments connect every node to the next layer, with varying brightness suggesting different connection weights — some filaments glow intensely, others are barely visible. Small streams of data represented as tiny floating digits (0s and 1s) flow from left to right through the network. The background is deep navy-black with a subtle grid pattern suggesting computational space. A faint warm amber glow emanates from the center of the network where processing is most intense. Style: editorial textbook illustration with soft digital watercolor textures, clean lines, and a warm coral-and-turquoise color palette. Composition is a wide horizontal view centered on the network, with the input layer at the left edge and output at the right, creating a clear left-to-right data flow. No text or labels in this image."
--->
+<img width="1376" height="768" alt="image" src="https://github.com/user-attachments/assets/3578435c-ed17-45aa-9bc4-53afa9854a66" />
 
 ## Sofia's Ceiling
 
