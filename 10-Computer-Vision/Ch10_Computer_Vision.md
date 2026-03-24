@@ -1,9 +1,6 @@
 # Chapter 10: Computer Vision
 
-<!-- [IMAGE: images/ch10/fig-10-0-robotic-lens-detection.png]
-Alt text: A sleek robotic camera lens projecting holographic bounding boxes onto a curved display screen in a futuristic monitoring station
-Nano Banana Pro Prompt: "A sleek robotic camera lens mounted on a brushed-aluminum articulated arm, positioned in a futuristic monitoring station. The lens projects translucent coral and turquoise holographic bounding boxes onto a large curved display screen in front of it. The screen shows a stylized urban scene with geometric placeholder shapes — rectangles and circles — inside the bounding boxes, each with a small floating label tag. Thin data streams of glowing particles flow from the lens to the screen. The environment is a clean, dark workspace with subtle blue ambient lighting from recessed LED strips along the ceiling and floor edges. The lens itself has concentric rings that glow with a warm coral light. Style: editorial textbook illustration with soft digital watercolor textures, clean lines, and a warm coral-and-turquoise color palette. Composition is centered on the robotic lens with the screen as the primary background element, shot from a slight low angle to give the lens a sense of presence. No text or labels in this image."
--->
+<img width="1376" height="768" alt="image" src="https://github.com/user-attachments/assets/c4dfb236-dc95-452a-a914-e3923e46e60a" />
 
 ---
 
