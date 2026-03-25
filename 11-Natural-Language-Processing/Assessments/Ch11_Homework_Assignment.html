@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chapter 11 Homework: NLP & Language Bias Analysis</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;600;700&family=Source+Serif+4:wght@400;600&display=swap');
+  
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  
+  body {
+    font-family: 'Source Sans 3', sans-serif;
+    font-size: 14px;
+    line-height: 1.6;
+    color: #1a1a1a;
+    max-width: 850px;
+    margin: 0 auto;
+    padding: 40px 30px;
+    background: #fff;
+  }
+  
+  .header {
+    border-bottom: 3px solid #0d7377;
+    padding-bottom: 16px;
+    margin-bottom: 20px;
+  }
+  .header h1 {
+    font-family: 'Source Serif 4', serif;
+    font-size: 24px;
+    font-weight: 700;
+    color: #0d7377;
+    margin-bottom: 4px;
+  }
+  .header .subtitle { font-size: 15px; color: #555; }
+  
+  .student-info {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 20px;
+    padding: 16px;
+    background: #f0fafa;
+    border-radius: 8px;
+  }
+  .student-info label {
+    font-weight: 600; font-size: 13px; color: #0d7377;
+    display: block; margin-bottom: 2px;
+  }
+  .student-info input {
+    width: 100%; padding: 6px 10px; border: 1px solid #ccc;
+    border-radius: 4px; font-size: 14px; font-family: inherit;
+  }
+  
+  .rubric {
+    margin-bottom: 24px;
+    border: 2px solid #0d7377;
+    border-radius: 8px;
+    overflow: hidden;
+  }
+  .rubric-header {
+    background: #0d7377; color: #fff; padding: 10px 16px;
+    font-weight: 700; font-size: 15px;
+  }
+  .rubric table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  .rubric th {
+    background: #e8f4f4; padding: 8px 12px; text-align: left;
+    font-weight: 600; color: #0d7377; border-bottom: 1px solid #ddd;
+  }
+  .rubric td {
+    padding: 6px 12px; border-bottom: 1px solid #eee;
+  }
+  .rubric td:last-child { text-align: center; font-weight: 600; }
+  .rubric tr:last-child td { border-bottom: none; font-weight: 700; background: #f0fafa; }
+  
+  .instructions {
+    background: #fffbe6;
+    border-left: 4px solid #d4a017;
+    padding: 14px 18px;
+    margin-bottom: 28px;
+    border-radius: 0 6px 6px 0;
+    font-size: 13.5px;
+  }
+  .instructions strong { color: #8a6d00; }
+  
+  .part {
+    margin-bottom: 36px;
+  }
+  .part-header {
+    background: #0d7377;
+    color: #fff;
+    padding: 12px 18px;
+    border-radius: 8px 8px 0 0;
+    font-weight: 700;
+    font-size: 16px;
+  }
+  .part-body {
+    padding: 18px;
+    border: 1px solid #ddd;
+    border-top: none;
+    border-radius: 0 0 8px 8px;
+    background: #fafafa;
+  }
+  
+  .question {
+    margin-bottom: 20px;
+    padding-bottom: 16px;
+    border-bottom: 1px dashed #ddd;
+  }
+  .question:last-child { border-bottom: none; padding-bottom: 0; }
+  .question p { margin-bottom: 8px; }
+  .question strong { color: #333; }
+  
+  textarea {
+    width: 100%; padding: 8px 10px; border: 1px solid #ccc;
+    border-radius: 4px; font-family: inherit; font-size: 13.5px;
+    resize: vertical; min-height: 60px;
+  }
+  textarea:focus {
+    outline: none; border-color: #0d7377;
+    box-shadow: 0 0 0 2px rgba(13,115,119,0.15);
+  }
+  
+  input[type="text"] {
+    width: 100%; padding: 6px 10px; border: 1px solid #ccc;
+    border-radius: 4px; font-family: inherit; font-size: 13.5px;
+  }
+  input[type="text"]:focus {
+    outline: none; border-color: #0d7377;
+    box-shadow: 0 0 0 2px rgba(13,115,119,0.15);
+  }
+  
+  table {
+    width: 100%; border-collapse: collapse; margin: 10px 0; font-size: 13px;
+  }
+  th {
+    background: #0d7377; color: #fff; padding: 8px 10px;
+    text-align: left; font-weight: 600;
+  }
+  td { padding: 6px 10px; border: 1px solid #ddd; }
+  td input[type="text"] {
+    border: none; background: transparent; width: 100%;
+    padding: 2px; font-size: 13px;
+  }
+  
+  .hint {
+    background: #e8f4f4;
+    padding: 10px 14px;
+    border-radius: 6px;
+    margin: 10px 0;
+    font-size: 13px;
+    color: #0d7377;
+  }
+  
+  .submission {
+    background: #f0fafa;
+    padding: 20px;
+    border-radius: 8px;
+    margin-top: 32px;
+    border: 2px solid #0d7377;
+  }
+  .submission h3 { color: #0d7377; margin-bottom: 10px; }
+  
+  @media print {
+    body { padding: 20px; font-size: 12px; }
+    .part { page-break-inside: avoid; }
+    textarea, input[type="text"] { border: 1px solid #999 !important; }
+    .rubric { page-break-inside: avoid; }
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>Chapter 11 Homework: NLP & Language Bias Analysis</h1>
+  <div class="subtitle">CAI1001C: Artificial Intelligence (AI) Thinking &nbsp;|&nbsp; 10 Points &nbsp;|&nbsp; Individual Assignment</div>
+</div>
+
+<div class="student-info">
+  <div>
+    <label>Student Name</label>
+    <input type="text" placeholder="Your full name">
+  </div>
+  <div>
+    <label>Date</label>
+    <input type="text" placeholder="MM/DD/YYYY">
+  </div>
+</div>
+
+<div class="rubric">
+  <div class="rubric-header">Grading Rubric</div>
+  <table>
+    <tr><th>Part</th><th>Description</th><th>Points</th></tr>
+    <tr><td>Part 1</td><td>Extended Bias Exploration on HuggingFace</td><td>30</td></tr>
+    <tr><td>Part 2</td><td>Written Analysis of GP Demo Results</td><td>50</td></tr>
+    <tr><td>Part 3</td><td>Ethics Reflection</td><td>20</td></tr>
+    <tr><td colspan="2">Total</td><td>100</td></tr>
+  </table>
+</div>
+
+<div class="instructions">
+  <strong>Instructions:</strong> This assignment builds on both the in-class GP demo (VADER + HuggingFace in Colab) and the Group Lab (HuggingFace model pages). Complete all three parts. For Part 1, you'll use HuggingFace model pages in your browser — no code required. For Parts 2-3, write your answers directly in the text fields. <strong>Print this page to PDF</strong> and submit on Canvas.
+</div>
+
+<!-- ==================== PART 1 ==================== -->
+<div class="part">
+  <div class="part-header">Part 1: Extended Bias Exploration on HuggingFace (30 points)</div>
+  <div class="part-body">
+    
+    <div class="question">
+      <p><strong>1A. Create 3 Original Bias Pairs (15 points)</strong></p>
+      <p>Write <strong>3 pairs</strong> of restaurant reviews. Each pair must express the <strong>same sentiment</strong>, but one should use formal English and the other should use Spanglish, slang, or informal language. Test both versions on the HuggingFace sentiment model (<strong>huggingface.co/distilbert/distilbert-base-uncased-finetuned-sst-2-english</strong>).</p>
+      
+      <p style="margin-top:10px;font-weight:600;color:#0d7377;">Pair 1 (Positive sentiment):</p>
+      <table>
+        <tr>
+          <th style="width:12%">Version</th>
+          <th style="width:43%">Your Review</th>
+          <th style="width:18%">Label</th>
+          <th style="width:12%">Conf %</th>
+          <th style="width:15%">Match?</th>
+        </tr>
+        <tr>
+          <td>Formal</td>
+          <td><input type="text" placeholder="Your formal positive review"></td>
+          <td><input type="text" placeholder="POS/NEG"></td>
+          <td><input type="text" placeholder="%"></td>
+          <td rowspan="2" style="vertical-align:middle;"><input type="text" placeholder="Yes/No"></td>
+        </tr>
+        <tr>
+          <td>Informal</td>
+          <td><input type="text" placeholder="Same sentiment, informal/Spanglish"></td>
+          <td><input type="text" placeholder="POS/NEG"></td>
+          <td><input type="text" placeholder="%"></td>
+        </tr>
+      </table>
+      
+      <p style="margin-top:10px;font-weight:600;color:#0d7377;">Pair 2 (Negative sentiment):</p>
+      <table>
+        <tr>
+          <th style="width:12%">Version</th>
+          <th style="width:43%">Your Review</th>
+          <th style="width:18%">Label</th>
+          <th style="width:12%">Conf %</th>
+          <th style="width:15%">Match?</th>
+        </tr>
+        <tr>
+          <td>Formal</td>
+          <td><input type="text" placeholder="Your formal negative review"></td>
+          <td><input type="text" placeholder="POS/NEG"></td>
+          <td><input type="text" placeholder="%"></td>
+          <td rowspan="2" style="vertical-align:middle;"><input type="text" placeholder="Yes/No"></td>
+        </tr>
+        <tr>
+          <td>Informal</td>
+          <td><input type="text" placeholder="Same sentiment, informal/Spanglish"></td>
+          <td><input type="text" placeholder="POS/NEG"></td>
+          <td><input type="text" placeholder="%"></td>
+        </tr>
+      </table>
+      
+      <p style="margin-top:10px;font-weight:600;color:#0d7377;">Pair 3 (Mixed/neutral sentiment):</p>
+      <table>
+        <tr>
+          <th style="width:12%">Version</th>
+          <th style="width:43%">Your Review</th>
+          <th style="width:18%">Label</th>
+          <th style="width:12%">Conf %</th>
+          <th style="width:15%">Match?</th>
+        </tr>
+        <tr>
+          <td>Formal</td>
+          <td><input type="text" placeholder="Your formal mixed review"></td>
+          <td><input type="text" placeholder="POS/NEG"></td>
+          <td><input type="text" placeholder="%"></td>
+          <td rowspan="2" style="vertical-align:middle;"><input type="text" placeholder="Yes/No"></td>
+        </tr>
+        <tr>
+          <td>Informal</td>
+          <td><input type="text" placeholder="Same sentiment, informal/Spanglish"></td>
+          <td><input type="text" placeholder="POS/NEG"></td>
+          <td><input type="text" placeholder="%"></td>
+        </tr>
+      </table>
+    </div>
+    
+    <div class="question">
+      <p><strong>1B. Test the Same Pairs on the Star-Rating Model (10 points)</strong></p>
+      <p>Now run your <strong>same 3 pairs</strong> through the multilingual sentiment model: <strong>huggingface.co/nlptown/bert-base-multilingual-uncased-sentiment</strong></p>
+      <p>Record the star ratings for each version:</p>
+      <table>
+        <tr>
+          <th>Pair</th>
+          <th>Formal Version (Stars)</th>
+          <th>Informal Version (Stars)</th>
+          <th>Same rating?</th>
+        </tr>
+        <tr>
+          <td>Pair 1 (Positive)</td>
+          <td><input type="text" placeholder="e.g. 5 stars"></td>
+          <td><input type="text" placeholder="e.g. 3 stars"></td>
+          <td><input type="text" placeholder="Yes/No"></td>
+        </tr>
+        <tr>
+          <td>Pair 2 (Negative)</td>
+          <td><input type="text" placeholder="e.g. 1 star"></td>
+          <td><input type="text" placeholder="e.g. 2 stars"></td>
+          <td><input type="text" placeholder="Yes/No"></td>
+        </tr>
+        <tr>
+          <td>Pair 3 (Mixed)</td>
+          <td><input type="text" placeholder="e.g. 3 stars"></td>
+          <td><input type="text" placeholder="e.g. 3 stars"></td>
+          <td><input type="text" placeholder="Yes/No"></td>
+        </tr>
+      </table>
+      <p style="margin-top:8px;">Did the multilingual model handle informal language better or worse than the first model? (2-3 sentences)</p>
+      <textarea rows="3" placeholder="Your answer..."></textarea>
+    </div>
+    
+    <div class="question">
+      <p><strong>1C. Translation Test (5 points)</strong></p>
+      <p>Go to <strong>huggingface.co/Helsinki-NLP/opus-mt-es-en</strong> (Spanish → English translation). Write one sentence in Spanglish (a mix of English and Spanish words) and record the translation:</p>
+      <p style="margin-top:8px;"><strong>Your Spanglish input:</strong></p>
+      <input type="text" placeholder="Write a Spanglish sentence here (e.g. 'Eso estuvo super nice, la comida was bussin')">
+      <p style="margin-top:8px;"><strong>Model's English translation:</strong></p>
+      <input type="text" placeholder="Paste what the model returned">
+      <p style="margin-top:8px;">How well did the model handle the code-switching (mixing languages)? (1-2 sentences)</p>
+      <textarea rows="2" placeholder="Your answer..."></textarea>
+    </div>
+    
+  </div>
+</div>
+
+<!-- ==================== PART 2 ==================== -->
+<div class="part">
+  <div class="part-header">Part 2: Written Analysis of GP Demo Results (50 points)</div>
+  <div class="part-body">
+    <div class="hint">
+      <strong>Reference:</strong> Use your GP11 Colab notebook results to answer these questions. You do not need to re-run any code — refer to the outputs you already have.
+    </div>
+    
+    <div class="question">
+      <p><strong>2A. VADER Accuracy (10 points)</strong></p>
+      <p>In the GP demo, VADER achieved approximately 89% accuracy on the restaurant reviews dataset. Answer both questions:</p>
+      <p style="margin-top:8px;">What does "89% accuracy" mean in this context — what is VADER getting right and wrong? (2-3 sentences)</p>
+      <textarea rows="3" placeholder="Your answer..."></textarea>
+      <p style="margin-top:8px;">VADER had ~594 false positives (said positive, actually 1-2 stars) vs. only ~74 false negatives (said negative, actually 4-5 stars). What does this imbalance tell you about VADER's bias? Why might this happen? (3-4 sentences)</p>
+      <textarea rows="4" placeholder="Your answer..."></textarea>
+    </div>
+    
+    <div class="question">
+      <p><strong>2B. VADER Failures on Individual Reviews (10 points)</strong></p>
+      <p>In the GP demo, VADER scored <em>"I can't believe how bad this place has gotten. Used to be great."</em> as <strong>POSITIVE (0.79)</strong>. Explain:</p>
+      <p style="margin-top:8px;">Why did VADER get this wrong? What specific words is VADER reacting to, and what is it failing to understand about the sentence? (3-4 sentences)</p>
+      <textarea rows="4" placeholder="Your answer..."></textarea>
+      <p style="margin-top:8px;">HuggingFace's transformer model correctly labeled this review as <strong>NEGATIVE (99.7%)</strong>. What can a transformer model do that VADER's dictionary lookup cannot? (2-3 sentences)</p>
+      <textarea rows="3" placeholder="Your answer..."></textarea>
+    </div>
+    
+    <div class="question">
+      <p><strong>2C. The Language Bias Gap (15 points)</strong></p>
+      <p>In the GP demo, we tested 5 formal/informal review pairs. The formal reviews averaged a VADER score of +0.32 while the informal/Spanglish reviews averaged +0.02 — a gap of +0.30.</p>
+      <p style="margin-top:8px;">Why do formal English reviews consistently score higher than Spanglish/informal reviews, even when they express the same sentiment? Connect your answer to how VADER works (its dictionary, its rules). (3-4 sentences)</p>
+      <textarea rows="4" placeholder="Your answer..."></textarea>
+      <p style="margin-top:8px;">The Spanglish review <em>"La comida was fire bro, the service was on point no cap"</em> was classified as NEGATIVE by <strong>both</strong> VADER and HuggingFace. If even the "smart" model makes the same mistake, what does this tell us about the training data these models learned from? (3-4 sentences)</p>
+      <textarea rows="4" placeholder="Your answer..."></textarea>
+    </div>
+    
+    <div class="question">
+      <p><strong>2D. Real-World Impact (15 points)</strong></p>
+      <p>Imagine a restaurant chain in Miami uses a sentiment analysis tool (like VADER or HuggingFace) to automatically sort customer reviews. Reviews classified as "negative" go to the manager's urgent inbox. Reviews classified as "positive" go to a thank-you auto-reply.</p>
+      <p style="margin-top:8px;">Based on what you observed in the GP demo and your own testing, describe <strong>two specific ways</strong> this system could go wrong. For each, explain who would be affected and how. (4-6 sentences total)</p>
+      <textarea rows="5" placeholder="Your answer..."></textarea>
+    </div>
+    
+  </div>
+</div>
+
+<!-- ==================== PART 3 ==================== -->
+<div class="part">
+  <div class="part-header">Part 3: Ethics Reflection (20 points)</div>
+  <div class="part-body">
+    <p>Choose <strong>ONE</strong> of the following prompts and write a thoughtful response (6-8 sentences minimum):</p>
+    
+    <div class="hint" style="margin: 14px 0;">
+      <strong>Prompt A:</strong> You just ran sentiment analysis on restaurant reviews. If you tested it on reviews written in Spanglish, do you think the accuracy would be the same? Why or why not?<br><br>
+      <strong>Prompt B:</strong> Content moderation AI is used to decide what millions of people can post online. If the model is biased against certain dialects, what are the real-world consequences for those communities?<br><br>
+      <strong>Prompt C:</strong> Should AI companies be required to test their NLP models on diverse language varieties before deploying them? Who should define what "diverse" means?
+    </div>
+    
+    <p><strong>Which prompt did you choose?</strong></p>
+    <input type="text" placeholder="A, B, or C">
+    
+    <p style="margin-top:12px;"><strong>Your response (6-8 sentences minimum):</strong></p>
+    <textarea rows="10" placeholder="Your ethics reflection..."></textarea>
+  </div>
+</div>
+
+<!-- ==================== SUBMISSION ==================== -->
+<div class="submission">
+  <h3>Submission Instructions</h3>
+  <p><strong>1.</strong> Review all your answers — make sure nothing is left blank.</p>
+  <p><strong>2.</strong> Print this page to PDF: <strong>File → Print → Save as PDF</strong></p>
+  <p><strong>3.</strong> Name your file: <code>Ch11_Homework_YourLastName.pdf</code></p>
+  <p><strong>4.</strong> Submit the PDF on Canvas.</p>
+</div>
+
+</body>
+</html>
