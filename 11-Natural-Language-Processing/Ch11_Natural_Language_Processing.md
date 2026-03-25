@@ -1,9 +1,6 @@
 # Chapter 11: Natural Language Processing
 
-<!-- [IMAGE: images/ch11/fig-11-0-nlp-text-processor.png]
-Alt text: A futuristic robotic processing unit with streams of multilingual text flowing through neural network pathways, some text glowing green and others glowing red
-Nano Banana Pro Prompt: "A sleek robotic processing unit shaped like a cylindrical tower sits in the center of a dark futuristic data chamber. Dozens of translucent streams of text in multiple languages — English phrases, Spanish sentences, and mixed Spanglish fragments — flow horizontally into the machine from the left side. Inside the transparent chamber walls, layers of glowing neural network nodes pulse with electric blue light as they process the text. On the right side, processed text streams exit: some glow bright green (correctly classified), while others glow warning red (misclassified), with one prominent red stream showing the words 'fire bro no cap.' The chamber floor is polished dark metal reflecting the colored light. A large circular display screen mounted above the machine shows a simplified sentiment gauge swinging between POSITIVE and NEGATIVE. The lighting comes primarily from the glowing text streams and neural nodes inside the machine, casting colored reflections on the surrounding dark walls and floor. Style: editorial textbook illustration with soft digital watercolor textures, clean lines, and a warm coral-and-turquoise color palette. Composition is a medium-wide shot centered on the machine, with text streams creating strong horizontal leading lines from left to right. The green and red exit streams are balanced on the right side of the frame. No text other than the sentiment gauge labels 'POSITIVE' and 'NEGATIVE' and the fragment 'fire bro no cap' on one red stream. No human characters."
--->
+<img width="1376" height="768" alt="image" src="https://github.com/user-attachments/assets/fd3e7fd9-98aa-4c44-b321-ee3699bbce3c" />
 
 ---
 
