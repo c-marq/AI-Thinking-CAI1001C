@@ -1,9 +1,6 @@
 # Chapter 12: Building Chatbots
 
-<!-- [IMAGE: images/ch12/fig-12-0-chatbot-kiosk.png]
-Alt text: A sleek robotic kiosk behind a curved service counter with glowing speech bubbles floating upward, set in a modern campus lobby with tropical palms visible through windows.
-Nano Banana Pro Prompt: "A sleek, humanoid-scaled robotic kiosk stands behind a curved service counter in a futuristic campus lobby. The kiosk has a smooth matte-white body with a rounded screen-face displaying a simple friendly wave icon made of two curved teal lines. Three translucent speech bubbles float upward from the kiosk's screen, each a different size, containing abstract horizontal lines suggesting text (not readable words). The bubbles glow with a soft coral inner light. The counter surface is polished white with a small brushed-aluminum placard reading 'Student Services.' Behind the kiosk, a large window shows a blurred tropical campus courtyard with palm trees and warm sunlight. The lobby has clean modern architecture — curved white walls, terrazzo flooring, recessed LED ceiling panels casting even, warm ambient light. Style: editorial textbook illustration with soft digital watercolor textures, clean lines, and a warm coral-and-turquoise color palette. Composition is centered on the kiosk, with the speech bubbles drawing the eye upward. The counter and window provide depth. No text other than 'Student Services' on the placard. No human characters."
--->
+<img width="1376" height="768" alt="image" src="https://github.com/user-attachments/assets/9da33779-a989-406c-9914-9eb6b438f246" />
 
 **Sofia's Late-Night Problem**
 
