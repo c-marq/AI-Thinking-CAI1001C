@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chapter 11 Group Lab: Exploring NLP on HuggingFace</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;600;700&family=Source+Serif+4:wght@400;600&display=swap');
+  
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  
+  body {
+    font-family: 'Source Sans 3', sans-serif;
+    font-size: 14px;
+    line-height: 1.6;
+    color: #1a1a1a;
+    max-width: 850px;
+    margin: 0 auto;
+    padding: 40px 30px;
+    background: #fff;
+  }
+  
+  .header {
+    border-bottom: 3px solid #0d7377;
+    padding-bottom: 16px;
+    margin-bottom: 24px;
+  }
+  .header h1 {
+    font-family: 'Source Serif 4', serif;
+    font-size: 24px;
+    font-weight: 700;
+    color: #0d7377;
+    margin-bottom: 4px;
+  }
+  .header .subtitle {
+    font-size: 15px;
+    color: #555;
+  }
+  
+  .student-info {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 24px;
+    padding: 16px;
+    background: #f0fafa;
+    border-radius: 8px;
+  }
+  .student-info label {
+    font-weight: 600;
+    font-size: 13px;
+    color: #0d7377;
+    display: block;
+    margin-bottom: 2px;
+  }
+  .student-info input {
+    width: 100%;
+    padding: 6px 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+    font-family: inherit;
+  }
+  
+  .instructions {
+    background: #fffbe6;
+    border-left: 4px solid #d4a017;
+    padding: 14px 18px;
+    margin-bottom: 28px;
+    border-radius: 0 6px 6px 0;
+    font-size: 13.5px;
+  }
+  .instructions strong { color: #8a6d00; }
+  
+  .task {
+    margin-bottom: 32px;
+    padding-bottom: 24px;
+    border-bottom: 1px solid #e0e0e0;
+  }
+  .task:last-of-type { border-bottom: none; }
+  
+  .task-header {
+    background: #0d7377;
+    color: #fff;
+    padding: 10px 16px;
+    border-radius: 6px 6px 0 0;
+    font-weight: 700;
+    font-size: 15px;
+  }
+  .task-body {
+    padding: 16px;
+    border: 1px solid #ddd;
+    border-top: none;
+    border-radius: 0 0 6px 6px;
+    background: #fafafa;
+  }
+  
+  .step { margin-bottom: 14px; }
+  .step-label {
+    font-weight: 600;
+    color: #0d7377;
+    font-size: 13px;
+    margin-bottom: 4px;
+  }
+  
+  textarea {
+    width: 100%;
+    padding: 8px 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-family: inherit;
+    font-size: 13.5px;
+    resize: vertical;
+    min-height: 60px;
+  }
+  textarea:focus {
+    outline: none;
+    border-color: #0d7377;
+    box-shadow: 0 0 0 2px rgba(13,115,119,0.15);
+  }
+  
+  input[type="text"] {
+    width: 100%;
+    padding: 6px 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-family: inherit;
+    font-size: 13.5px;
+  }
+  input[type="text"]:focus {
+    outline: none;
+    border-color: #0d7377;
+    box-shadow: 0 0 0 2px rgba(13,115,119,0.15);
+  }
+  
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 10px 0;
+    font-size: 13px;
+  }
+  th {
+    background: #0d7377;
+    color: #fff;
+    padding: 8px 10px;
+    text-align: left;
+    font-weight: 600;
+  }
+  td {
+    padding: 6px 10px;
+    border: 1px solid #ddd;
+  }
+  td input[type="text"] {
+    border: none;
+    background: transparent;
+    width: 100%;
+    padding: 2px;
+    font-size: 13px;
+  }
+  
+  .connection {
+    background: #e8f4f4;
+    padding: 10px 14px;
+    border-radius: 6px;
+    margin-top: 12px;
+    font-size: 13px;
+  }
+  .connection strong { color: #0d7377; }
+  
+  .wrap-up {
+    background: #f0fafa;
+    padding: 20px;
+    border-radius: 8px;
+    margin-top: 32px;
+    border: 2px solid #0d7377;
+  }
+  .wrap-up h3 {
+    color: #0d7377;
+    margin-bottom: 12px;
+  }
+  
+  @media print {
+    body { padding: 20px; font-size: 12px; }
+    .header { page-break-after: avoid; }
+    .task { page-break-inside: avoid; }
+    textarea, input[type="text"] { border: 1px solid #999 !important; }
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>Chapter 11 Group Lab: Exploring NLP on HuggingFace</h1>
+  <div class="subtitle">CAI1001C: Artificial Intelligence (AI) Thinking &nbsp;|&nbsp; 10 Points &nbsp;|&nbsp; ~25 minutes</div>
+</div>
+
+<div class="student-info">
+  <div>
+    <label>Group Members</label>
+    <input type="text" placeholder="Names of all group members">
+  </div>
+  <div>
+    <label>Date</label>
+    <input type="text" placeholder="MM/DD/YYYY">
+  </div>
+</div>
+
+<div class="instructions">
+  <strong>Instructions:</strong> In the GP demo, you ran sentiment analysis in Python using VADER and HuggingFace. Now you'll explore NLP models directly on the HuggingFace website — no code required. Open your browser and follow each task. Type your answers in the fields below, then <strong>print this page to PDF</strong> and submit on Canvas.
+</div>
+
+<!-- ==================== TASK 1 ==================== -->
+<div class="task">
+  <div class="task-header">Task 1: Sentiment Analysis on HuggingFace (5 min)</div>
+  <div class="task-body">
+    <div class="step">
+      <div class="step-label">Setup</div>
+      <p>Go to: <strong>huggingface.co/distilbert/distilbert-base-uncased-finetuned-sst-2-english</strong></p>
+      <p>Find the <strong>Inference API</strong> widget on the right side of the page. You'll see a text box where you can type input.</p>
+    </div>
+    
+    <div class="step">
+      <div class="step-label">Do This</div>
+      <p>Type each of the following reviews into the Inference API widget and record the result:</p>
+      <table>
+        <tr>
+          <th style="width:45%">Review</th>
+          <th style="width:25%">Label (POSITIVE/NEGATIVE)</th>
+          <th style="width:15%">Confidence %</th>
+          <th style="width:15%">Correct?</th>
+        </tr>
+        <tr>
+          <td>The food was amazing and the staff was friendly.</td>
+          <td><input type="text" placeholder="POSITIVE or NEGATIVE"></td>
+          <td><input type="text" placeholder="e.g. 99.8%"></td>
+          <td><input type="text" placeholder="Yes/No"></td>
+        </tr>
+        <tr>
+          <td>Worst dining experience of my life. Never coming back.</td>
+          <td><input type="text" placeholder="POSITIVE or NEGATIVE"></td>
+          <td><input type="text" placeholder="e.g. 99.8%"></td>
+          <td><input type="text" placeholder="Yes/No"></td>
+        </tr>
+        <tr>
+          <td>It was okay I guess. Not great, not terrible.</td>
+          <td><input type="text" placeholder="POSITIVE or NEGATIVE"></td>
+          <td><input type="text" placeholder="e.g. 99.8%"></td>
+          <td><input type="text" placeholder="Yes/No"></td>
+        </tr>
+      </table>
+    </div>
+    
+    <div class="connection">
+      <strong>Connection to Chapter:</strong> This is the same model (distilbert) we used in the GP demo Part 2. Did the results here match what you saw in Colab? (1-2 sentences)
+      <textarea rows="2" placeholder="Your answer..."></textarea>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== TASK 2 ==================== -->
+<div class="task">
+  <div class="task-header">Task 2: Compare a Different Sentiment Model (5 min)</div>
+  <div class="task-body">
+    <div class="step">
+      <div class="step-label">Setup</div>
+      <p>Go to: <strong>huggingface.co/nlptown/bert-base-multilingual-uncased-sentiment</strong></p>
+      <p>This model returns <strong>star ratings (1-5)</strong> instead of just POSITIVE/NEGATIVE.</p>
+    </div>
+    
+    <div class="step">
+      <div class="step-label">Do This</div>
+      <p>Type the <strong>same 3 reviews</strong> from Task 1 and record the star ratings:</p>
+      <table>
+        <tr>
+          <th style="width:45%">Review</th>
+          <th style="width:20%">Star Rating</th>
+          <th style="width:35%">Does this match the Task 1 result?</th>
+        </tr>
+        <tr>
+          <td>The food was amazing and the staff was friendly.</td>
+          <td><input type="text" placeholder="e.g. 5 stars"></td>
+          <td><input type="text" placeholder="Yes/No — explain briefly"></td>
+        </tr>
+        <tr>
+          <td>Worst dining experience of my life. Never coming back.</td>
+          <td><input type="text" placeholder="e.g. 1 star"></td>
+          <td><input type="text" placeholder="Yes/No — explain briefly"></td>
+        </tr>
+        <tr>
+          <td>It was okay I guess. Not great, not terrible.</td>
+          <td><input type="text" placeholder="e.g. 3 stars"></td>
+          <td><input type="text" placeholder="Yes/No — explain briefly"></td>
+        </tr>
+      </table>
+    </div>
+    
+    <div class="connection">
+      <strong>Connection to Chapter:</strong> The first model gives POSITIVE/NEGATIVE. This model gives 1-5 stars. Which approach gives you more useful information about a customer's experience? Why? (2-3 sentences)
+      <textarea rows="3" placeholder="Your answer..."></textarea>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== TASK 3 ==================== -->
+<div class="task">
+  <div class="task-header">Task 3: Machine Translation (5 min)</div>
+  <div class="task-body">
+    <div class="step">
+      <div class="step-label">Setup</div>
+      <p>Go to: <strong>huggingface.co/Helsinki-NLP/opus-mt-es-en</strong></p>
+      <p>This model translates <strong>Spanish → English</strong>.</p>
+    </div>
+    
+    <div class="step">
+      <div class="step-label">Do This</div>
+      <p>Type each Spanish sentence and record the English translation:</p>
+      <table>
+        <tr>
+          <th style="width:35%">Spanish Input</th>
+          <th style="width:35%">English Translation</th>
+          <th style="width:30%">Quality (Good/Okay/Bad)</th>
+        </tr>
+        <tr>
+          <td>La comida estuvo deliciosa y el servicio fue excelente.</td>
+          <td><input type="text" placeholder="Paste the translation"></td>
+          <td><input type="text" placeholder="Good/Okay/Bad + why"></td>
+        </tr>
+        <tr>
+          <td>No me gustó la comida, estaba muy salada.</td>
+          <td><input type="text" placeholder="Paste the translation"></td>
+          <td><input type="text" placeholder="Good/Okay/Bad + why"></td>
+        </tr>
+        <tr>
+          <td>Dale bro, la comida estaba brutal y el ambiente chevere.</td>
+          <td><input type="text" placeholder="Paste the translation"></td>
+          <td><input type="text" placeholder="Good/Okay/Bad + why"></td>
+        </tr>
+      </table>
+    </div>
+    
+    <div class="connection">
+      <strong>Connection to Chapter:</strong> The third sentence uses informal Spanish with slang. How well did the model handle it compared to the formal sentences? Why might this happen? (2-3 sentences)
+      <textarea rows="3" placeholder="Your answer..."></textarea>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== TASK 4 ==================== -->
+<div class="task">
+  <div class="task-header">Task 4: The Bias Test — Your Own Pairs (5 min)</div>
+  <div class="task-body">
+    <div class="step">
+      <div class="step-label">Setup</div>
+      <p>Go back to: <strong>huggingface.co/distilbert/distilbert-base-uncased-finetuned-sst-2-english</strong></p>
+    </div>
+    
+    <div class="step">
+      <div class="step-label">Do This</div>
+      <p>As a group, write <strong>2 pairs</strong> of reviews. Each pair should express the <strong>same sentiment</strong> — one in formal English, one in Spanglish, slang, or informal language. Test both versions and record results:</p>
+      
+      <p style="margin-top:12px;font-weight:600;color:#0d7377;">Pair 1:</p>
+      <table>
+        <tr>
+          <th style="width:15%">Version</th>
+          <th style="width:40%">Your Review</th>
+          <th style="width:20%">Label</th>
+          <th style="width:10%">Confidence</th>
+          <th style="width:15%">Match?</th>
+        </tr>
+        <tr>
+          <td>Formal</td>
+          <td><input type="text" placeholder="Write your formal review"></td>
+          <td><input type="text" placeholder="POS/NEG"></td>
+          <td><input type="text" placeholder="%"></td>
+          <td rowspan="2" style="vertical-align:middle;"><input type="text" placeholder="Yes/No"></td>
+        </tr>
+        <tr>
+          <td>Informal</td>
+          <td><input type="text" placeholder="Write the same sentiment informally"></td>
+          <td><input type="text" placeholder="POS/NEG"></td>
+          <td><input type="text" placeholder="%"></td>
+        </tr>
+      </table>
+      
+      <p style="margin-top:12px;font-weight:600;color:#0d7377;">Pair 2:</p>
+      <table>
+        <tr>
+          <th style="width:15%">Version</th>
+          <th style="width:40%">Your Review</th>
+          <th style="width:20%">Label</th>
+          <th style="width:10%">Confidence</th>
+          <th style="width:15%">Match?</th>
+        </tr>
+        <tr>
+          <td>Formal</td>
+          <td><input type="text" placeholder="Write your formal review"></td>
+          <td><input type="text" placeholder="POS/NEG"></td>
+          <td><input type="text" placeholder="%"></td>
+          <td rowspan="2" style="vertical-align:middle;"><input type="text" placeholder="Yes/No"></td>
+        </tr>
+        <tr>
+          <td>Informal</td>
+          <td><input type="text" placeholder="Write the same sentiment informally"></td>
+          <td><input type="text" placeholder="POS/NEG"></td>
+          <td><input type="text" placeholder="%"></td>
+        </tr>
+      </table>
+    </div>
+    
+    <div class="connection">
+      <strong>Connection to Chapter:</strong> Did you find any label mismatches — same sentiment, different classification? If yes, why do you think the model got confused? If no, what made your informal version different from the Spanglish examples in the GP demo? (2-3 sentences)
+      <textarea rows="3" placeholder="Your answer..."></textarea>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== TASK 5 ==================== -->
+<div class="task">
+  <div class="task-header">Task 5: Group Discussion (5 min)</div>
+  <div class="task-body">
+    <div class="step">
+      <div class="step-label">Discuss as a group and write your consensus answers:</div>
+    </div>
+    
+    <div class="step">
+      <p><strong>1.</strong> If a Miami restaurant used one of these sentiment models to automatically sort customer reviews, which model would you recommend — the POSITIVE/NEGATIVE one (Task 1) or the star-rating one (Task 2)? Why?</p>
+      <textarea rows="3" placeholder="Your group's answer..."></textarea>
+    </div>
+    
+    <div class="step">
+      <p><strong>2.</strong> Based on what you saw in Tasks 3 and 4, what's one thing AI companies should do before releasing an NLP model for public use?</p>
+      <textarea rows="3" placeholder="Your group's answer..."></textarea>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== WRAP UP ==================== -->
+<div class="wrap-up">
+  <h3>Submission</h3>
+  <p><strong>Print this page to PDF</strong> (File → Print → Save as PDF) and submit on Canvas.</p>
+  <p>Make sure all fields are filled in before printing.</p>
+</div>
+
+</body>
+</html>
