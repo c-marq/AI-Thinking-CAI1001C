@@ -1,9 +1,6 @@
 # Chapter 13: Enterprise AI & Implementation
 
-<!-- [IMAGE: images/ch13/fig-13-0-enterprise-ai-cityscape.png]
-Alt text: A futuristic Miami-inspired waterfront cityscape at dusk with semi-transparent buildings revealing glowing AI infrastructure — neural network pathways, data streams, server racks, and flowing data pipelines — with a small robotic drone hovering near the tallest tower.
-Nano Banana Pro Prompt: "A futuristic Miami-inspired waterfront cityscape at dusk, viewed from across a calm bay. The downtown skyline features five to six sleek modern towers, each semi-transparent, revealing glowing internal structures: one tower shows cascading data streams in turquoise, another shows a neural network diagram with pulsing coral-colored nodes and connections, a third shows rows of server racks with blinking blue LED indicators, and a fourth shows a flowing data pipeline represented as luminous tubes carrying colored particles from the base to the top of the building. The buildings are connected by thin, glowing fiber optic bridges at various heights. The bay water reflects the warm coral and cool turquoise glow of the buildings. The sky transitions from deep navy at the top to warm gold at the horizon, with a thin line of sunset visible. No people or human figures visible anywhere. A small robotic drone hovers near the top of the tallest tower, scanning the skyline. Style: editorial textbook illustration with soft digital watercolor textures, clean lines, and a warm coral-and-turquoise color palette. Composition is a wide panoramic view from water level, centered on the skyline, with the bay occupying the bottom third and the sky the top third. No text or labels in this image."
--->
+<img width="1376" height="768" alt="image" src="https://github.com/user-attachments/assets/7269c6d3-2823-46b1-bb04-4b839171411b" />
 
 ---
 
