@@ -1,9 +1,6 @@
 # Chapter 14: Robotics, Sensing, and Autonomous Systems
 
-<!-- [IMAGE: images/ch14/fig-14-0-robotic-arm-port-warehouse.png]
-Alt text: A large industrial robotic arm in a port warehouse reaching toward a glowing cargo container, with visible sensor beams and holographic data overlays
-Nano Banana Pro Prompt: "A large industrial robotic arm mounted on a tracked platform inside a modern port warehouse, reaching toward a glowing cargo container. The arm's sensor head emits visible scanning beams — thin teal lines fanning outward in a lidar pattern, and a subtle camera cone outlined in coral. Faint holographic data overlays float near the container: a bounding box outline, a distance measurement reading, and a small confidence percentage. The warehouse has tall steel beams and corrugated walls. Through the open bay doors in the background, a warm golden sunset casts long amber light across the concrete floor, creating a contrast between the cool blue-teal sensor beams and the warm exterior light. The container glows with a subtle internal teal luminescence. Style: editorial textbook illustration with soft digital watercolor textures, clean lines, and a warm coral-and-turquoise color palette. Composition is a medium-wide shot from a low angle, making the robotic arm appear powerful and precise, with the sunset visible through the bay doors as a secondary background element. No human characters. No text other than the holographic data overlays (distance reading and confidence percentage)."
--->
+<img width="1376" height="768" alt="image" src="https://github.com/user-attachments/assets/b0ce6ed6-0b29-486b-9440-06ca0e753054" />
 
 ---
 
