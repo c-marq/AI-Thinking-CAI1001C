@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chapter 14 Group Lab Worksheet — Spot the Concept: Robotics Video Analysis</title>
+<style>
+    @media print {
+        body { font-size: 11pt; }
+        .no-print { display: none; }
+        textarea { border: 1px solid #ccc !important; }
+        .page-break { page-break-before: always; }
+    }
+    
+    body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        max-width: 850px;
+        margin: 0 auto;
+        padding: 20px;
+        line-height: 1.6;
+        color: #2d3748;
+        background-color: #ffffff;
+    }
+    
+    .header {
+        border-bottom: 3px solid #2b6cb0;
+        padding-bottom: 15px;
+        margin-bottom: 25px;
+    }
+    
+    .header h1 {
+        color: #2b6cb0;
+        font-size: 1.5em;
+        margin-bottom: 5px;
+    }
+    
+    .header .subtitle {
+        color: #718096;
+        font-size: 0.95em;
+    }
+    
+    .course-info {
+        font-size: 0.85em;
+        color: #4a5568;
+        margin-bottom: 10px;
+    }
+    
+    .info-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+        margin-bottom: 25px;
+    }
+    
+    .info-field label {
+        display: block;
+        font-weight: 600;
+        font-size: 0.85em;
+        color: #4a5568;
+        margin-bottom: 3px;
+    }
+    
+    .info-field input {
+        width: 100%;
+        padding: 6px 8px;
+        border: 1px solid #cbd5e0;
+        border-radius: 4px;
+        font-size: 0.95em;
+        box-sizing: border-box;
+    }
+    
+    .instructions {
+        background-color: #ebf8ff;
+        border-left: 4px solid #2b6cb0;
+        padding: 15px;
+        margin-bottom: 25px;
+        border-radius: 0 4px 4px 0;
+    }
+    
+    .instructions h2 {
+        color: #2b6cb0;
+        font-size: 1.1em;
+        margin-top: 0;
+        margin-bottom: 8px;
+    }
+    
+    .instructions p, .instructions li {
+        font-size: 0.9em;
+        margin-bottom: 5px;
+    }
+    
+    .points-badge {
+        display: inline-block;
+        background-color: #2b6cb0;
+        color: white;
+        padding: 2px 10px;
+        border-radius: 12px;
+        font-size: 0.8em;
+        font-weight: 600;
+        margin-left: 8px;
+    }
+    
+    .section {
+        margin-bottom: 30px;
+    }
+    
+    .section h2 {
+        color: #2b6cb0;
+        font-size: 1.2em;
+        border-bottom: 2px solid #e2e8f0;
+        padding-bottom: 8px;
+        margin-bottom: 15px;
+    }
+    
+    .section h3 {
+        color: #4a5568;
+        font-size: 1.05em;
+        margin-bottom: 10px;
+    }
+    
+    .video-block {
+        background-color: #f7fafc;
+        border: 1px solid #e2e8f0;
+        border-radius: 6px;
+        padding: 18px;
+        margin-bottom: 20px;
+    }
+    
+    .video-block h3 {
+        color: #2b6cb0;
+        margin-top: 0;
+    }
+    
+    .video-label {
+        display: inline-block;
+        font-size: 0.8em;
+        font-weight: 600;
+        color: #2b6cb0;
+        margin-bottom: 5px;
+    }
+    
+    .video-title-input {
+        width: 100%;
+        padding: 6px 8px;
+        border: 1px solid #cbd5e0;
+        border-radius: 4px;
+        font-size: 0.95em;
+        margin-bottom: 12px;
+        box-sizing: border-box;
+    }
+    
+    .observation-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 15px;
+    }
+    
+    .observation-table th {
+        background-color: #edf2f7;
+        color: #2d3748;
+        padding: 8px 10px;
+        text-align: left;
+        font-size: 0.85em;
+        border: 1px solid #cbd5e0;
+    }
+    
+    .observation-table td {
+        padding: 6px 10px;
+        border: 1px solid #cbd5e0;
+        vertical-align: top;
+    }
+    
+    .observation-table td:first-child {
+        font-weight: 600;
+        font-size: 0.85em;
+        color: #4a5568;
+        width: 200px;
+        background-color: #f7fafc;
+    }
+    
+    .observation-table textarea {
+        width: 100%;
+        min-height: 40px;
+        border: none;
+        resize: vertical;
+        font-family: inherit;
+        font-size: 0.9em;
+        padding: 4px;
+        box-sizing: border-box;
+    }
+    
+    .question-block {
+        margin-bottom: 15px;
+    }
+    
+    .question-block label {
+        display: block;
+        font-weight: 600;
+        font-size: 0.9em;
+        color: #2d3748;
+        margin-bottom: 5px;
+    }
+    
+    .question-block .hint {
+        font-size: 0.82em;
+        color: #718096;
+        font-style: italic;
+        margin-bottom: 5px;
+    }
+    
+    textarea {
+        width: 100%;
+        padding: 8px;
+        border: 1px solid #cbd5e0;
+        border-radius: 4px;
+        font-family: inherit;
+        font-size: 0.9em;
+        resize: vertical;
+        box-sizing: border-box;
+        line-height: 1.5;
+    }
+    
+    textarea:focus, input:focus {
+        outline: none;
+        border-color: #2b6cb0;
+        box-shadow: 0 0 0 2px rgba(43, 108, 176, 0.15);
+    }
+    
+    .rubric-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 15px;
+        font-size: 0.85em;
+    }
+    
+    .rubric-table th {
+        background-color: #2b6cb0;
+        color: white;
+        padding: 8px 10px;
+        text-align: left;
+        border: 1px solid #2b6cb0;
+    }
+    
+    .rubric-table td {
+        padding: 6px 10px;
+        border: 1px solid #cbd5e0;
+    }
+    
+    .rubric-table tr:nth-child(even) {
+        background-color: #f7fafc;
+    }
+    
+    .rubric-total {
+        font-weight: 700;
+        background-color: #ebf8ff !important;
+    }
+    
+    .print-instructions {
+        background-color: #fefce8;
+        border-left: 4px solid #d69e2e;
+        padding: 12px 15px;
+        margin-top: 20px;
+        border-radius: 0 4px 4px 0;
+        font-size: 0.85em;
+    }
+    
+    .suggested-videos {
+        background-color: #f0fff4;
+        border-left: 4px solid #38a169;
+        padding: 12px 15px;
+        margin-bottom: 20px;
+        border-radius: 0 4px 4px 0;
+        font-size: 0.85em;
+    }
+    
+    .suggested-videos h3 {
+        color: #38a169;
+        margin-top: 0;
+    }
+</style>
+</head>
+<body>
+
+<div class="header">
+    <div class="course-info">CAI1001C: Artificial Intelligence (AI) Thinking | Miami Dade College</div>
+    <h1>Chapter 14 Group Lab: Spot the Concept <span class="points-badge">10 Points</span></h1>
+    <div class="subtitle">Robotics Video Analysis — Identifying AI Concepts in Real-World Systems</div>
+</div>
+
+<div class="info-grid">
+    <div class="info-field">
+        <label>Group Members</label>
+        <input type="text" placeholder="Names of all group members">
+    </div>
+    <div class="info-field">
+        <label>Date</label>
+        <input type="text" placeholder="MM/DD/YYYY">
+    </div>
+</div>
+
+<div class="instructions">
+    <h2>📋 Instructions</h2>
+    <p>In this activity, your group will watch <strong>2 short video clips</strong> of real robotic systems in action. For each video, you'll identify which Chapter 14 concepts you observe and record your observations in the table below.</p>
+    <p><strong>What to do:</strong></p>
+    <ul>
+        <li>Watch each video clip your instructor plays (or the clips linked below)</li>
+        <li>As a group, fill in the observation table — identify what you see for each concept</li>
+        <li>Answer the synthesis question for each video</li>
+        <li>Complete the final group reflection</li>
+        <li>Print to PDF and submit via Canvas</li>
+    </ul>
+    <p><strong>Time:</strong> ~30 minutes | <strong>Group size:</strong> 3–4 students</p>
+</div>
+
+<div class="suggested-videos">
+    <h3>🎥 Suggested Video Clips (Instructor Reference)</h3>
+    <p>Your instructor will select and play 2 of the following (or similar clips). Each should be 2–4 minutes long:</p>
+    <ul>
+        <li><strong>Warehouse Robots:</strong> Amazon warehouse fulfillment robots, Ocado automated grocery warehouse</li>
+        <li><strong>Autonomous Vehicles:</strong> Waymo self-driving taxi rides, Tesla FSD demonstrations</li>
+        <li><strong>Industrial Robots:</strong> Boston Dynamics Spot or Atlas robots, automotive assembly lines</li>
+        <li><strong>Delivery/Service Robots:</strong> Starship delivery robots, hospital supply delivery robots</li>
+        <li><strong>Surgical Robots:</strong> da Vinci surgical system demonstrations</li>
+    </ul>
+</div>
+
+<!-- RUBRIC -->
+<div class="section">
+    <h2>Grading Rubric</h2>
+    <table class="rubric-table">
+        <thead>
+            <tr>
+                <th>Criteria</th>
+                <th>Points</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Video 1: Observation table completed with specific, accurate observations for all 6 concepts</td>
+                <td>2</td>
+            </tr>
+            <tr>
+                <td>Video 1: Synthesis question answered with clear reasoning and chapter concept references</td>
+                <td>1</td>
+            </tr>
+            <tr>
+                <td>Video 2: Observation table completed with specific, accurate observations for all 6 concepts</td>
+                <td>2</td>
+            </tr>
+            <tr>
+                <td>Video 2: Synthesis question answered with clear reasoning and chapter concept references</td>
+                <td>1</td>
+            </tr>
+            <tr>
+                <td>Comparison and group reflection: Thoughtful comparison of both systems with supported reasoning</td>
+                <td>2</td>
+            </tr>
+            <tr>
+                <td>Autonomy level assessment: Correct level identified for each video with accurate justification</td>
+                <td>2</td>
+            </tr>
+            <tr class="rubric-total">
+                <td>Total</td>
+                <td>10</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<!-- VIDEO 1 -->
+<div class="section">
+    <h2>Video 1 — Observation</h2>
+    
+    <div class="video-block">
+        <div class="video-label">Video Title / Description:</div>
+        <input type="text" class="video-title-input" placeholder="What robot or system did you watch? (e.g., 'Amazon warehouse fulfillment robots')">
+        
+        <table class="observation-table">
+            <thead>
+                <tr>
+                    <th>Chapter Concept</th>
+                    <th>What Did You Observe? (Be specific — describe what you saw)</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Sensors<br><em>(What types? Cameras, lidar, touch, proximity?)</em></td>
+                    <td><textarea rows="3" placeholder="Describe the sensors you observed or can infer..."></textarea></td>
+                </tr>
+                <tr>
+                    <td>Actuators / Manipulation<br><em>(What physical actions did the robot perform?)</em></td>
+                    <td><textarea rows="3" placeholder="Describe the physical movements — gripping, lifting, rolling, rotating..."></textarea></td>
+                </tr>
+                <tr>
+                    <td>Human-Robot Interaction<br><em>(How did humans and robots coexist?)</em></td>
+                    <td><textarea rows="3" placeholder="Were there safety zones, signals, human supervisors, shared workspaces?"></textarea></td>
+                </tr>
+                <tr>
+                    <td>Navigation / Path Planning<br><em>(How did the robot move through space?)</em></td>
+                    <td><textarea rows="3" placeholder="Did it follow fixed paths, navigate dynamically, avoid obstacles?"></textarea></td>
+                </tr>
+                <tr>
+                    <td>Reinforcement Learning<br><em>(Could the robot's behavior have been learned through RL? Why or why not?)</em></td>
+                    <td><textarea rows="3" placeholder="Was the behavior adaptive? Could it have been trained through trial-and-error in simulation?"></textarea></td>
+                </tr>
+                <tr>
+                    <td>Level of Autonomy (0–5)<br><em>(How much human control was involved?)</em></td>
+                    <td><textarea rows="3" placeholder="What level? Justify your answer — what did the human do vs. the robot?"></textarea></td>
+                </tr>
+            </tbody>
+        </table>
+        
+        <div class="question-block">
+            <label>Synthesis Question: What is the most impressive capability this robot demonstrated, and which chapter concept makes it possible?</label>
+            <div class="hint">Reference a specific moment from the video and connect it to a specific concept (e.g., "When the robot avoided the worker, that was HRI with proximity-based speed reduction").</div>
+            <textarea rows="4" placeholder="Write your group's answer here..."></textarea>
+        </div>
+    </div>
+</div>
+
+<div class="page-break"></div>
+
+<!-- VIDEO 2 -->
+<div class="section">
+    <h2>Video 2 — Observation</h2>
+    
+    <div class="video-block">
+        <div class="video-label">Video Title / Description:</div>
+        <input type="text" class="video-title-input" placeholder="What robot or system did you watch?">
+        
+        <table class="observation-table">
+            <thead>
+                <tr>
+                    <th>Chapter Concept</th>
+                    <th>What Did You Observe? (Be specific — describe what you saw)</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Sensors<br><em>(What types? Cameras, lidar, touch, proximity?)</em></td>
+                    <td><textarea rows="3" placeholder="Describe the sensors you observed or can infer..."></textarea></td>
+                </tr>
+                <tr>
+                    <td>Actuators / Manipulation<br><em>(What physical actions did the robot perform?)</em></td>
+                    <td><textarea rows="3" placeholder="Describe the physical movements — gripping, lifting, rolling, rotating..."></textarea></td>
+                </tr>
+                <tr>
+                    <td>Human-Robot Interaction<br><em>(How did humans and robots coexist?)</em></td>
+                    <td><textarea rows="3" placeholder="Were there safety zones, signals, human supervisors, shared workspaces?"></textarea></td>
+                </tr>
+                <tr>
+                    <td>Navigation / Path Planning<br><em>(How did the robot move through space?)</em></td>
+                    <td><textarea rows="3" placeholder="Did it follow fixed paths, navigate dynamically, avoid obstacles?"></textarea></td>
+                </tr>
+                <tr>
+                    <td>Reinforcement Learning<br><em>(Could the robot's behavior have been learned through RL? Why or why not?)</em></td>
+                    <td><textarea rows="3" placeholder="Was the behavior adaptive? Could it have been trained through trial-and-error in simulation?"></textarea></td>
+                </tr>
+                <tr>
+                    <td>Level of Autonomy (0–5)<br><em>(How much human control was involved?)</em></td>
+                    <td><textarea rows="3" placeholder="What level? Justify your answer — what did the human do vs. the robot?"></textarea></td>
+                </tr>
+            </tbody>
+        </table>
+        
+        <div class="question-block">
+            <label>Synthesis Question: What limitation or challenge did you notice in this robotic system? What would need to improve for it to move up one level on the autonomy spectrum?</label>
+            <div class="hint">Think about sensor limitations, environmental constraints, safety concerns, or human involvement that limits the system's autonomy.</div>
+            <textarea rows="4" placeholder="Write your group's answer here..."></textarea>
+        </div>
+    </div>
+</div>
+
+<!-- COMPARISON AND REFLECTION -->
+<div class="section">
+    <h2>Group Reflection — Comparing Both Systems</h2>
+    
+    <div class="question-block">
+        <label>1. Which of the two robotic systems demonstrated more advanced AI capabilities? Why?</label>
+        <div class="hint">Consider the complexity of sensing, decision-making, navigation, and human interaction. Support your answer with specific observations from the videos.</div>
+        <textarea rows="5" placeholder="Write your group's comparison here (minimum 4–5 sentences)..."></textarea>
+    </div>
+    
+    <div class="question-block">
+        <label>2. For each video, identify which of the three learning paradigms (supervised, unsupervised, or reinforcement learning) the robot's behavior most likely relies on. Explain your reasoning.</label>
+        <div class="hint">Think about how the robot learned its behavior. Was it trained on labeled examples? Did it learn through trial and error? Could it have been pre-programmed without any learning at all?</div>
+        <textarea rows="5" placeholder="Video 1 learning paradigm and reasoning: ...&#10;&#10;Video 2 learning paradigm and reasoning: ..."></textarea>
+    </div>
+    
+    <div class="question-block">
+        <label>3. If you could add ONE improvement to either system, what would it be? Which chapter concept would that improvement require?</label>
+        <div class="hint">For example: "Adding lidar to the delivery robot (sensor fusion) would help it navigate in low-light conditions."</div>
+        <textarea rows="4" placeholder="Write your group's suggested improvement here..."></textarea>
+    </div>
+</div>
+
+<div class="print-instructions">
+    <strong>📤 Submission Instructions:</strong> When complete, print this page to PDF (File → Print → Save as PDF) and submit via Canvas. Make sure all group member names are listed at the top. Each group submits one worksheet.
+</div>
+
+</body>
+</html>
