@@ -1,9 +1,6 @@
 # Chapter 15: The Future of AI
 
-<!-- [IMAGE: images/ch15/fig-15-0-future-horizon.png]
-Alt text: A sleek humanoid robot standing at the edge of a glowing digital landscape, holding a brass compass and looking toward a luminous horizon where streams of colored light converge
-Nano Banana Pro Prompt: "A sleek humanoid robot with a brushed-aluminum torso and articulated joints stands at the edge of a vast glowing digital landscape, viewed from a low angle behind the robot looking outward toward a luminous horizon. The robot holds a brass navigational compass in its right hand, arm extended slightly forward as if taking a bearing. From the left side of the frame, four distinct streams of colored light arc gracefully toward the horizon — coral, turquoise, gold, and lavender — each stream composed of tiny flowing data particles. Where the streams converge at the horizon line, they merge into a brilliant warm white glow that illuminates the robot's silhouette from the front. The ground beneath the robot is a translucent grid of softly glowing interconnected nodes that fade into the distance, creating depth. The sky transitions from deep navy at the top to warm gold near the horizon, with faint constellation-like dot patterns in the upper portion. Style: editorial textbook illustration with soft digital watercolor textures, clean lines, and a warm coral-and-turquoise color palette. Composition is a low-angle wide shot from behind the robot, centered on the horizon convergence point, with the robot occupying the lower-left third of the frame for scale. No text or labels."
--->
+<img width="1376" height="768" alt="image" src="https://github.com/user-attachments/assets/b1bb58d2-6eed-4763-8edb-e8a5fc1efd5c" />
 
 ---
 
