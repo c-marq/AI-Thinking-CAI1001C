@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GP09 Group Lab: TensorFlow Playground Exploration</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;600;700&family=Source+Serif+4:wght@400;600&display=swap');
+  
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  
+  body {
+    font-family: 'Source Sans 3', sans-serif;
+    font-size: 14px;
+    line-height: 1.6;
+    color: #1a1a1a;
+    max-width: 850px;
+    margin: 0 auto;
+    padding: 40px 30px;
+    background: #fff;
+  }
+  
+  /* Header */
+  .header {
+    border-bottom: 3px solid #0d7377;
+    padding-bottom: 16px;
+    margin-bottom: 24px;
+  }
+  .header h1 {
+    font-family: 'Source Serif 4', serif;
+    font-size: 24px;
+    font-weight: 700;
+    color: #0d7377;
+    margin-bottom: 4px;
+  }
+  .header .subtitle {
+    font-size: 13px;
+    color: #555;
+  }
+  .header .course {
+    font-size: 12px;
+    color: #888;
+    margin-top: 2px;
+  }
+  
+  /* Name/Date row */
+  .meta-row {
+    display: flex;
+    gap: 24px;
+    margin-bottom: 24px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid #ddd;
+  }
+  .meta-row label {
+    font-weight: 600;
+    font-size: 13px;
+    color: #555;
+  }
+  .meta-row input {
+    border: none;
+    border-bottom: 1px solid #999;
+    font-family: 'Source Sans 3', sans-serif;
+    font-size: 14px;
+    padding: 2px 4px;
+    width: 200px;
+    outline: none;
+  }
+  .meta-row input:focus { border-bottom-color: #0d7377; }
+  
+  /* Sections */
+  h2 {
+    font-family: 'Source Serif 4', serif;
+    font-size: 18px;
+    font-weight: 600;
+    color: #0d7377;
+    margin-top: 28px;
+    margin-bottom: 8px;
+    padding-top: 12px;
+    border-top: 1px solid #e0e0e0;
+  }
+  h2:first-of-type { border-top: none; padding-top: 0; }
+  
+  h3 {
+    font-size: 15px;
+    font-weight: 700;
+    color: #1a1a1a;
+    margin-top: 18px;
+    margin-bottom: 6px;
+  }
+  
+  p { margin-bottom: 10px; }
+  
+  .setup-box {
+    background: #f0fafa;
+    border-left: 3px solid #0d7377;
+    padding: 10px 14px;
+    margin: 10px 0;
+    font-size: 13px;
+  }
+  .setup-box strong { color: #0d7377; }
+  
+  .do-this {
+    background: #fffbf0;
+    border-left: 3px solid #d4a017;
+    padding: 10px 14px;
+    margin: 10px 0;
+    font-size: 13px;
+  }
+  .do-this strong { color: #b8860b; }
+  
+  .connection-box {
+    background: #f5f0ff;
+    border-left: 3px solid #6a4c93;
+    padding: 10px 14px;
+    margin: 10px 0;
+    font-size: 13px;
+  }
+  .connection-box strong { color: #6a4c93; }
+  
+  /* Fillable fields */
+  textarea {
+    width: 100%;
+    min-height: 70px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 8px 10px;
+    font-family: 'Source Sans 3', sans-serif;
+    font-size: 13px;
+    line-height: 1.5;
+    resize: vertical;
+    margin: 6px 0 12px 0;
+    outline: none;
+  }
+  textarea:focus { border-color: #0d7377; box-shadow: 0 0 0 2px rgba(13,115,119,0.1); }
+  
+  /* Tables */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 10px 0 16px 0;
+    font-size: 13px;
+  }
+  th {
+    background: #0d7377;
+    color: white;
+    padding: 8px 10px;
+    text-align: left;
+    font-weight: 600;
+  }
+  td {
+    padding: 6px 10px;
+    border-bottom: 1px solid #ddd;
+  }
+  tr:nth-child(even) td { background: #fafafa; }
+  td input[type="text"] {
+    border: none;
+    border-bottom: 1px dotted #999;
+    width: 100%;
+    font-family: 'Source Sans 3', sans-serif;
+    font-size: 13px;
+    padding: 2px 0;
+    background: transparent;
+    outline: none;
+  }
+  td input[type="text"]:focus { border-bottom-color: #0d7377; }
+  
+  /* Instructions list */
+  ol, ul {
+    margin: 6px 0 10px 20px;
+    font-size: 13px;
+  }
+  li { margin-bottom: 4px; }
+  
+  /* Print styles */
+  @media print {
+    body { padding: 20px; font-size: 12px; }
+    .header { page-break-after: avoid; }
+    h2 { page-break-after: avoid; }
+    textarea { 
+      border: 1px solid #ccc; 
+      min-height: 60px;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+    .setup-box, .do-this, .connection-box {
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+    .no-break { page-break-inside: avoid; }
+  }
+  
+  .footer {
+    margin-top: 32px;
+    padding-top: 12px;
+    border-top: 1px solid #ddd;
+    font-size: 11px;
+    color: #999;
+    text-align: center;
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>GP09 Group Lab: TensorFlow Playground Exploration</h1>
+  <div class="subtitle">Chapter 9: Neural Networks — In-Class Group Activity</div>
+  <div class="course">CAI1001C: Artificial Intelligence (AI) Thinking | Miami Dade College</div>
+</div>
+
+<div class="meta-row">
+  <div><label>Group Members: </label><input type="text" style="width:400px" placeholder="Names"></div>
+  <div><label>Date: </label><input type="text" placeholder="MM/DD/YYYY"></div>
+</div>
+
+<p>TensorFlow Playground (<a href="https://playground.tensorflow.org" target="_blank">playground.tensorflow.org</a>) is a browser-based tool that lets you build neural networks visually and watch them learn in real time. You'll adjust layers, neurons, learning rate, and other settings — then observe how the decision boundary changes.</p>
+
+<p><strong>Work with your group. Discuss each result before moving to the next task.</strong></p>
+
+<!-- GETTING STARTED -->
+<h2>Getting Started</h2>
+<ol>
+  <li>Open <a href="https://playground.tensorflow.org" target="_blank">playground.tensorflow.org</a> in your browser</li>
+  <li>You'll see a neural network in the center, a dataset on the left, and the output visualization on the right</li>
+  <li>The <strong>play button</strong> (▶) starts training. The <strong>reset button</strong> (↻) clears the model so you can start fresh</li>
+  <li>The colored regions on the right show the model's <strong>decision boundary</strong> — how it divides the space into two classes</li>
+</ol>
+
+<!-- TASK 1 -->
+<h2>Task 1: A Simple Problem (5 minutes)</h2>
+
+<div class="setup-box">
+  <strong>Setup:</strong> Dataset: <strong>Circle</strong> (top-left selector) · Hidden layers: <strong>1</strong> · Neurons: <strong>2</strong> · Learning rate: <strong>0.03</strong> · Activation: <strong>ReLU</strong>
+</div>
+
+<div class="do-this">
+  <strong>Do this:</strong> Click ▶ and let it train for about 200 epochs. Look at the decision boundary on the right.
+</div>
+
+<div class="no-break">
+<h3>Can the network separate the two classes with just 2 neurons?</h3>
+<textarea placeholder="Describe what you see..."></textarea>
+
+<h3>Increase to 4 neurons, reset (↻), and retrain. What changed?</h3>
+<textarea placeholder="Describe how the decision boundary changed..."></textarea>
+
+<h3>Increase to 8 neurons, reset, and retrain. Describe the decision boundary:</h3>
+<textarea placeholder="Describe the boundary shape..."></textarea>
+</div>
+
+<!-- TASK 2 -->
+<h2>Task 2: A Harder Problem (8 minutes)</h2>
+
+<div class="setup-box">
+  <strong>Setup:</strong> Dataset: <strong>Spiral</strong> (two intertwined spirals) · Hidden layers: <strong>1</strong> · Neurons: <strong>8</strong> · Learning rate: <strong>0.03</strong>
+</div>
+
+<div class="do-this">
+  <strong>Do this:</strong> Reset and train. Let it run for 500+ epochs.
+</div>
+
+<div class="no-break">
+<h3>Did 1 hidden layer with 8 neurons solve the spiral? Describe the boundary:</h3>
+<textarea placeholder="Describe what you see..."></textarea>
+
+<h3>Add a second hidden layer (click the + button). Set both layers to 8 neurons. Reset and retrain. Did adding a second layer help?</h3>
+<textarea placeholder="Describe what changed..."></textarea>
+
+<h3>Try 3 hidden layers with 8 neurons each. Does a third layer improve it further?</h3>
+<textarea placeholder="Describe what happened..."></textarea>
+</div>
+
+<div class="connection-box">
+  <strong>Connection to Chapter 9:</strong> In the MNIST demo, adding a second hidden layer didn't dramatically improve accuracy. Here, a second layer might make a much bigger difference. Why? <em>(Hint: think about how complex each problem is.)</em>
+</div>
+<textarea placeholder="Your explanation..."></textarea>
+
+<!-- TASK 3 -->
+<h2>Task 3: Learning Rate Matters (5 minutes)</h2>
+
+<div class="setup-box">
+  <strong>Setup:</strong> Dataset: <strong>Spiral</strong> · Hidden layers: <strong>2</strong>, each with <strong>8 neurons</strong>
+</div>
+
+<div class="do-this">
+  <strong>Do this:</strong> Try three different learning rates. Record what happens:
+</div>
+
+<table>
+  <tr>
+    <th style="width:120px">Learning Rate</th>
+    <th>What Happened?</th>
+    <th style="width:130px">Stable or Unstable?</th>
+  </tr>
+  <tr>
+    <td style="text-align:center; font-weight:600">0.001</td>
+    <td><input type="text" placeholder="Describe..."></td>
+    <td><input type="text" placeholder="Stable / Unstable"></td>
+  </tr>
+  <tr>
+    <td style="text-align:center; font-weight:600">0.03</td>
+    <td><input type="text" placeholder="Describe..."></td>
+    <td><input type="text" placeholder="Stable / Unstable"></td>
+  </tr>
+  <tr>
+    <td style="text-align:center; font-weight:600">10</td>
+    <td><input type="text" placeholder="Describe..."></td>
+    <td><input type="text" placeholder="Stable / Unstable"></td>
+  </tr>
+</table>
+
+<div class="no-break">
+<h3>What happens when the learning rate is too high (10)?</h3>
+<textarea placeholder="Your answer..."></textarea>
+
+<h3>What happens when the learning rate is too low (0.001)?</h3>
+<textarea placeholder="Your answer..."></textarea>
+</div>
+
+<div class="connection-box">
+  <strong>Connection to Chapter 9:</strong> Remember the cafecito analogy — adjusting your recipe a tiny bit each time (low learning rate) vs. making huge changes (high learning rate). Which gets you to good cafecito faster without overshooting?
+</div>
+<textarea placeholder="Your answer..."></textarea>
+
+<!-- TASK 4 -->
+<h2>Task 4: What About Noise? (5 minutes)</h2>
+
+<div class="setup-box">
+  <strong>Setup:</strong> Dataset: <strong>Circle</strong> · Hidden layers: <strong>1</strong>, with <strong>8 neurons</strong> · Learning rate: <strong>0.03</strong>
+</div>
+
+<div class="do-this">
+  <strong>Do this:</strong> Try three noise levels. Record the test loss and boundary appearance:
+</div>
+
+<table>
+  <tr>
+    <th style="width:100px">Noise Level</th>
+    <th style="width:140px">Test Loss (approx.)</th>
+    <th>Decision Boundary — Clean or Messy?</th>
+  </tr>
+  <tr>
+    <td style="text-align:center; font-weight:600">0</td>
+    <td><input type="text" placeholder="e.g., 0.003"></td>
+    <td><input type="text" placeholder="Describe..."></td>
+  </tr>
+  <tr>
+    <td style="text-align:center; font-weight:600">25</td>
+    <td><input type="text" placeholder="e.g., 0.15"></td>
+    <td><input type="text" placeholder="Describe..."></td>
+  </tr>
+  <tr>
+    <td style="text-align:center; font-weight:600">50</td>
+    <td><input type="text" placeholder="e.g., 0.35"></td>
+    <td><input type="text" placeholder="Describe..."></td>
+  </tr>
+</table>
+
+<h3>As noise increases, what happens to the decision boundary? Does adding more neurons help, or does it make the model try to fit the noise?</h3>
+<textarea placeholder="Your answer..."></textarea>
+
+<div class="connection-box">
+  <strong>Connection to Chapter 9:</strong> This is related to overfitting. With noise=50, a model with too many neurons will try to memorize the noisy training data instead of learning the real pattern — just like the MNIST Model 3 that reached over 99% training accuracy but plateaued around 97% on new data.
+</div>
+
+<!-- TASK 5 -->
+<h2>Task 5: Group Challenge (5 minutes)</h2>
+
+<div class="do-this">
+  <strong>Challenge:</strong> Find the <strong>smallest architecture</strong> (fewest total neurons) that can solve the spiral dataset with noise=25. Learning rate fixed at 0.03. Goal: test loss below 0.1.
+</div>
+
+<table>
+  <tr>
+    <th>Layers</th>
+    <th>Neurons per Layer</th>
+    <th>Total Neurons</th>
+    <th>Epochs to Solve</th>
+    <th>Test Loss</th>
+  </tr>
+  <tr>
+    <td><input type="text" placeholder="e.g., 3"></td>
+    <td><input type="text" placeholder="e.g., 6, 6, 4"></td>
+    <td><input type="text" placeholder="e.g., 16"></td>
+    <td><input type="text" placeholder="e.g., 450"></td>
+    <td><input type="text" placeholder="e.g., 0.08"></td>
+  </tr>
+</table>
+
+<h3>Compare with another group. Did they find a different architecture? There's often more than one good solution — the same is true in real machine learning.</h3>
+<textarea placeholder="What did the other group use? How did it compare?"></textarea>
+
+<!-- WRAP-UP -->
+<h2>Wrap-Up Discussion</h2>
+<p>Your instructor will ask:</p>
+<ol>
+  <li>What's the simplest architecture anyone found for the spiral?</li>
+  <li>Did anyone find that <em>more</em> neurons or layers actually made things <em>worse</em> on a noisy dataset?</li>
+  <li>How does what you saw in Playground connect to the GP demo — the diminishing returns on MNIST, and the small gap between the neural network and decision tree on churn data?</li>
+</ol>
+
+<p><em>Save this worksheet — your homework builds on these explorations with more complex tasks.</em></p>
+
+<div class="footer">
+  CAI1001C: Artificial Intelligence (AI) Thinking · Miami Dade College · Chapter 9: Neural Networks
+</div>
+
+</body>
+</html>

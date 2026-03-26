@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chapter 10 Homework: Computer Vision Deep Dive</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;600;700&family=Source+Serif+4:wght@400;600&display=swap');
+  
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  
+  body {
+    font-family: 'Source Sans 3', sans-serif;
+    font-size: 14px;
+    line-height: 1.6;
+    color: #1a1a1a;
+    max-width: 850px;
+    margin: 0 auto;
+    padding: 40px 30px;
+    background: #fff;
+  }
+  
+  .header {
+    border-bottom: 3px solid #0d7377;
+    padding-bottom: 16px;
+    margin-bottom: 24px;
+  }
+  .header h1 {
+    font-family: 'Source Serif 4', serif;
+    font-size: 24px;
+    font-weight: 700;
+    color: #0d7377;
+    margin-bottom: 4px;
+  }
+  .header .subtitle {
+    font-size: 15px;
+    color: #555;
+  }
+  
+  .student-info {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 24px;
+    padding: 16px;
+    background: #f0fafa;
+    border-radius: 8px;
+  }
+  .student-info label {
+    font-weight: 600;
+    font-size: 13px;
+    color: #0d7377;
+    display: block;
+    margin-bottom: 2px;
+  }
+  .student-info input {
+    width: 100%;
+    padding: 6px 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+    font-family: inherit;
+  }
+  
+  .instructions {
+    background: #fff8e1;
+    border-left: 4px solid #f9a825;
+    padding: 14px 18px;
+    margin-bottom: 24px;
+    border-radius: 0 6px 6px 0;
+  }
+  .instructions strong { color: #e65100; }
+  
+  .rubric-box {
+    background: #fce4ec;
+    border-left: 4px solid #c62828;
+    padding: 14px 18px;
+    margin-bottom: 24px;
+    border-radius: 0 6px 6px 0;
+  }
+  .rubric-box strong { color: #b71c1c; }
+  
+  .rubric-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 10px 0 0 0;
+    font-size: 13px;
+  }
+  .rubric-table th {
+    background: #c62828;
+    color: #fff;
+    padding: 8px 10px;
+    text-align: left;
+    font-weight: 600;
+  }
+  .rubric-table td {
+    padding: 8px 10px;
+    border-bottom: 1px solid #ddd;
+  }
+  .rubric-table tr:nth-child(even) { background: #fef2f4; }
+  
+  h2 {
+    font-family: 'Source Serif 4', serif;
+    font-size: 20px;
+    font-weight: 700;
+    color: #0d7377;
+    margin-top: 32px;
+    margin-bottom: 12px;
+    padding-bottom: 6px;
+    border-bottom: 2px solid #e0f2f1;
+  }
+  
+  h3 {
+    font-size: 16px;
+    font-weight: 700;
+    color: #333;
+    margin-top: 20px;
+    margin-bottom: 8px;
+  }
+  
+  p { margin-bottom: 10px; }
+  
+  .task {
+    background: #f5f5f5;
+    border-radius: 8px;
+    padding: 16px 18px;
+    margin-bottom: 16px;
+    border-left: 4px solid #0d7377;
+  }
+  .task .task-label {
+    font-weight: 700;
+    color: #0d7377;
+    font-size: 14px;
+    margin-bottom: 6px;
+  }
+  .task .task-hint {
+    font-size: 13px;
+    color: #666;
+    font-style: italic;
+    margin-top: 4px;
+  }
+  
+  textarea {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-family: inherit;
+    font-size: 14px;
+    line-height: 1.5;
+    resize: vertical;
+    min-height: 80px;
+    margin-top: 6px;
+    margin-bottom: 8px;
+  }
+  textarea.short { min-height: 50px; }
+  textarea.long { min-height: 120px; }
+  textarea.xl { min-height: 160px; }
+  
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 12px 0 16px 0;
+    font-size: 13px;
+  }
+  th {
+    background: #0d7377;
+    color: #fff;
+    padding: 8px 10px;
+    text-align: left;
+    font-weight: 600;
+  }
+  td {
+    padding: 8px 10px;
+    border-bottom: 1px solid #ddd;
+  }
+  td input, td textarea {
+    width: 100%;
+    padding: 4px 6px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    font-family: inherit;
+    font-size: 13px;
+  }
+  td textarea {
+    min-height: 40px;
+    margin: 0;
+  }
+  tr:nth-child(even) { background: #f9f9f9; }
+  
+  .bonus {
+    background: #f3e5f5;
+    border-left: 4px solid #7b1fa2;
+    padding: 16px 18px;
+    margin-top: 28px;
+    border-radius: 0 6px 6px 0;
+  }
+  .bonus strong { color: #4a148c; }
+  
+  .footer {
+    margin-top: 40px;
+    padding-top: 16px;
+    border-top: 2px solid #e0e0e0;
+    font-size: 12px;
+    color: #888;
+    text-align: center;
+  }
+  
+  ol, ul {
+    margin-left: 20px;
+    margin-bottom: 10px;
+  }
+  li { margin-bottom: 4px; }
+  
+  @media print {
+    body { padding: 20px; font-size: 12px; }
+    textarea { border: 1px solid #999; }
+    .task { break-inside: avoid; }
+    h2 { break-after: avoid; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="header">
+  <h1>Chapter 10 Homework: Computer Vision Deep Dive</h1>
+  <div class="subtitle">CAI1001C: Artificial Intelligence (AI) Thinking · Miami Dade College</div>
+</div>
+
+<!-- STUDENT INFO -->
+<div class="student-info">
+  <div>
+    <label>Student Name</label>
+    <input type="text" placeholder="Your full name">
+  </div>
+  <div>
+    <label>Date</label>
+    <input type="text" placeholder="MM/DD/YYYY">
+  </div>
+</div>
+
+<!-- INSTRUCTIONS -->
+<div class="instructions">
+  <strong>Assignment Overview:</strong> In this homework, you'll go deeper with Google AI Studio to explore how a multimodal AI analyzes images. You'll systematically test the tool across different image types, document where it succeeds and fails, compare its approach to the YOLO object detection model you used in class, and reflect on the ethical implications of computer vision technology.
+  <br><br>
+  <strong>What you need:</strong> Access to <strong>aistudio.google.com</strong> (Google account required). Prepare or find <strong>8 images</strong> across the categories described below.
+  <br><br>
+  <strong>Submission:</strong> Complete this worksheet. Type your answers in the fields below, then <strong>Print → Save as PDF</strong> and submit via Canvas.
+</div>
+
+<!-- RUBRIC -->
+<div class="rubric-box">
+  <strong>Grading Rubric (10 points total)</strong>
+  <table class="rubric-table">
+    <tr>
+      <th style="width: 55%;">Criteria</th>
+      <th style="width: 15%;">Points</th>
+      <th style="width: 30%;">Requirements</th>
+    </tr>
+    <tr>
+      <td>Parts 1–2: Image testing & error analysis</td>
+      <td>4</td>
+      <td>All 8 images tested, errors analyzed with reasoning</td>
+    </tr>
+    <tr>
+      <td>Part 3: YOLO vs. Gemini comparison</td>
+      <td>2</td>
+      <td>Comparison table complete, paragraph uses evidence</td>
+    </tr>
+    <tr>
+      <td>Part 4: Ethics reflection</td>
+      <td>3</td>
+      <td>Minimum 1 paragraph, references chapter concepts</td>
+    </tr>
+    <tr>
+      <td>Overall effort & specificity</td>
+      <td>1</td>
+      <td>Detailed responses, not one-word answers</td>
+    </tr>
+    <tr>
+      <td><strong>Total</strong></td>
+      <td><strong>10</strong></td>
+      <td></td>
+    </tr>
+  </table>
+</div>
+
+<!-- PART 1: SYSTEMATIC IMAGE TESTING -->
+<h2>Part 1: Systematic Image Analysis (30 points)</h2>
+
+<p>Upload <strong>8 images</strong> to Google AI Studio, covering at least 4 of the following categories. For each image, ask Gemini: <strong>"List every object you can identify in this image and describe the scene."</strong></p>
+
+<p><strong>Image categories</strong> (choose at least 4):</p>
+<ul>
+  <li>Everyday objects (desk, kitchen counter, bag contents)</li>
+  <li>Food (a meal, a snack, ingredients)</li>
+  <li>Outdoor scene (street, park, parking lot, campus)</li>
+  <li>People in context (a group, someone working, a crowd — no faces required)</li>
+  <li>Something unusual or uncommon (a specialty tool, cultural item, hobby equipment)</li>
+  <li>Text-heavy image (sign, menu, whiteboard, book cover)</li>
+  <li>Low-quality image (blurry, dark, far away, unusual angle)</li>
+  <li>Multiple similar objects (a shelf of books, row of cars, group of same items)</li>
+</ul>
+
+<div class="task">
+  <div class="task-label">Image Analysis Table</div>
+  <p>Fill in one row per image. Be specific — don't just write "it was accurate." Describe <em>what</em> Gemini got right and wrong.</p>
+  
+  <table>
+    <tr>
+      <th style="width: 5%;">#</th>
+      <th style="width: 15%;">Category</th>
+      <th style="width: 20%;">Image Description</th>
+      <th style="width: 30%;">What Gemini Said</th>
+      <th style="width: 15%;">Accurate?</th>
+      <th style="width: 15%;">What It Missed or Got Wrong</th>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td><input type="text" placeholder="e.g., Food"></td>
+      <td><input type="text" placeholder="e.g., Photo of arroz con pollo"></td>
+      <td><textarea placeholder="Summarize Gemini's key observations"></textarea></td>
+      <td><input type="text" placeholder="Yes / Mostly / No"></td>
+      <td><textarea placeholder="Specific errors or omissions"></textarea></td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td><input type="text"></td>
+      <td><input type="text"></td>
+      <td><textarea></textarea></td>
+      <td><input type="text"></td>
+      <td><textarea></textarea></td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td><input type="text"></td>
+      <td><input type="text"></td>
+      <td><textarea></textarea></td>
+      <td><input type="text"></td>
+      <td><textarea></textarea></td>
+    </tr>
+    <tr>
+      <td>4</td>
+      <td><input type="text"></td>
+      <td><input type="text"></td>
+      <td><textarea></textarea></td>
+      <td><input type="text"></td>
+      <td><textarea></textarea></td>
+    </tr>
+    <tr>
+      <td>5</td>
+      <td><input type="text"></td>
+      <td><input type="text"></td>
+      <td><textarea></textarea></td>
+      <td><input type="text"></td>
+      <td><textarea></textarea></td>
+    </tr>
+    <tr>
+      <td>6</td>
+      <td><input type="text"></td>
+      <td><input type="text"></td>
+      <td><textarea></textarea></td>
+      <td><input type="text"></td>
+      <td><textarea></textarea></td>
+    </tr>
+    <tr>
+      <td>7</td>
+      <td><input type="text"></td>
+      <td><input type="text"></td>
+      <td><textarea></textarea></td>
+      <td><input type="text"></td>
+      <td><textarea></textarea></td>
+    </tr>
+    <tr>
+      <td>8</td>
+      <td><input type="text"></td>
+      <td><input type="text"></td>
+      <td><textarea></textarea></td>
+      <td><input type="text"></td>
+      <td><textarea></textarea></td>
+    </tr>
+  </table>
+</div>
+
+<!-- PART 2: ERROR ANALYSIS -->
+<h2>Part 2: Accuracy & Error Analysis (25 points)</h2>
+
+<div class="task">
+  <div class="task-label">Task 2.1: Overall Accuracy Summary</div>
+  <p>Looking across all 8 images, how accurate was Gemini overall? How many images did it analyze correctly vs. partially wrong vs. significantly wrong? What patterns do you notice?</p>
+  <p class="task-hint">Minimum 1 paragraph (4–6 sentences). Use specific examples from your table above.</p>
+  <textarea class="long" placeholder="Summarize Gemini's overall accuracy across your 8 images. Reference specific examples..."></textarea>
+</div>
+
+<div class="task">
+  <div class="task-label">Task 2.2: Error Deep Dive</div>
+  <p>Choose the <strong>3 images where Gemini struggled most</strong>. For each one, explain <em>why</em> you think the model had trouble. Think about what makes an image hard for AI: lighting, unusual objects, ambiguity, cultural specificity, image quality, multiple similar items, etc.</p>
+  
+  <h3>Error Image 1:</h3>
+  <table>
+    <tr>
+      <th style="width: 30%;">Which image?</th>
+      <th style="width: 35%;">What did Gemini get wrong?</th>
+      <th style="width: 35%;">Why do you think it struggled?</th>
+    </tr>
+    <tr>
+      <td><input type="text" placeholder="Image # and description"></td>
+      <td><textarea class="short" placeholder="The specific error"></textarea></td>
+      <td><textarea class="short" placeholder="Your hypothesis for why"></textarea></td>
+    </tr>
+  </table>
+  
+  <h3>Error Image 2:</h3>
+  <table>
+    <tr>
+      <th style="width: 30%;">Which image?</th>
+      <th style="width: 35%;">What did Gemini get wrong?</th>
+      <th style="width: 35%;">Why do you think it struggled?</th>
+    </tr>
+    <tr>
+      <td><input type="text" placeholder="Image # and description"></td>
+      <td><textarea class="short" placeholder="The specific error"></textarea></td>
+      <td><textarea class="short" placeholder="Your hypothesis for why"></textarea></td>
+    </tr>
+  </table>
+  
+  <h3>Error Image 3:</h3>
+  <table>
+    <tr>
+      <th style="width: 30%;">Which image?</th>
+      <th style="width: 35%;">What did Gemini get wrong?</th>
+      <th style="width: 35%;">Why do you think it struggled?</th>
+    </tr>
+    <tr>
+      <td><input type="text" placeholder="Image # and description"></td>
+      <td><textarea class="short" placeholder="The specific error"></textarea></td>
+      <td><textarea class="short" placeholder="Your hypothesis for why"></textarea></td>
+    </tr>
+  </table>
+</div>
+
+<div class="task">
+  <div class="task-label">Task 2.3: Confidence Without Confidence Scores</div>
+  <p>YOLO gives you a numerical confidence score (e.g., "person — 62.2%") so you know when it's uncertain. Gemini gives natural language with no score. Did you notice Gemini ever state something confidently that was actually wrong? Describe a specific example.</p>
+  <p class="task-hint">This connects to the confidence threshold concept from the GP demo. Think about which approach — a number or natural language — gives you more useful information about the model's certainty.</p>
+  <textarea class="long" placeholder="Describe a specific case where Gemini was confidently wrong, or seemed uncertain. How did you know it was uncertain without a confidence score?"></textarea>
+</div>
+
+<!-- PART 3: YOLO vs GEMINI -->
+<h2>Part 3: YOLO vs. Gemini Comparison (15 points)</h2>
+
+<div class="task">
+  <div class="task-label">Task 3.1: Strengths and Weaknesses</div>
+  <p>Based on your experience in class (YOLO) and in this homework (Gemini), fill in this comparison.</p>
+  
+  <table>
+    <tr>
+      <th style="width: 25%;"></th>
+      <th style="width: 37%;">YOLO (from GP demo)</th>
+      <th style="width: 38%;">Gemini (from AI Studio)</th>
+    </tr>
+    <tr>
+      <td><strong>Output format</strong></td>
+      <td><textarea class="short" placeholder="What does YOLO give you?"></textarea></td>
+      <td><textarea class="short" placeholder="What does Gemini give you?"></textarea></td>
+    </tr>
+    <tr>
+      <td><strong>Biggest strength</strong></td>
+      <td><textarea class="short" placeholder="What is YOLO best at?"></textarea></td>
+      <td><textarea class="short" placeholder="What is Gemini best at?"></textarea></td>
+    </tr>
+    <tr>
+      <td><strong>Biggest weakness</strong></td>
+      <td><textarea class="short" placeholder="Where does YOLO fail?"></textarea></td>
+      <td><textarea class="short" placeholder="Where does Gemini fail?"></textarea></td>
+    </tr>
+    <tr>
+      <td><strong>Shows uncertainty?</strong></td>
+      <td><textarea class="short" placeholder="How does YOLO handle uncertainty?"></textarea></td>
+      <td><textarea class="short" placeholder="How does Gemini handle uncertainty?"></textarea></td>
+    </tr>
+  </table>
+</div>
+
+<div class="task">
+  <div class="task-label">Task 3.2: Which Tool for Which Job?</div>
+  <p>Write a short paragraph (4–6 sentences) explaining when you would choose YOLO over Gemini, and when you would choose Gemini over YOLO. Use at least one specific example from your testing to support each choice.</p>
+  <textarea class="long" placeholder="In some situations, YOLO would be the better choice because... In other situations, Gemini would be better because... For example, when I tested..."></textarea>
+</div>
+
+<!-- PART 4: ETHICS -->
+<h2>Part 4: Ethics Reflection (20 points)</h2>
+
+<div class="task">
+  <div class="task-label">Ethics in Focus: Facial Recognition and Surveillance</div>
+  <p>From Chapter 10's Ethics in Focus section, choose <strong>one</strong> of the following prompts and respond in <strong>at least one full paragraph</strong> (minimum 5–7 sentences). Your response should reference specific concepts from this chapter (confidence thresholds, training data, accuracy tradeoffs, etc.).</p>
+  
+  <p><strong>Choose ONE:</strong></p>
+  <ol>
+    <li>You saw that lowering the confidence threshold catches more objects but increases errors. If a facial recognition system at MIA airport has a 2% false positive rate on 100,000 passengers per day, how many innocent people get flagged daily? Is that acceptable for airport security? What about for a grocery store?</li>
+    <br>
+    <li>Several U.S. cities have banned government use of facial recognition. Others argue it helps solve crimes and find missing persons. Where do you stand, and what evidence or conditions would change your mind?</li>
+    <br>
+    <li>If you owned a small business in your neighborhood, would you install facial recognition cameras? What factors would influence your decision — cost, accuracy, customer trust, legal liability, community norms?</li>
+  </ol>
+  
+  <h3>Which prompt did you choose? (1, 2, or 3)</h3>
+  <input type="text" style="width: 60px; padding: 6px 10px; border: 1px solid #ccc; border-radius: 4px; font-size: 14px;" placeholder="#">
+  
+  <h3>Your Response:</h3>
+  <textarea class="xl" placeholder="Write your ethics reflection here. Minimum one full paragraph (5–7 sentences). Reference specific concepts from Chapter 10..."></textarea>
+</div>
+
+<!-- BONUS -->
+<div class="bonus">
+  <strong>Bonus Challenge (Optional — up to 10 extra points)</strong>
+  <p>Research one real-world computer vision application (choose from: medical imaging, retail analytics, wildlife conservation, autonomous vehicles, or agricultural monitoring). In one paragraph, explain:</p>
+  <ul>
+    <li>What CV task does it use (detection, classification, segmentation, or recognition)?</li>
+    <li>What confidence threshold or accuracy level would you recommend for that application?</li>
+    <li>What are the consequences of setting the threshold too high vs. too low in that specific context?</li>
+  </ul>
+  <textarea class="xl" placeholder="Your bonus response..."></textarea>
+</div>
+
+<!-- SUBMISSION -->
+<div class="task" style="margin-top: 28px; background: #e8f5e9; border-left-color: #2e7d32;">
+  <div class="task-label" style="color: #2e7d32;">Submission Instructions</div>
+  <ol>
+    <li>Review all your responses — make sure every section is complete</li>
+    <li>Go to <strong>File → Print</strong> (or Ctrl+P / Cmd+P)</li>
+    <li>Select <strong>"Save as PDF"</strong> as the destination</li>
+    <li>Save the file as: <strong>Ch10_Homework_YourLastName.pdf</strong></li>
+    <li>Upload to the Canvas assignment</li>
+  </ol>
+</div>
+
+<!-- FOOTER -->
+<div class="footer">
+  CAI1001C: Artificial Intelligence (AI) Thinking · Miami Dade College · Chapter 10: Computer Vision
+</div>
+
+</body>
+</html>

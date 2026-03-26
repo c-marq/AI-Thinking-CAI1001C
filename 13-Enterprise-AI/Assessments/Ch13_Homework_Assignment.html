@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chapter 13 Homework Assignment — AI Readiness Deep Dive</title>
+<style>
+    @media print {
+        body { font-size: 11pt; }
+        .no-print { display: none; }
+        textarea { border: 1px solid #ccc !important; }
+        .page-break { page-break-before: always; }
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        max-width: 850px;
+        margin: 0 auto;
+        padding: 20px;
+        color: #1a1a2e;
+        line-height: 1.5;
+    }
+    .header {
+        background: linear-gradient(135deg, #0f3460, #16213e);
+        color: white;
+        padding: 25px 30px;
+        border-radius: 10px;
+        margin-bottom: 25px;
+    }
+    .header h1 { font-size: 1.5em; margin-bottom: 5px; }
+    .header h2 { font-size: 1.1em; font-weight: 400; opacity: 0.9; margin-bottom: 15px; }
+    .header-meta {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 15px;
+        font-size: 0.9em;
+        opacity: 0.85;
+    }
+    .header-meta span { background: rgba(255,255,255,0.15); padding: 3px 10px; border-radius: 4px; }
+    .info-box {
+        background: #e8f4f8;
+        border-left: 4px solid #0f3460;
+        padding: 15px 20px;
+        border-radius: 0 8px 8px 0;
+        margin-bottom: 20px;
+        font-size: 0.95em;
+    }
+    .info-box strong { color: #0f3460; }
+    .warning-box {
+        background: #fff8e1;
+        border-left: 4px solid #f9a825;
+        padding: 15px 20px;
+        border-radius: 0 8px 8px 0;
+        margin-bottom: 20px;
+        font-size: 0.9em;
+    }
+    .student-info {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+        margin-bottom: 25px;
+    }
+    .student-info label {
+        font-size: 0.85em;
+        font-weight: 600;
+        color: #555;
+        display: block;
+        margin-bottom: 3px;
+    }
+    .student-info input {
+        width: 100%;
+        padding: 8px 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        font-size: 0.95em;
+    }
+    h3 {
+        color: #0f3460;
+        font-size: 1.15em;
+        margin: 25px 0 10px 0;
+        padding-bottom: 5px;
+        border-bottom: 2px solid #e0e0e0;
+    }
+    h4 {
+        color: #16213e;
+        font-size: 1em;
+        margin: 18px 0 8px 0;
+    }
+    p, li { font-size: 0.95em; margin-bottom: 8px; }
+    ul, ol { padding-left: 20px; margin-bottom: 10px; }
+    textarea {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        font-family: inherit;
+        font-size: 0.95em;
+        resize: vertical;
+        line-height: 1.5;
+    }
+    .score-select {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin: 10px 0;
+    }
+    .score-select label {
+        font-weight: 600;
+        font-size: 0.95em;
+        color: #0f3460;
+    }
+    .score-select select {
+        padding: 6px 12px;
+        border: 2px solid #0f3460;
+        border-radius: 5px;
+        font-size: 1em;
+        font-weight: 600;
+        color: #0f3460;
+        background: white;
+    }
+    .dimension-card {
+        background: #f9f9fb;
+        border: 1px solid #e0e0e0;
+        border-radius: 8px;
+        padding: 18px;
+        margin-bottom: 15px;
+    }
+    .dimension-card h4 {
+        margin-top: 0;
+        color: #0f3460;
+    }
+    .scoring-guide {
+        font-size: 0.85em;
+        color: #666;
+        background: #f0f0f5;
+        padding: 10px;
+        border-radius: 5px;
+        margin-bottom: 10px;
+    }
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 15px 0;
+    }
+    th, td {
+        border: 1px solid #ccc;
+        padding: 10px;
+        text-align: left;
+        font-size: 0.9em;
+    }
+    th {
+        background: #0f3460;
+        color: white;
+        font-weight: 600;
+    }
+    .rubric-table td:first-child { font-weight: 600; width: 35%; }
+    .rubric-table td:last-child { text-align: center; width: 15%; }
+    .submit-info {
+        background: #f0f7ee;
+        border: 1px solid #8bc34a;
+        padding: 15px 20px;
+        border-radius: 8px;
+        margin-top: 25px;
+        font-size: 0.9em;
+    }
+    .ethics-prompt {
+        background: #f5f0ff;
+        border: 1px solid #c5b3e6;
+        border-radius: 8px;
+        padding: 15px;
+        margin: 10px 0;
+        font-size: 0.93em;
+    }
+    .ethics-prompt strong { color: #5c2d91; }
+    .bonus-section {
+        background: #fff8e1;
+        border: 2px dashed #f9a825;
+        border-radius: 8px;
+        padding: 18px;
+        margin-top: 20px;
+    }
+    .bonus-section h4 { color: #e65100; margin-top: 0; }
+</style>
+</head>
+<body>
+
+<div class="header">
+    <h1>Chapter 13: Homework Assignment</h1>
+    <h2>AI Readiness Deep Dive — Individual Company Assessment</h2>
+    <div class="header-meta">
+        <span>CAI1001C: AI Thinking</span>
+        <span>Miami Dade College</span>
+        <span>10 Points</span>
+    </div>
+</div>
+
+<div class="info-box">
+    <strong>Instructions:</strong> You will individually assess a real company's AI readiness — the same framework from the Group Lab, but with deeper analysis. Choose a <strong>different company</strong> from the one your group assessed. Score all 5 dimensions with detailed justification, identify gaps, recommend next steps, and reflect on an ethics prompt. Type your answers directly in this document, then <strong>print to PDF</strong> and submit via Canvas.
+</div>
+
+<div class="warning-box">
+    <strong>⚠️ Important:</strong> You must choose a <strong>different company</strong> from the one your group assessed in the Group Lab. If your group assessed Amazon, you cannot use Amazon here. This ensures you practice the framework on a new organization independently.
+</div>
+
+<div class="student-info">
+    <div>
+        <label>Student Name</label>
+        <input type="text" placeholder="First Last">
+    </div>
+    <div>
+        <label>Date</label>
+        <input type="text" placeholder="MM/DD/YYYY">
+    </div>
+    <div>
+        <label>Section</label>
+        <input type="text" placeholder="e.g., Section 01">
+    </div>
+    <div>
+        <label>Company Assessed in Group Lab</label>
+        <input type="text" placeholder="(so I know you chose a different one)">
+    </div>
+</div>
+
+<!-- Rubric -->
+<h3>Grading Rubric</h3>
+<table class="rubric-table">
+    <tr><th>Criteria</th><th>Description</th><th>Points</th></tr>
+    <tr><td>Company & AI Use Case</td><td>Clear company identification and specific AI application described</td><td>1</td></tr>
+    <tr><td>Dimension Scores & Justifications</td><td>All 5 dimensions scored with detailed, evidence-based justifications (5–6 sentences each, with specific examples)</td><td>4</td></tr>
+    <tr><td>Gap Analysis & Recommendations</td><td>Two biggest gaps identified with specific, actionable recommendations</td><td>2</td></tr>
+    <tr><td>Ethics Reflection</td><td>Thoughtful response to one Reflect & Discuss prompt, connected to your company assessment (minimum 1 paragraph / 5–6 sentences)</td><td>3</td></tr>
+    <tr><td colspan="2"><strong>Total</strong></td><td><strong>10</strong></td></tr>
+</table>
+
+<!-- Part 1: Company Selection -->
+<h3>Part 1: Company & AI Use Case</h3>
+
+<h4>Company Name</h4>
+<textarea rows="1" placeholder="Enter company name"></textarea>
+
+<h4>Brief Company Description</h4>
+<p>What does this company do? How big is it? What industry? (2–3 sentences)</p>
+<textarea rows="3" placeholder="Describe the company — industry, size, what they're known for."></textarea>
+
+<h4>AI Use Case</h4>
+<p>Identify one specific AI application this company uses or should use. Explain what the AI does and why it matters to the business. (3–4 sentences)</p>
+<textarea rows="4" placeholder="Be specific — not 'they use AI for marketing' but 'they use AI-powered recommendation algorithms to suggest products based on browsing history and purchase patterns, which drives an estimated X% of their revenue.'"></textarea>
+
+<!-- Part 2: Dimension Scoring (deeper than group lab) -->
+<h3>Part 2: Readiness Dimension Scores</h3>
+<p>Score each dimension 1–5 and provide a <strong>detailed justification (5–6 sentences each)</strong>. This should be deeper than your Group Lab responses — include specific evidence, examples, and reasoning.</p>
+
+<div class="dimension-card">
+    <h4>🗃️ Dimension 1: Data Infrastructure</h4>
+    <div class="scoring-guide">
+        Scoring: 1 = No data collection or awareness | 2 = Some data exists, not organized | 3 = Systematic collection, some quality issues | 4 = Clean, organized, accessible data with processes | 5 = Automated collection, quality monitoring, cross-organization access
+    </div>
+    <div class="score-select">
+        <label>Score:</label>
+        <select>
+            <option value="">--</option>
+            <option value="1">1 — Not Ready</option>
+            <option value="2">2 — Early Stage</option>
+            <option value="3">3 — Developing</option>
+            <option value="4">4 — Strong</option>
+            <option value="5">5 — Advanced</option>
+        </select>
+    </div>
+    <p><strong>Justification</strong> (5–6 sentences):</p>
+    <textarea rows="6" placeholder="What specific types of data does this company collect? How is it stored — local databases, cloud, spreadsheets? Is data accessible across departments or siloed? How long have they been collecting it? Is the data updated in real time or periodically? What evidence supports your score?"></textarea>
+</div>
+
+<div class="dimension-card">
+    <h4>👥 Dimension 2: Talent & Skills</h4>
+    <div class="scoring-guide">
+        Scoring: 1 = No AI skills | 2 = One or two people with basic data skills | 3 = Some team members with AI knowledge, training starting | 4 = Dedicated data/AI team with clear roles | 5 = Cross-functional AI literacy with specialists and generalists
+    </div>
+    <div class="score-select">
+        <label>Score:</label>
+        <select>
+            <option value="">--</option>
+            <option value="1">1 — Not Ready</option>
+            <option value="2">2 — Early Stage</option>
+            <option value="3">3 — Developing</option>
+            <option value="4">4 — Strong</option>
+            <option value="5">5 — Advanced</option>
+        </select>
+    </div>
+    <p><strong>Justification</strong> (5–6 sentences):</p>
+    <textarea rows="6" placeholder="Does this company have a data science or AI team? How do you know — job postings, LinkedIn, news articles? Do they have domain experts who understand the business problem? Are they investing in AI training for existing employees? If their lead data scientist left, could they continue? What evidence supports your score?"></textarea>
+</div>
+
+<div class="dimension-card">
+    <h4>💻 Dimension 3: Computing Resources</h4>
+    <div class="scoring-guide">
+        Scoring: 1 = Consumer-grade hardware only | 2 = Some servers, not configured for AI | 3 = Basic cloud or GPU access | 4 = Established cloud pipeline for AI workloads | 5 = Scalable infrastructure with cost optimization and monitoring
+    </div>
+    <div class="score-select">
+        <label>Score:</label>
+        <select>
+            <option value="">--</option>
+            <option value="1">1 — Not Ready</option>
+            <option value="2">2 — Early Stage</option>
+            <option value="3">3 — Developing</option>
+            <option value="4">4 — Strong</option>
+            <option value="5">5 — Advanced</option>
+        </select>
+    </div>
+    <p><strong>Justification</strong> (5–6 sentences):</p>
+    <textarea rows="6" placeholder="What scale of AI workload does this company need — real-time predictions or batch processing? Do they use cloud computing (AWS, Google Cloud, Azure) or run their own servers? Can their infrastructure scale during peak demand? How does computing cost factor into their AI strategy? What evidence supports your score?"></textarea>
+</div>
+
+<div class="dimension-card">
+    <h4>⚖️ Dimension 4: Ethical Preparedness</h4>
+    <div class="scoring-guide">
+        Scoring: 1 = No awareness of AI ethics | 2 = Awareness but no processes | 3 = Basic fairness checks, some documentation | 4 = Formal bias auditing, designated oversight | 5 = Comprehensive ethics policy, regular audits, diverse review teams, transparent reporting
+    </div>
+    <div class="score-select">
+        <label>Score:</label>
+        <select>
+            <option value="">--</option>
+            <option value="1">1 — Not Ready</option>
+            <option value="2">2 — Early Stage</option>
+            <option value="3">3 — Developing</option>
+            <option value="4">4 — Strong</option>
+            <option value="5">5 — Advanced</option>
+        </select>
+    </div>
+    <p><strong>Justification</strong> (5–6 sentences):</p>
+    <textarea rows="6" placeholder="Has this company had any public AI ethics controversies? Do they have a published responsible AI policy? Do they conduct bias audits on their AI systems? Who is accountable when AI makes a biased or incorrect decision? Under the EU AI Act, what risk level would their AI application fall into? What evidence supports your score?"></textarea>
+</div>
+
+<div class="dimension-card">
+    <h4>🏢 Dimension 5: Organizational Culture</h4>
+    <div class="scoring-guide">
+        Scoring: 1 = Leadership dismisses AI, workforce resistant | 2 = Curiosity but no commitment | 3 = Leadership supports exploration, some teams experimenting | 4 = Clear AI strategy, training programs, willingness to pilot | 5 = AI-first thinking integrated into planning, data-driven culture
+    </div>
+    <div class="score-select">
+        <label>Score:</label>
+        <select>
+            <option value="">--</option>
+            <option value="1">1 — Not Ready</option>
+            <option value="2">2 — Early Stage</option>
+            <option value="3">3 — Developing</option>
+            <option value="4">4 — Strong</option>
+            <option value="5">5 — Advanced</option>
+        </select>
+    </div>
+    <p><strong>Justification</strong> (5–6 sentences):</p>
+    <textarea rows="6" placeholder="Does leadership talk about AI publicly (earnings calls, press releases, interviews)? Do front-line employees interact with AI tools daily? Is this company known for innovation or for being traditional and slow to change? Would a new employee's AI proposal be encouraged or dismissed? What evidence supports your score?"></textarea>
+</div>
+
+<!-- Part 3: Summary -->
+<h3>Part 3: Summary Scorecard</h3>
+
+<table>
+    <tr><th>Dimension</th><th>Score (1–5)</th></tr>
+    <tr><td>🗃️ Data Infrastructure</td><td><input type="text" style="width:60px; text-align:center; border:1px solid #ccc; padding:4px;" placeholder="__"></td></tr>
+    <tr><td>👥 Talent & Skills</td><td><input type="text" style="width:60px; text-align:center; border:1px solid #ccc; padding:4px;" placeholder="__"></td></tr>
+    <tr><td>💻 Computing Resources</td><td><input type="text" style="width:60px; text-align:center; border:1px solid #ccc; padding:4px;" placeholder="__"></td></tr>
+    <tr><td>⚖️ Ethical Preparedness</td><td><input type="text" style="width:60px; text-align:center; border:1px solid #ccc; padding:4px;" placeholder="__"></td></tr>
+    <tr><td>🏢 Organizational Culture</td><td><input type="text" style="width:60px; text-align:center; border:1px solid #ccc; padding:4px;" placeholder="__"></td></tr>
+    <tr><td><strong>Total</strong></td><td><input type="text" style="width:60px; text-align:center; border:1px solid #ccc; padding:4px; font-weight:bold;" placeholder="__"> / 25</td></tr>
+</table>
+
+<!-- Part 4: Gap Analysis -->
+<h3>Part 4: Gap Analysis & Recommendations</h3>
+
+<h4>Gap #1 — Biggest Weakness</h4>
+<p>Which dimension scored lowest (or tied for lowest)? Why is this gap the most critical for the company's AI success? (3–4 sentences)</p>
+<textarea rows="4" placeholder="Identify the weakest dimension, explain why it matters, and describe what could go wrong if the company deploys AI without addressing this gap."></textarea>
+
+<h4>Recommendation for Gap #1</h4>
+<p>What is one <strong>specific, actionable step</strong> the company could take in the next 6 months to address this gap? (3–4 sentences)</p>
+<textarea rows="4" placeholder="Be concrete. Not 'improve their data' but 'implement automated data validation checks on their customer transaction database to catch formatting errors and missing fields before data enters the analytics pipeline.'"></textarea>
+
+<h4>Gap #2 — Second Biggest Weakness</h4>
+<p>Which dimension is the second weakest? Why does this gap matter? (3–4 sentences)</p>
+<textarea rows="4" placeholder="Identify the second weakest dimension and explain why it poses a risk to AI deployment."></textarea>
+
+<h4>Recommendation for Gap #2</h4>
+<p>What is one <strong>specific, actionable step</strong> for this gap? (3–4 sentences)</p>
+<textarea rows="4" placeholder="Another concrete, implementable recommendation — something a manager could act on within 6 months."></textarea>
+
+<!-- Part 5: Ethics Reflection -->
+<div class="page-break"></div>
+<h3>Part 5: Ethics Reflection</h3>
+
+<p>Choose <strong>one</strong> of the following Reflect & Discuss prompts from the Chapter 13 Ethics in Focus section. Write a thoughtful response of <strong>at least 5–6 sentences</strong>. Connect your response to the company you assessed wherever possible.</p>
+
+<div class="ethics-prompt">
+    <strong>Option 1:</strong> Using the readiness framework from this chapter, assess a company you've worked for or a business you know. What's their weakest dimension? What would you recommend they do first?
+</div>
+
+<div class="ethics-prompt">
+    <strong>Option 2:</strong> The EU AI Act classifies AI systems by risk level — from minimal (spam filters) to unacceptable (social scoring). Do you agree with their classifications? What would you change?
+</div>
+
+<div class="ethics-prompt">
+    <strong>Option 3:</strong> If you were hired as an "AI Ethics Officer" at a company, what would your first three priorities be?
+</div>
+
+<h4>Selected Prompt</h4>
+<textarea rows="1" placeholder="Option 1, 2, or 3"></textarea>
+
+<h4>Your Response</h4>
+<textarea rows="10" placeholder="Write at least 5–6 sentences. Be specific — reference concepts from the chapter (readiness dimensions, EU AI Act risk tiers, bias auditing, governance) and connect to your company assessment where possible. Take a position and support it."></textarea>
+
+<!-- Bonus -->
+<div class="bonus-section">
+    <h4>⭐ Bonus Challenge (Optional — up to 2 extra points)</h4>
+    <p>Identify a <strong>second company in the same industry</strong> as the one you assessed. Without doing a full scorecard, compare them in 1 paragraph (5–6 sentences): Which company is more AI-ready, and what explains the difference? What did the more successful company do that the other didn't?</p>
+    <textarea rows="6" placeholder="Example: If you assessed Marriott, compare to Hilton or a smaller hotel chain. If you assessed Walmart, compare to Target or a local grocery chain. What separates the AI leaders from the laggards in the same industry?"></textarea>
+</div>
+
+<!-- Submission -->
+<div class="submit-info">
+    <strong>Submission Instructions:</strong>
+    <ol style="margin-top:8px; padding-left:20px;">
+        <li>Confirm you chose a <strong>different company</strong> from your Group Lab</li>
+        <li>Review all responses — each dimension needs a score AND 5–6 sentence justification</li>
+        <li>Confirm your ethics reflection is at least 5–6 sentences</li>
+        <li><strong>Print this page to PDF</strong> (File → Print → Save as PDF)</li>
+        <li>Submit the PDF to Canvas</li>
+    </ol>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chapter 13 Group Lab Worksheet — AI Readiness Scorecard</title>
+<style>
+    @media print {
+        body { font-size: 11pt; }
+        .no-print { display: none; }
+        textarea { border: 1px solid #ccc !important; }
+        .page-break { page-break-before: always; }
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        max-width: 850px;
+        margin: 0 auto;
+        padding: 20px;
+        color: #1a1a2e;
+        line-height: 1.5;
+    }
+    .header {
+        background: linear-gradient(135deg, #0f3460, #16213e);
+        color: white;
+        padding: 25px 30px;
+        border-radius: 10px;
+        margin-bottom: 25px;
+    }
+    .header h1 { font-size: 1.5em; margin-bottom: 5px; }
+    .header h2 { font-size: 1.1em; font-weight: 400; opacity: 0.9; margin-bottom: 15px; }
+    .header-meta {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 15px;
+        font-size: 0.9em;
+        opacity: 0.85;
+    }
+    .header-meta span { background: rgba(255,255,255,0.15); padding: 3px 10px; border-radius: 4px; }
+    .info-box {
+        background: #e8f4f8;
+        border-left: 4px solid #0f3460;
+        padding: 15px 20px;
+        border-radius: 0 8px 8px 0;
+        margin-bottom: 20px;
+        font-size: 0.95em;
+    }
+    .info-box strong { color: #0f3460; }
+    .student-info {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+        margin-bottom: 25px;
+    }
+    .student-info label {
+        font-size: 0.85em;
+        font-weight: 600;
+        color: #555;
+        display: block;
+        margin-bottom: 3px;
+    }
+    .student-info input {
+        width: 100%;
+        padding: 8px 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        font-size: 0.95em;
+    }
+    .full-width { grid-column: 1 / -1; }
+    h3 {
+        color: #0f3460;
+        font-size: 1.15em;
+        margin: 25px 0 10px 0;
+        padding-bottom: 5px;
+        border-bottom: 2px solid #e0e0e0;
+    }
+    h4 {
+        color: #16213e;
+        font-size: 1em;
+        margin: 18px 0 8px 0;
+    }
+    p, li { font-size: 0.95em; margin-bottom: 8px; }
+    ul { padding-left: 20px; margin-bottom: 10px; }
+    textarea {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        font-family: inherit;
+        font-size: 0.95em;
+        resize: vertical;
+        line-height: 1.5;
+    }
+    .score-select {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin: 10px 0;
+    }
+    .score-select label {
+        font-weight: 600;
+        font-size: 0.95em;
+        color: #0f3460;
+    }
+    .score-select select {
+        padding: 6px 12px;
+        border: 2px solid #0f3460;
+        border-radius: 5px;
+        font-size: 1em;
+        font-weight: 600;
+        color: #0f3460;
+        background: white;
+    }
+    .dimension-card {
+        background: #f9f9fb;
+        border: 1px solid #e0e0e0;
+        border-radius: 8px;
+        padding: 18px;
+        margin-bottom: 15px;
+    }
+    .dimension-card h4 {
+        margin-top: 0;
+        color: #0f3460;
+    }
+    .scoring-guide {
+        font-size: 0.85em;
+        color: #666;
+        background: #f0f0f5;
+        padding: 10px;
+        border-radius: 5px;
+        margin-bottom: 10px;
+    }
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 15px 0;
+    }
+    th, td {
+        border: 1px solid #ccc;
+        padding: 10px;
+        text-align: left;
+        font-size: 0.9em;
+    }
+    th {
+        background: #0f3460;
+        color: white;
+        font-weight: 600;
+    }
+    .rubric-table td:first-child { font-weight: 600; width: 35%; }
+    .rubric-table td:last-child { text-align: center; width: 15%; }
+    .submit-info {
+        background: #f0f7ee;
+        border: 1px solid #8bc34a;
+        padding: 15px 20px;
+        border-radius: 8px;
+        margin-top: 25px;
+        font-size: 0.9em;
+    }
+    .company-options {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+        margin: 10px 0 15px 0;
+    }
+    .company-option {
+        background: #f5f5fa;
+        border: 1px solid #ddd;
+        border-radius: 6px;
+        padding: 10px 12px;
+        font-size: 0.88em;
+    }
+    .company-option strong { color: #0f3460; }
+</style>
+</head>
+<body>
+
+<div class="header">
+    <h1>Chapter 13: Group Lab Worksheet</h1>
+    <h2>AI Readiness Scorecard — Real Company Assessment</h2>
+    <div class="header-meta">
+        <span>CAI1001C: AI Thinking</span>
+        <span>Miami Dade College</span>
+        <span>10 Points</span>
+    </div>
+</div>
+
+<div class="info-box">
+    <strong>Instructions:</strong> Your group will assess a real company's AI readiness using the 5-dimension framework from Chapter 13. Choose a company, divide dimensions among group members, score each dimension with justification, and identify the company's biggest gap with a recommended next step. Type your answers directly in this document, then <strong>print to PDF</strong> and submit via Canvas.
+</div>
+
+<div class="student-info">
+    <div>
+        <label>Group Member 1 (Name)</label>
+        <input type="text" placeholder="First Last">
+    </div>
+    <div>
+        <label>Group Member 2 (Name)</label>
+        <input type="text" placeholder="First Last">
+    </div>
+    <div>
+        <label>Group Member 3 (Name)</label>
+        <input type="text" placeholder="First Last">
+    </div>
+    <div>
+        <label>Group Member 4 (Name)</label>
+        <input type="text" placeholder="First Last (if applicable)">
+    </div>
+    <div>
+        <label>Date</label>
+        <input type="text" placeholder="MM/DD/YYYY">
+    </div>
+    <div>
+        <label>Section</label>
+        <input type="text" placeholder="e.g., Section 01">
+    </div>
+</div>
+
+<!-- Rubric -->
+<h3>Grading Rubric</h3>
+<table class="rubric-table">
+    <tr><th>Criteria</th><th>Description</th><th>Points</th></tr>
+    <tr><td>Company Selection & AI Use Case</td><td>Clear identification of the company and a specific AI application</td><td>1</td></tr>
+    <tr><td>Dimension Scores (5 dimensions)</td><td>Each dimension scored 1–5 with specific evidence-based justification (not vague)</td><td>5</td></tr>
+    <tr><td>Gap Identification</td><td>Correctly identifies the biggest gap based on scores, with explanation</td><td>2</td></tr>
+    <tr><td>Recommended Next Step</td><td>Specific, actionable recommendation (not vague — something a manager could implement within 6 months)</td><td>2</td></tr>
+    <tr><td colspan="2"><strong>Total</strong></td><td><strong>10</strong></td></tr>
+</table>
+
+<!-- Part 1: Company Selection -->
+<h3>Part 1: Choose Your Company</h3>
+
+<p>Select one of the companies below, <strong>or</strong> choose a company your group knows well (one you've worked for or interact with regularly). If choosing your own, make sure there's enough public information to assess all 5 dimensions.</p>
+
+<div class="company-options">
+    <div class="company-option">
+        <strong>Amazon</strong><br>
+        E-commerce, logistics, AWS cloud. Strong data/compute, documented ethics controversies (hiring tool, warehouse monitoring).
+    </div>
+    <div class="company-option">
+        <strong>McDonald's</strong><br>
+        Fast food, global supply chain. Drive-through AI, app personalization, franchise model creates adoption challenges.
+    </div>
+    <div class="company-option">
+        <strong>Baptist Health South Florida</strong><br>
+        Regional healthcare system. AI for diagnostics, patient scheduling, medical imaging. High-stakes ethics requirements.
+    </div>
+    <div class="company-option">
+        <strong>Uber</strong><br>
+        Ride-sharing, delivery. Dynamic pricing, route optimization, demand prediction. Visible AI use, documented controversies.
+    </div>
+</div>
+
+<h4>Company Selected</h4>
+<textarea rows="1" placeholder="Enter company name"></textarea>
+
+<h4>AI Use Case</h4>
+<p>Identify one specific AI application this company uses (or should use). Be specific — not just "they use AI" but what the AI does.</p>
+<textarea rows="3" placeholder="Example: Uber uses AI-powered dynamic pricing (surge pricing) that adjusts ride costs in real time based on demand, driver supply, traffic, weather, and time of day."></textarea>
+
+<!-- Part 2: Dimension Scoring -->
+<h3>Part 2: Score Each Dimension</h3>
+<p>Divide the 5 dimensions among your group members. Each person scores their assigned dimension(s) and writes the justification. Use the scoring guide: 1 = Not Ready, 2 = Early Stage, 3 = Developing, 4 = Strong, 5 = Advanced.</p>
+
+<div class="dimension-card">
+    <h4>🗃️ Dimension 1: Data Infrastructure</h4>
+    <div class="scoring-guide">Key question: Does this company collect the right data? Is it clean, organized, and accessible? Is it updated regularly?</div>
+    <p><strong>Scored by:</strong></p>
+    <input type="text" placeholder="Group member name" style="width:50%; padding:6px 10px; border:1px solid #ccc; border-radius:4px; margin-bottom:8px;">
+    <div class="score-select">
+        <label>Score:</label>
+        <select>
+            <option value="">--</option>
+            <option value="1">1 — Not Ready</option>
+            <option value="2">2 — Early Stage</option>
+            <option value="3">3 — Developing</option>
+            <option value="4">4 — Strong</option>
+            <option value="5">5 — Advanced</option>
+        </select>
+    </div>
+    <p><strong>Justification</strong> (3–4 sentences — be specific about what data they collect, how it's stored, and how accessible it is):</p>
+    <textarea rows="4" placeholder="What data does this company collect? How do you know it's clean and accessible? What evidence supports your score?"></textarea>
+</div>
+
+<div class="dimension-card">
+    <h4>👥 Dimension 2: Talent & Skills</h4>
+    <div class="scoring-guide">Key question: Does the company have AI/data science expertise? Do they have a plan to build or hire these skills?</div>
+    <p><strong>Scored by:</strong></p>
+    <input type="text" placeholder="Group member name" style="width:50%; padding:6px 10px; border:1px solid #ccc; border-radius:4px; margin-bottom:8px;">
+    <div class="score-select">
+        <label>Score:</label>
+        <select>
+            <option value="">--</option>
+            <option value="1">1 — Not Ready</option>
+            <option value="2">2 — Early Stage</option>
+            <option value="3">3 — Developing</option>
+            <option value="4">4 — Strong</option>
+            <option value="5">5 — Advanced</option>
+        </select>
+    </div>
+    <p><strong>Justification</strong> (3–4 sentences — mention specific roles, teams, or training programs if known):</p>
+    <textarea rows="4" placeholder="Does this company have a data science or AI team? Are they hiring for AI roles? Do they train existing employees on AI tools?"></textarea>
+</div>
+
+<div class="dimension-card">
+    <h4>💻 Dimension 3: Computing Resources</h4>
+    <div class="scoring-guide">Key question: Can the company's infrastructure handle AI workloads at the scale they need? Do they use cloud, on-premise, or both?</div>
+    <p><strong>Scored by:</strong></p>
+    <input type="text" placeholder="Group member name" style="width:50%; padding:6px 10px; border:1px solid #ccc; border-radius:4px; margin-bottom:8px;">
+    <div class="score-select">
+        <label>Score:</label>
+        <select>
+            <option value="">--</option>
+            <option value="1">1 — Not Ready</option>
+            <option value="2">2 — Early Stage</option>
+            <option value="3">3 — Developing</option>
+            <option value="4">4 — Strong</option>
+            <option value="5">5 — Advanced</option>
+        </select>
+    </div>
+    <p><strong>Justification</strong> (3–4 sentences — consider the scale of their AI workloads and what infrastructure that requires):</p>
+    <textarea rows="4" placeholder="Does this company run AI at scale (real-time predictions for millions of users)? Do they use cloud computing? What level of computing power does their AI application demand?"></textarea>
+</div>
+
+<div class="dimension-card">
+    <h4>⚖️ Dimension 4: Ethical Preparedness</h4>
+    <div class="scoring-guide">Key question: Does the company have processes for bias auditing, fairness testing, privacy protection, and accountability? Have they had any public AI ethics controversies?</div>
+    <p><strong>Scored by:</strong></p>
+    <input type="text" placeholder="Group member name" style="width:50%; padding:6px 10px; border:1px solid #ccc; border-radius:4px; margin-bottom:8px;">
+    <div class="score-select">
+        <label>Score:</label>
+        <select>
+            <option value="">--</option>
+            <option value="1">1 — Not Ready</option>
+            <option value="2">2 — Early Stage</option>
+            <option value="3">3 — Developing</option>
+            <option value="4">4 — Strong</option>
+            <option value="5">5 — Advanced</option>
+        </select>
+    </div>
+    <p><strong>Justification</strong> (3–4 sentences — mention any known controversies, published ethics policies, or bias audit processes):</p>
+    <textarea rows="4" placeholder="Has this company had AI ethics controversies? Do they have a published responsible AI policy? Do they conduct bias audits? Who is accountable when AI makes a mistake?"></textarea>
+</div>
+
+<div class="dimension-card">
+    <h4>🏢 Dimension 5: Organizational Culture</h4>
+    <div class="scoring-guide">Key question: Does leadership champion AI adoption? Are employees willing to use AI tools? Is the organization comfortable with experimentation?</div>
+    <p><strong>Scored by:</strong></p>
+    <input type="text" placeholder="Group member name" style="width:50%; padding:6px 10px; border:1px solid #ccc; border-radius:4px; margin-bottom:8px;">
+    <div class="score-select">
+        <label>Score:</label>
+        <select>
+            <option value="">--</option>
+            <option value="1">1 — Not Ready</option>
+            <option value="2">2 — Early Stage</option>
+            <option value="3">3 — Developing</option>
+            <option value="4">4 — Strong</option>
+            <option value="5">5 — Advanced</option>
+        </select>
+    </div>
+    <p><strong>Justification</strong> (3–4 sentences — consider leadership statements, product launches, employee adoption, and innovation culture):</p>
+    <textarea rows="4" placeholder="Does leadership talk about AI publicly? Do front-line employees use AI tools daily? Is this company known for innovation or for being traditional?"></textarea>
+</div>
+
+<!-- Part 3: Summary & Recommendations -->
+<h3>Part 3: Summary Scorecard</h3>
+<p>Transfer your scores from Part 2 into the summary table below.</p>
+
+<table>
+    <tr><th>Dimension</th><th>Score (1–5)</th></tr>
+    <tr><td>🗃️ Data Infrastructure</td><td><input type="text" style="width:60px; text-align:center; border:1px solid #ccc; padding:4px;" placeholder="__"></td></tr>
+    <tr><td>👥 Talent & Skills</td><td><input type="text" style="width:60px; text-align:center; border:1px solid #ccc; padding:4px;" placeholder="__"></td></tr>
+    <tr><td>💻 Computing Resources</td><td><input type="text" style="width:60px; text-align:center; border:1px solid #ccc; padding:4px;" placeholder="__"></td></tr>
+    <tr><td>⚖️ Ethical Preparedness</td><td><input type="text" style="width:60px; text-align:center; border:1px solid #ccc; padding:4px;" placeholder="__"></td></tr>
+    <tr><td>🏢 Organizational Culture</td><td><input type="text" style="width:60px; text-align:center; border:1px solid #ccc; padding:4px;" placeholder="__"></td></tr>
+    <tr><td><strong>Total</strong></td><td><input type="text" style="width:60px; text-align:center; border:1px solid #ccc; padding:4px; font-weight:bold;" placeholder="__"> / 25</td></tr>
+</table>
+
+<h3>Part 4: Gap Analysis & Recommendation</h3>
+
+<h4>Biggest Gap</h4>
+<p>Which dimension scored lowest? Why is this the company's most critical weakness for AI deployment?</p>
+<textarea rows="4" placeholder="Identify the lowest-scoring dimension and explain why this gap matters most. What problems could it cause if the company deploys AI without addressing this weakness?"></textarea>
+
+<h4>Recommended Next Step</h4>
+<p>What is <strong>one specific, actionable step</strong> this company could take in the next 6 months to improve their weakest dimension? Be concrete — not "get better at ethics" but a specific action a manager could implement.</p>
+<textarea rows="4" placeholder="Example: 'Hire a dedicated AI Ethics Officer to conduct quarterly bias audits on their dynamic pricing algorithm, specifically testing whether pricing patterns differ across neighborhoods with different demographic profiles.'"></textarea>
+
+<!-- Submission -->
+<div class="submit-info">
+    <strong>Submission Instructions:</strong>
+    <ol style="margin-top:8px; padding-left:20px;">
+        <li>Make sure all group member names are listed at the top</li>
+        <li>Review all responses — each dimension needs a score AND justification</li>
+        <li><strong>Print this page to PDF</strong> (File → Print → Save as PDF)</li>
+        <li>One group member submits the PDF to Canvas</li>
+    </ol>
+</div>
+
+</body>
+</html>

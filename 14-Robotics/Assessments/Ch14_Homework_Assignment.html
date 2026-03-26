@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chapter 14 Homework Assignment — Robotics & Autonomous Systems Analysis</title>
+<style>
+    @media print {
+        body { font-size: 11pt; }
+        .no-print { display: none; }
+        textarea { border: 1px solid #ccc !important; }
+        .page-break { page-break-before: always; }
+    }
+    
+    body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        max-width: 850px;
+        margin: 0 auto;
+        padding: 20px;
+        line-height: 1.6;
+        color: #2d3748;
+        background-color: #ffffff;
+    }
+    
+    .header {
+        border-bottom: 3px solid #2b6cb0;
+        padding-bottom: 15px;
+        margin-bottom: 25px;
+    }
+    
+    .header h1 {
+        color: #2b6cb0;
+        font-size: 1.5em;
+        margin-bottom: 5px;
+    }
+    
+    .header .subtitle {
+        color: #718096;
+        font-size: 0.95em;
+    }
+    
+    .course-info {
+        font-size: 0.85em;
+        color: #4a5568;
+        margin-bottom: 10px;
+    }
+    
+    .info-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+        margin-bottom: 25px;
+    }
+    
+    .info-field label {
+        display: block;
+        font-weight: 600;
+        font-size: 0.85em;
+        color: #4a5568;
+        margin-bottom: 3px;
+    }
+    
+    .info-field input {
+        width: 100%;
+        padding: 6px 8px;
+        border: 1px solid #cbd5e0;
+        border-radius: 4px;
+        font-size: 0.95em;
+        box-sizing: border-box;
+    }
+    
+    .instructions {
+        background-color: #ebf8ff;
+        border-left: 4px solid #2b6cb0;
+        padding: 15px;
+        margin-bottom: 25px;
+        border-radius: 0 4px 4px 0;
+    }
+    
+    .instructions h2 {
+        color: #2b6cb0;
+        font-size: 1.1em;
+        margin-top: 0;
+        margin-bottom: 8px;
+    }
+    
+    .instructions p, .instructions li {
+        font-size: 0.9em;
+        margin-bottom: 5px;
+    }
+    
+    .points-badge {
+        display: inline-block;
+        background-color: #2b6cb0;
+        color: white;
+        padding: 2px 10px;
+        border-radius: 12px;
+        font-size: 0.8em;
+        font-weight: 600;
+        margin-left: 8px;
+    }
+    
+    .section {
+        margin-bottom: 30px;
+    }
+    
+    .section h2 {
+        color: #2b6cb0;
+        font-size: 1.2em;
+        border-bottom: 2px solid #e2e8f0;
+        padding-bottom: 8px;
+        margin-bottom: 15px;
+    }
+    
+    .question-block {
+        margin-bottom: 20px;
+    }
+    
+    .question-block label {
+        display: block;
+        font-weight: 600;
+        font-size: 0.9em;
+        color: #2d3748;
+        margin-bottom: 5px;
+    }
+    
+    .question-block .hint {
+        font-size: 0.82em;
+        color: #718096;
+        font-style: italic;
+        margin-bottom: 5px;
+    }
+    
+    .question-block .word-min {
+        font-size: 0.78em;
+        color: #2b6cb0;
+        font-weight: 600;
+        margin-bottom: 5px;
+    }
+    
+    textarea {
+        width: 100%;
+        padding: 8px;
+        border: 1px solid #cbd5e0;
+        border-radius: 4px;
+        font-family: inherit;
+        font-size: 0.9em;
+        resize: vertical;
+        box-sizing: border-box;
+        line-height: 1.5;
+    }
+    
+    textarea:focus, input:focus {
+        outline: none;
+        border-color: #2b6cb0;
+        box-shadow: 0 0 0 2px rgba(43, 108, 176, 0.15);
+    }
+    
+    .concept-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 15px;
+    }
+    
+    .concept-table th {
+        background-color: #edf2f7;
+        color: #2d3748;
+        padding: 8px 10px;
+        text-align: left;
+        font-size: 0.85em;
+        border: 1px solid #cbd5e0;
+    }
+    
+    .concept-table td {
+        padding: 6px 10px;
+        border: 1px solid #cbd5e0;
+        vertical-align: top;
+    }
+    
+    .concept-table td:first-child {
+        font-weight: 600;
+        font-size: 0.85em;
+        color: #4a5568;
+        width: 180px;
+        background-color: #f7fafc;
+    }
+    
+    .concept-table td:nth-child(2) {
+        width: 80px;
+        text-align: center;
+    }
+    
+    .concept-table textarea {
+        width: 100%;
+        min-height: 40px;
+        border: none;
+        resize: vertical;
+        font-family: inherit;
+        font-size: 0.9em;
+        padding: 4px;
+        box-sizing: border-box;
+    }
+    
+    .concept-table select {
+        padding: 4px;
+        border: 1px solid #cbd5e0;
+        border-radius: 3px;
+        font-size: 0.85em;
+    }
+    
+    .rubric-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 15px;
+        font-size: 0.85em;
+    }
+    
+    .rubric-table th {
+        background-color: #2b6cb0;
+        color: white;
+        padding: 8px 10px;
+        text-align: left;
+        border: 1px solid #2b6cb0;
+    }
+    
+    .rubric-table td {
+        padding: 6px 10px;
+        border: 1px solid #cbd5e0;
+    }
+    
+    .rubric-table tr:nth-child(even) {
+        background-color: #f7fafc;
+    }
+    
+    .rubric-total {
+        font-weight: 700;
+        background-color: #ebf8ff !important;
+    }
+    
+    .ethics-box {
+        background-color: #fef3c7;
+        border-left: 4px solid #d69e2e;
+        padding: 15px;
+        margin-bottom: 15px;
+        border-radius: 0 4px 4px 0;
+    }
+    
+    .ethics-box h3 {
+        color: #d69e2e;
+        font-size: 1em;
+        margin-top: 0;
+        margin-bottom: 8px;
+    }
+    
+    .ethics-box ol {
+        font-size: 0.9em;
+        margin-bottom: 0;
+    }
+    
+    .ethics-box li {
+        margin-bottom: 8px;
+    }
+    
+    .ng13-box {
+        background-color: #f0fff4;
+        border-left: 4px solid #38a169;
+        padding: 15px;
+        margin-bottom: 15px;
+        border-radius: 0 4px 4px 0;
+    }
+    
+    .ng13-box h3 {
+        color: #38a169;
+        font-size: 1em;
+        margin-top: 0;
+        margin-bottom: 8px;
+    }
+    
+    .print-instructions {
+        background-color: #fefce8;
+        border-left: 4px solid #d69e2e;
+        padding: 12px 15px;
+        margin-top: 20px;
+        border-radius: 0 4px 4px 0;
+        font-size: 0.85em;
+    }
+    
+    .examples-list {
+        background-color: #f7fafc;
+        border: 1px solid #e2e8f0;
+        border-radius: 6px;
+        padding: 12px 15px;
+        margin-bottom: 15px;
+        font-size: 0.88em;
+    }
+    
+    .examples-list strong {
+        color: #2b6cb0;
+    }
+</style>
+</head>
+<body>
+
+<div class="header">
+    <div class="course-info">CAI1001C: Artificial Intelligence (AI) Thinking | Miami Dade College</div>
+    <h1>Chapter 14 Homework: Robotics & Autonomous Systems Analysis <span class="points-badge">10 Points</span></h1>
+    <div class="subtitle">Individual Deep-Dive into a Real-World Robotics Application</div>
+</div>
+
+<div class="info-grid">
+    <div class="info-field">
+        <label>Student Name</label>
+        <input type="text" placeholder="Your full name">
+    </div>
+    <div class="info-field">
+        <label>Date</label>
+        <input type="text" placeholder="MM/DD/YYYY">
+    </div>
+</div>
+
+<div class="instructions">
+    <h2>📋 Assignment Overview</h2>
+    <p>In this assignment, you will select <strong>one robotics or autonomous vehicle application</strong> and analyze it in depth by connecting it to all six major concepts from Chapter 14. You will also complete an ethics reflection and write a short paragraph preparing for your NG13 case study.</p>
+    <p><strong>What to do:</strong></p>
+    <ul>
+        <li>Choose one robotics/AV application (you may use one from the group lab or find a new one)</li>
+        <li>Research the application — watch videos, read articles, or use your prior knowledge</li>
+        <li>Complete all four sections of this worksheet</li>
+        <li>Print to PDF and submit via Canvas</li>
+    </ul>
+    <p><strong>This assignment also prepares you for NG13</strong> — the final section asks you to connect robotics/autonomous systems to the company or industry you're analyzing in your case study.</p>
+</div>
+
+<!-- RUBRIC -->
+<div class="section">
+    <h2>Grading Rubric</h2>
+    <table class="rubric-table">
+        <thead>
+            <tr>
+                <th>Criteria</th>
+                <th>Points</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Section 1 — Application Description: Clear identification and description of the robotics/AV application with sufficient detail</td>
+                <td>1</td>
+            </tr>
+            <tr>
+                <td>Section 2 — Concept Mapping: All 6 concepts addressed with specific, accurate connections to the chosen application</td>
+                <td>4</td>
+            </tr>
+            <tr>
+                <td>Section 3 — Ethics Reflection: Thoughtful response to one Reflect & Discuss prompt with clear reasoning (minimum 1 paragraph)</td>
+                <td>3</td>
+            </tr>
+            <tr>
+                <td>Section 4 — NG13 Connection: Clear, specific connection between robotics/AV and the student's NG13 company/industry</td>
+                <td>2</td>
+            </tr>
+            <tr class="rubric-total">
+                <td>Total</td>
+                <td>10</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<!-- SECTION 1: APPLICATION DESCRIPTION -->
+<div class="section">
+    <h2>Section 1 — Your Chosen Application</h2>
+    
+    <div class="examples-list">
+        <strong>Example applications:</strong> Amazon/Ocado warehouse robots, Waymo/Cruise autonomous taxis, da Vinci surgical robots, Starship/Kiwibot delivery robots, John Deere agricultural robots, Boston Dynamics Spot (inspection), underwater ROVs (ocean exploration), automated port cranes, drone delivery (Amazon Prime Air, Wing), military UGVs/UAVs, robotic pharmacy dispensing systems, automated parking garages.
+    </div>
+    
+    <div class="question-block">
+        <label>What robotics or autonomous vehicle application did you choose?</label>
+        <input type="text" style="width: 100%; padding: 6px 8px; border: 1px solid #cbd5e0; border-radius: 4px; font-size: 0.95em; box-sizing: border-box;" placeholder="e.g., Waymo autonomous taxi service in Phoenix, AZ">
+    </div>
+    
+    <div class="question-block">
+        <label>Describe the application: What is it? Who uses it? What problem does it solve?</label>
+        <div class="word-min">Minimum: 4–5 sentences</div>
+        <textarea rows="6" placeholder="Describe the robotic system, who operates or benefits from it, and the specific problem it was designed to address..."></textarea>
+    </div>
+    
+    <div class="question-block">
+        <label>Source(s): How did you learn about this application?</label>
+        <div class="hint">List any videos watched, articles read, or websites visited. Include URLs if possible.</div>
+        <textarea rows="3" placeholder="e.g., Waymo official YouTube channel — 'A Waymo Rider Experience' (https://...), Wired article on autonomous taxis..."></textarea>
+    </div>
+</div>
+
+<div class="page-break"></div>
+
+<!-- SECTION 2: CONCEPT MAPPING -->
+<div class="section">
+    <h2>Section 2 — Concept Mapping</h2>
+    <p style="font-size: 0.9em; color: #4a5568;">For each of the six Chapter 14 concepts, explain how it applies to your chosen application. If a concept does NOT apply, explain why not — that's a valid and important observation.</p>
+    
+    <table class="concept-table">
+        <thead>
+            <tr>
+                <th>Chapter Concept</th>
+                <th>Applies?</th>
+                <th>How does this concept apply to your chosen application? (Be specific)</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>1. Sensors<br><em>(cameras, lidar, radar, touch, IMU, etc.)</em></td>
+                <td>
+                    <select>
+                        <option value="">—</option>
+                        <option value="yes">Yes</option>
+                        <option value="no">No</option>
+                        <option value="partial">Partial</option>
+                    </select>
+                </td>
+                <td><textarea rows="3" placeholder="What types of sensors does this system use? What does each sensor detect? Why are those sensors important for this specific application?"></textarea></td>
+            </tr>
+            <tr>
+                <td>2. Actuators / Manipulation<br><em>(motors, grippers, wheels, arms)</em></td>
+                <td>
+                    <select>
+                        <option value="">—</option>
+                        <option value="yes">Yes</option>
+                        <option value="no">No</option>
+                        <option value="partial">Partial</option>
+                    </select>
+                </td>
+                <td><textarea rows="3" placeholder="What physical actions does the robot perform? What actuators make those actions possible?"></textarea></td>
+            </tr>
+            <tr>
+                <td>3. Human-Robot Interaction<br><em>(safety, communication, trust, cobots)</em></td>
+                <td>
+                    <select>
+                        <option value="">—</option>
+                        <option value="yes">Yes</option>
+                        <option value="no">No</option>
+                        <option value="partial">Partial</option>
+                    </select>
+                </td>
+                <td><textarea rows="3" placeholder="How do humans interact with or work alongside this system? What safety measures are in place? How is trust established?"></textarea></td>
+            </tr>
+            <tr>
+                <td>4. Navigation / Path Planning<br><em>(SLAM, obstacle avoidance, route optimization)</em></td>
+                <td>
+                    <select>
+                        <option value="">—</option>
+                        <option value="yes">Yes</option>
+                        <option value="no">No</option>
+                        <option value="partial">Partial</option>
+                    </select>
+                </td>
+                <td><textarea rows="3" placeholder="Does this system navigate through space? How does it plan its path? Does it handle dynamic obstacles?"></textarea></td>
+            </tr>
+            <tr>
+                <td>5. Reinforcement Learning<br><em>(trial-and-error learning, rewards, policies)</em></td>
+                <td>
+                    <select>
+                        <option value="">—</option>
+                        <option value="yes">Yes</option>
+                        <option value="no">No</option>
+                        <option value="partial">Partial</option>
+                    </select>
+                </td>
+                <td><textarea rows="3" placeholder="Could this system's behavior have been learned through RL? What would the reward function look like? Or is it purely pre-programmed?"></textarea></td>
+            </tr>
+            <tr>
+                <td>6. Level of Autonomy (0–5)<br><em>(SAE scale — how much human control?)</em></td>
+                <td>
+                    <select>
+                        <option value="">—</option>
+                        <option value="0">Level 0</option>
+                        <option value="1">Level 1</option>
+                        <option value="2">Level 2</option>
+                        <option value="3">Level 3</option>
+                        <option value="4">Level 4</option>
+                        <option value="5">Level 5</option>
+                    </select>
+                </td>
+                <td><textarea rows="3" placeholder="What level of autonomy does this system operate at? What role does the human play? What would it take to move to the next level?"></textarea></td>
+            </tr>
+        </tbody>
+    </table>
+    
+    <div class="question-block">
+        <label>Which concept is MOST critical for this application? If it failed, what would happen?</label>
+        <div class="word-min">Minimum: 3–4 sentences</div>
+        <textarea rows="4" placeholder="Identify the single most important concept for your application and explain what would go wrong if that capability didn't work properly..."></textarea>
+    </div>
+</div>
+
+<!-- SECTION 3: ETHICS REFLECTION -->
+<div class="section">
+    <h2>Section 3 — Ethics Reflection</h2>
+    
+    <div class="ethics-box">
+        <h3>⚖️ Choose ONE of the following Reflect & Discuss prompts:</h3>
+        <ol>
+            <li>You're programming a self-driving car's decision-making system. Who should it prioritize in an unavoidable crash — the passenger, a pedestrian, or the algorithm's "best statistical outcome"? Who gets to decide, and how should that decision be documented?</li>
+            <li>Autonomous trucks could reduce accidents (most crashes are caused by human fatigue) but would displace millions of drivers. How should society balance safety gains against job losses? What responsibility do the companies deploying this technology have?</li>
+            <li>Abuela Carmen can't drive anymore. An autonomous car could give her independence back. Does this potential benefit change how you think about the technology's risks?</li>
+        </ol>
+    </div>
+    
+    <div class="question-block">
+        <label>Which prompt did you choose? (Write the number: 1, 2, or 3)</label>
+        <input type="text" style="width: 80px; padding: 6px 8px; border: 1px solid #cbd5e0; border-radius: 4px; font-size: 0.95em;" placeholder="#">
+    </div>
+    
+    <div class="question-block">
+        <label>Your Ethics Reflection</label>
+        <div class="word-min">Minimum: 1 full paragraph (5–7 sentences)</div>
+        <div class="hint">Take a clear position and support it with reasoning. Connect your response to what you learned in Chapter 14. Consider multiple perspectives before stating your view.</div>
+        <textarea rows="8" placeholder="Write your ethics reflection here..."></textarea>
+    </div>
+</div>
+
+<div class="page-break"></div>
+
+<!-- SECTION 4: NG13 CONNECTION -->
+<div class="section">
+    <h2>Section 4 — NG13 Preparation: Connecting Robotics to Your Case Study</h2>
+    
+    <div class="ng13-box">
+        <h3>🔗 Why This Section Matters</h3>
+        <p style="font-size: 0.9em; margin-bottom: 0;">Your NG13 case study (covering Chapters 13 and 14) requires you to include a paragraph connecting robotics or autonomous systems to the company or industry you're analyzing. This section helps you draft that paragraph now, while Chapter 14 concepts are fresh.</p>
+    </div>
+    
+    <div class="question-block">
+        <label>What company or industry are you analyzing (or planning to analyze) for your NG13 case study?</label>
+        <input type="text" style="width: 100%; padding: 6px 8px; border: 1px solid #cbd5e0; border-radius: 4px; font-size: 0.95em; box-sizing: border-box;" placeholder="e.g., Baptist Health South Florida (healthcare industry)">
+    </div>
+    
+    <div class="question-block">
+        <label>How could robotics or autonomous systems affect this company or industry in the next 5 years?</label>
+        <div class="word-min">Minimum: 3–4 sentences</div>
+        <div class="hint">Be specific — name the type of robot or autonomous system, explain what task it would perform, identify which Chapter 14 concepts would be involved, and consider both benefits and challenges. This paragraph can be reused or adapted in your NG13 submission.</div>
+        <textarea rows="7" placeholder="In the next five years, [company/industry] could be affected by robotics and autonomous systems in several ways..."></textarea>
+    </div>
+    
+    <div class="question-block">
+        <label>What is the biggest barrier preventing this company or industry from adopting the robotics/AV technology you described?</label>
+        <div class="hint">Consider cost, safety regulations, workforce training, public trust, technical readiness, or ethical concerns. Connect to the AI Readiness Framework from Chapter 13 if possible.</div>
+        <textarea rows="4" placeholder="The biggest barrier is..."></textarea>
+    </div>
+</div>
+
+<div class="print-instructions">
+    <strong>📤 Submission Instructions:</strong> When complete, print this page to PDF (File → Print → Save as PDF) and submit via Canvas. Make sure your name is at the top. This is an individual assignment — each student submits their own worksheet.
+</div>
+
+</body>
+</html>

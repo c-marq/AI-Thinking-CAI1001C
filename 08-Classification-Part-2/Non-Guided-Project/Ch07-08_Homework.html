@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Homework — Classification (Ch 7–8) | CAI1001C</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Segoe UI', Arial, sans-serif;
+      max-width: 820px;
+      margin: 0 auto;
+      padding: 30px 20px;
+      line-height: 1.5;
+      color: #333;
+      background: #fff;
+    }
+
+    .header {
+      border-bottom: 3px solid #2E86C1;
+      padding-bottom: 12px;
+      margin-bottom: 20px;
+    }
+
+    .header h1 {
+      font-size: 1.4em;
+      color: #2C3E50;
+      margin-bottom: 4px;
+    }
+
+    .header p {
+      font-size: 0.9em;
+      color: #666;
+    }
+
+    .points-badge {
+      display: inline-block;
+      background: #2E86C1;
+      color: #fff;
+      padding: 3px 12px;
+      border-radius: 12px;
+      font-size: 0.85em;
+      font-weight: bold;
+      margin-top: 6px;
+    }
+
+    .due-badge {
+      display: inline-block;
+      background: #E74C3C;
+      color: #fff;
+      padding: 3px 12px;
+      border-radius: 12px;
+      font-size: 0.85em;
+      font-weight: bold;
+      margin-top: 6px;
+      margin-left: 6px;
+    }
+
+    .instructions {
+      background: #D6EAF8;
+      border-left: 5px solid #2E86C1;
+      padding: 12px 15px;
+      margin-bottom: 24px;
+      border-radius: 4px;
+      font-size: 0.9em;
+    }
+
+    .instructions strong { color: #1A5276; }
+
+    .student-info {
+      background: #F8F9FA;
+      border: 1px solid #DEE2E6;
+      border-radius: 6px;
+      padding: 15px;
+      margin-bottom: 24px;
+    }
+
+    .student-info h2 {
+      font-size: 1em;
+      color: #2E86C1;
+      margin-bottom: 10px;
+    }
+
+    .student-info .info-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+    }
+
+    .student-info label {
+      font-size: 0.85em;
+      color: #555;
+    }
+
+    .student-info input {
+      width: 100%;
+      padding: 6px 8px;
+      border: 1px solid #CCC;
+      border-radius: 4px;
+      font-size: 0.9em;
+    }
+
+    .question-block {
+      margin-bottom: 22px;
+      page-break-inside: avoid;
+    }
+
+    .question-block h3 {
+      font-size: 0.95em;
+      color: #2C3E50;
+      margin-bottom: 4px;
+    }
+
+    .part-tag {
+      display: inline-block;
+      background: #E8E8E8;
+      color: #555;
+      font-size: 0.75em;
+      padding: 1px 8px;
+      border-radius: 10px;
+      margin-bottom: 6px;
+    }
+
+    .points-tag {
+      display: inline-block;
+      background: #D5F5E3;
+      color: #1E8449;
+      font-size: 0.75em;
+      font-weight: bold;
+      padding: 1px 8px;
+      border-radius: 10px;
+      margin-bottom: 6px;
+      margin-left: 4px;
+    }
+
+    .question-block p {
+      font-size: 0.88em;
+      color: #555;
+      margin-bottom: 6px;
+    }
+
+    .question-block textarea {
+      width: 100%;
+      padding: 8px 10px;
+      border: 1px solid #CCC;
+      border-radius: 4px;
+      font-family: 'Segoe UI', Arial, sans-serif;
+      font-size: 0.9em;
+      resize: vertical;
+      min-height: 70px;
+    }
+
+    .question-block textarea.tall { min-height: 100px; }
+
+    .table-block {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 8px 0;
+      font-size: 0.85em;
+    }
+
+    .table-block th {
+      background: #2E86C1;
+      color: white;
+      padding: 6px 10px;
+      text-align: left;
+      font-weight: 600;
+    }
+
+    .table-block td {
+      border: 1px solid #DDD;
+      padding: 4px 8px;
+    }
+
+    .table-block input {
+      width: 100%;
+      border: none;
+      padding: 3px 4px;
+      font-size: 0.9em;
+      font-family: inherit;
+    }
+
+    .table-block input:focus { outline: 2px solid #2E86C1; border-radius: 2px; }
+
+    .divider {
+      border: none;
+      border-top: 1px solid #E0E0E0;
+      margin: 22px 0;
+    }
+
+    .submit-instructions {
+      background: #D5F5E3;
+      border-left: 5px solid #27AE60;
+      padding: 12px 15px;
+      margin-top: 24px;
+      border-radius: 4px;
+      font-size: 0.9em;
+    }
+
+    .submit-instructions strong { color: #1E8449; }
+
+    .footer {
+      margin-top: 20px;
+      font-size: 0.78em;
+      color: #999;
+      text-align: center;
+    }
+
+    @media print {
+      body { padding: 15px; font-size: 11pt; }
+      .instructions, .submit-instructions { break-inside: avoid; }
+      .question-block { break-inside: avoid; }
+      textarea { border: 1px solid #999 !important; min-height: 55px !important; }
+      input { border: 1px solid #999 !important; }
+      .student-info { break-inside: avoid; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="header">
+    <h1>Homework — Classification</h1>
+    <p>CAI1001C: AI Thinking | Chapters 7 & 8</p>
+    <span class="points-badge">10 Points</span>
+
+  </div>
+
+  <div class="instructions">
+    <strong>💡 Instructions:</strong> Complete this assignment individually. You'll build a classifier in Teachable Machine, answer questions about the in-class demo, and write a short ethics reflection. Fill in this form, print to PDF, and submit to Canvas.
+  </div>
+
+  <!-- STUDENT INFO -->
+  <div class="student-info">
+    <h2>Student Information</h2>
+    <div class="info-grid">
+      <div>
+        <label>Full Name</label>
+        <input type="text" placeholder="First Last">
+      </div>
+      <div>
+        <label>Date</label>
+        <input type="text" placeholder="MM/DD/YYYY">
+      </div>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- PART 1: Teachable Machine -->
+  <div class="question-block">
+    <span class="part-tag">Part 1: Teachable Machine</span><span class="points-tag">4 pts</span>
+    <h3>Build a 3-class image classifier on your own</h3>
+    <p>Go to <strong>teachablemachine.withgoogle.com</strong>. Create an Image Project with <strong>three</strong> classes (any objects you have at home). Train with at least 40 images per class. Test each object and record your results below.</p>
+
+    <table class="table-block">
+      <tr>
+        <th>Class Name</th>
+        <th>Training Images</th>
+        <th>Confidence When Tested (%)</th>
+      </tr>
+      <tr>
+        <td><input type="text" placeholder="e.g., Cup"></td>
+        <td><input type="text" placeholder="e.g., 45"></td>
+        <td><input type="text" placeholder="e.g., 94%"></td>
+      </tr>
+      <tr>
+        <td><input type="text" placeholder="e.g., Remote"></td>
+        <td><input type="text" placeholder="e.g., 42"></td>
+        <td><input type="text" placeholder="e.g., 88%"></td>
+      </tr>
+      <tr>
+        <td><input type="text" placeholder="e.g., Shoe"></td>
+        <td><input type="text" placeholder="e.g., 50"></td>
+        <td><input type="text" placeholder="e.g., 91%"></td>
+      </tr>
+    </table>
+
+    <p style="margin-top: 8px;">Show the model something it has <strong>never seen</strong>. What did it predict and at what confidence? Was it right?</p>
+    <textarea placeholder="Example: I showed it a banana. The model predicted 'Cup' with 58% confidence. It was wrong — the model had to pick one of three classes even though it had never seen a banana."></textarea>
+  </div>
+
+  <hr class="divider">
+
+  <!-- PART 2: In-Class Demo Analysis -->
+  <div class="question-block">
+    <span class="part-tag">Part 2: In-Class Demo Analysis</span><span class="points-tag">4 pts</span>
+    <h3>Answer based on the in-class classification demo. Refer to your notebook or the Code Block Explainer.</h3>
+
+    <p style="margin-top: 10px;"><strong>Q1:</strong> In the in-class demo, three classifiers tied at 81.97% accuracy, but k-NN had the highest recall (81.25%) while logistic regression and SVM had the highest precision (88.89%). In a hospital screening for heart disease, which metric matters more — precision or recall? Explain your reasoning in 3–4 sentences.</p>
+    <textarea class="tall" placeholder="Your answer..."></textarea>
+
+    <p style="margin-top: 14px;"><strong>Q2:</strong> Decision trees don't need scaled data, but k-NN, logistic regression, and SVM do. In 2–3 sentences, explain why. Use the cholesterol vs. exercise_angina example from the demo.</p>
+    <textarea placeholder="Your answer..."></textarea>
+  </div>
+
+  <hr class="divider">
+
+  <!-- PART 3: Ethics Reflection -->
+  <div class="question-block">
+    <span class="part-tag">Part 3: Ethics Reflection</span><span class="points-tag">2 pts</span>
+    <h3>Connect the Teachable Machine "sabotage" experiment to a real-world case</h3>
+    <p>In the group lab, you trained a model that learned lighting conditions instead of hand position. In Chapter 8, you read about COMPAS — an algorithm that used features like neighborhood as proxies for race. In 4–6 sentences, explain what these two situations have in common. What lesson should AI developers take from both examples?</p>
+    <textarea class="tall" placeholder="Your answer..."></textarea>
+  </div>
+
+  <hr class="divider">
+
+  <div class="submit-instructions">
+    <strong>✅ Ready to submit?</strong><br>
+    1. Review your answers — make sure your name is filled in<br>
+    2. Press <strong>Ctrl+P</strong> (Windows) or <strong>Cmd+P</strong> (Mac)<br>
+    3. Change the destination to <strong>"Save as PDF"</strong><br>
+    4. Save the file as: <strong>HW_Ch07-08_[YourLastName].pdf</strong><br>
+    5. Upload to <strong>Canvas → Week 7 → Homework: Classification</strong>
+  </div>
+
+  <div class="footer">
+    Homework — Ch 7–8 | CAI1001C: AI Thinking | Miami Dade College
+  </div>
+
+</body>
+</html>

@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NG09: Neural Networks — Homework Assignment</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;600;700&family=Source+Serif+4:wght@400;600&display=swap');
+  
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  
+  body {
+    font-family: 'Source Sans 3', sans-serif;
+    font-size: 14px;
+    line-height: 1.6;
+    color: #1a1a1a;
+    max-width: 850px;
+    margin: 0 auto;
+    padding: 40px 30px;
+    background: #fff;
+  }
+  
+  /* Header */
+  .header {
+    border-bottom: 3px solid #0d7377;
+    padding-bottom: 16px;
+    margin-bottom: 24px;
+  }
+  .header h1 {
+    font-family: 'Source Serif 4', serif;
+    font-size: 24px;
+    font-weight: 700;
+    color: #0d7377;
+    margin-bottom: 4px;
+  }
+  .header .subtitle {
+    font-size: 13px;
+    color: #555;
+  }
+  .header .course {
+    font-size: 12px;
+    color: #888;
+    margin-top: 2px;
+  }
+  
+  /* Meta fields */
+  .meta-row {
+    display: flex;
+    gap: 24px;
+    margin-bottom: 24px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid #ddd;
+  }
+  .meta-row label {
+    font-weight: 600;
+    font-size: 13px;
+    color: #555;
+  }
+  .meta-row input {
+    border: none;
+    border-bottom: 1px solid #999;
+    font-family: 'Source Sans 3', sans-serif;
+    font-size: 14px;
+    padding: 2px 4px;
+    width: 220px;
+    outline: none;
+  }
+  .meta-row input:focus { border-bottom-color: #0d7377; }
+  
+  /* Headings */
+  h2 {
+    font-family: 'Source Serif 4', serif;
+    font-size: 18px;
+    font-weight: 600;
+    color: #0d7377;
+    margin-top: 28px;
+    margin-bottom: 8px;
+    padding-top: 12px;
+    border-top: 1px solid #e0e0e0;
+  }
+  
+  h3 {
+    font-size: 15px;
+    font-weight: 700;
+    color: #1a1a1a;
+    margin-top: 18px;
+    margin-bottom: 6px;
+  }
+  
+  h4 {
+    font-size: 14px;
+    font-weight: 600;
+    color: #333;
+    margin-top: 14px;
+    margin-bottom: 4px;
+  }
+  
+  p { margin-bottom: 10px; }
+  em { color: #555; }
+  
+  /* Boxes */
+  .rubric-box {
+    background: #f0fafa;
+    border: 1px solid #b0d8d8;
+    border-radius: 4px;
+    padding: 14px;
+    margin: 12px 0;
+  }
+  
+  .info-box {
+    background: #fffbf0;
+    border-left: 3px solid #d4a017;
+    padding: 10px 14px;
+    margin: 10px 0;
+    font-size: 13px;
+  }
+  
+  .ethics-box {
+    background: #f5f0ff;
+    border-left: 3px solid #6a4c93;
+    padding: 12px 14px;
+    margin: 12px 0;
+    font-size: 13px;
+  }
+  
+  .points-badge {
+    display: inline-block;
+    background: #0d7377;
+    color: white;
+    font-size: 11px;
+    font-weight: 700;
+    padding: 2px 8px;
+    border-radius: 10px;
+    margin-left: 8px;
+    vertical-align: middle;
+  }
+  
+  /* Fillable fields */
+  textarea {
+    width: 100%;
+    min-height: 90px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 8px 10px;
+    font-family: 'Source Sans 3', sans-serif;
+    font-size: 13px;
+    line-height: 1.5;
+    resize: vertical;
+    margin: 6px 0 14px 0;
+    outline: none;
+  }
+  textarea:focus { border-color: #0d7377; box-shadow: 0 0 0 2px rgba(13,115,119,0.1); }
+  textarea.short { min-height: 70px; }
+  textarea.long { min-height: 130px; }
+  
+  /* Tables */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 10px 0 16px 0;
+    font-size: 13px;
+  }
+  th {
+    background: #0d7377;
+    color: white;
+    padding: 8px 10px;
+    text-align: left;
+    font-weight: 600;
+  }
+  td {
+    padding: 6px 10px;
+    border-bottom: 1px solid #ddd;
+  }
+  tr:nth-child(even) td { background: #fafafa; }
+  td input[type="text"] {
+    border: none;
+    border-bottom: 1px dotted #999;
+    width: 100%;
+    font-family: 'Source Sans 3', sans-serif;
+    font-size: 13px;
+    padding: 2px 0;
+    background: transparent;
+    outline: none;
+  }
+  td input[type="text"]:focus { border-bottom-color: #0d7377; }
+  
+  ol, ul { margin: 6px 0 10px 20px; font-size: 13px; }
+  li { margin-bottom: 4px; }
+  
+  .prompt-select {
+    margin: 8px 0;
+    font-size: 13px;
+  }
+  .prompt-select label {
+    cursor: pointer;
+    display: block;
+    padding: 6px 10px;
+    margin: 4px 0;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    transition: background 0.15s;
+  }
+  .prompt-select label:hover { background: #f0fafa; }
+  .prompt-select input[type="radio"] { margin-right: 8px; }
+  
+  /* Print styles */
+  @media print {
+    body { padding: 20px; font-size: 12px; }
+    .header { page-break-after: avoid; }
+    h2 { page-break-after: avoid; }
+    textarea { 
+      border: 1px solid #ccc;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+    .rubric-box, .info-box, .ethics-box, .points-badge {
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+    .no-break { page-break-inside: avoid; }
+  }
+  
+  .footer {
+    margin-top: 32px;
+    padding-top: 12px;
+    border-top: 1px solid #ddd;
+    font-size: 11px;
+    color: #999;
+    text-align: center;
+  }
+
+  .submission-box {
+    background: #f8f8f8;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 14px;
+    margin: 16px 0;
+    font-size: 13px;
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>NG09: Neural Networks — Homework Assignment</h1>
+  <div class="subtitle">Chapter 9: Neural Networks</div>
+  <div class="course">CAI1001C: Artificial Intelligence (AI) Thinking | Miami Dade College</div>
+</div>
+
+<div class="meta-row">
+  <div><label>Student Name: </label><input type="text" placeholder="Your name"></div>
+  <div><label>Date: </label><input type="text" placeholder="MM/DD/YYYY"></div>
+</div>
+
+<p>This assignment has three parts: TensorFlow Playground exploration, written analysis of the GP demo results, and an ethics reflection on the accuracy vs. explainability tradeoff.</p>
+
+<!-- RUBRIC -->
+<div class="rubric-box">
+  <h3 style="margin-top:0; color:#0d7377;">Grading Rubric — Total: 100 Points</h3>
+  <table style="margin-bottom:0">
+    <tr><th>Section</th><th style="width:80px">Points</th><th>What's Evaluated</th></tr>
+    <tr><td>Part 1: Playground Exploration</td><td style="text-align:center">30</td><td>Completeness of tasks, quality of observations, screenshots included</td></tr>
+    <tr><td>Part 2: Written Analysis</td><td style="text-align:center">50</td><td>Depth of explanation, correct terminology, connection to GP demo results</td></tr>
+    <tr><td>Part 3: Ethics Reflection</td><td style="text-align:center">20</td><td>Thoughtfulness, specific examples, position clearly stated</td></tr>
+  </table>
+</div>
+
+<!-- ============================================================ -->
+<!-- PART 1 -->
+<!-- ============================================================ -->
+<h2>Part 1: TensorFlow Playground Exploration <span class="points-badge">30 points</span></h2>
+
+<p>Open <a href="https://playground.tensorflow.org" target="_blank">playground.tensorflow.org</a>. Complete the three tasks below. For each task, include a <strong>screenshot</strong> of your final decision boundary and a <strong>written observation</strong> (3–4 sentences).</p>
+
+<!-- Task A -->
+<h3>Task A: Feature Selection <span class="points-badge">10 pts</span></h3>
+
+<div class="info-box">
+  <strong>Setup:</strong> Dataset: <strong>Circle</strong> · Noise: <strong>25</strong> · Hidden layers: <strong>1</strong> with <strong>4 neurons</strong> · Learning rate: <strong>0.03</strong>
+</div>
+
+<ol>
+  <li>Start with only <strong>X₁</strong> and <strong>X₂</strong> selected. Train for 300 epochs. Note the test loss.</li>
+  <li>Also select <strong>X₁²</strong> and <strong>X₂²</strong> (the squared features). Reset and retrain for 300 epochs.</li>
+  <li>Select <strong>ALL</strong> features (including X₁X₂, sin(X₁), sin(X₂)). Reset and retrain.</li>
+</ol>
+
+<table>
+  <tr><th>Features Selected</th><th>Test Loss (approx.)</th></tr>
+  <tr><td>X₁ and X₂ only</td><td><input type="text" placeholder="e.g., 0.32"></td></tr>
+  <tr><td>X₁, X₂, X₁², X₂²</td><td><input type="text" placeholder="e.g., 0.08"></td></tr>
+  <tr><td>All features</td><td><input type="text" placeholder="e.g., 0.05"></td></tr>
+</table>
+
+<h4>Screenshot: Paste or attach a screenshot of your best-performing configuration.</h4>
+<div style="border:1px dashed #ccc; border-radius:4px; padding:20px; text-align:center; color:#999; margin:6px 0 10px 0; min-height:60px;">
+  <em>Paste screenshot here (or attach as separate image)</em>
+</div>
+
+<h4>Your observation (3–4 sentences): Did adding more input features help? Which combination worked best, and why?</h4>
+<textarea placeholder="Write your observation here..."></textarea>
+
+<!-- Task B -->
+<h3>Task B: Overfitting in Action <span class="points-badge">10 pts</span></h3>
+
+<div class="info-box">
+  <strong>Setup:</strong> Dataset: <strong>Circle</strong> · Noise: <strong>50</strong> (high) · Learning rate: <strong>0.03</strong>
+</div>
+
+<ol>
+  <li><strong>1 hidden layer, 2 neurons</strong> — Train for 500 epochs. Note training loss AND test loss.</li>
+  <li><strong>1 hidden layer, 8 neurons</strong> — Reset, train for 500 epochs. Note both losses.</li>
+  <li><strong>3 hidden layers, 8 neurons each</strong> — Reset, train for 500 epochs. Note both losses.</li>
+</ol>
+
+<table>
+  <tr><th>Architecture</th><th>Training Loss</th><th>Test Loss</th><th>Gap (Test − Training)</th></tr>
+  <tr>
+    <td>1 layer, 2 neurons</td>
+    <td><input type="text" placeholder="e.g., 0.25"></td>
+    <td><input type="text" placeholder="e.g., 0.28"></td>
+    <td><input type="text" placeholder="e.g., 0.03"></td>
+  </tr>
+  <tr>
+    <td>1 layer, 8 neurons</td>
+    <td><input type="text" placeholder="e.g., 0.18"></td>
+    <td><input type="text" placeholder="e.g., 0.30"></td>
+    <td><input type="text" placeholder="e.g., 0.12"></td>
+  </tr>
+  <tr>
+    <td>3 layers, 8 neurons each</td>
+    <td><input type="text" placeholder="e.g., 0.05"></td>
+    <td><input type="text" placeholder="e.g., 0.40"></td>
+    <td><input type="text" placeholder="e.g., 0.35"></td>
+  </tr>
+</table>
+
+<h4>Screenshot: The 3-layer model's decision boundary. Does it look smooth or jagged?</h4>
+<div style="border:1px dashed #ccc; border-radius:4px; padding:20px; text-align:center; color:#999; margin:6px 0 10px 0; min-height:60px;">
+  <em>Paste screenshot here (or attach as separate image)</em>
+</div>
+
+<h4>Your observation (3–4 sentences): As complexity increased, what happened to the gap? Which model is overfitting the most? Connect to the MNIST demo.</h4>
+<textarea placeholder="Write your observation here..."></textarea>
+
+<!-- Task C -->
+<h3>Task C: The Right Tool for the Job <span class="points-badge">10 pts</span></h3>
+
+<p>Find the <strong>simplest possible architecture</strong> (fewest layers and neurons) that solves each dataset:</p>
+
+<table>
+  <tr><th>Dataset</th><th>Your Architecture</th><th>Epochs to Solve</th><th>Why This Worked</th></tr>
+  <tr>
+    <td>Simple (two groups)</td>
+    <td><input type="text" placeholder="e.g., 1 layer, 1 neuron"></td>
+    <td><input type="text" placeholder="e.g., 50"></td>
+    <td><input type="text" placeholder="Simple linear boundary"></td>
+  </tr>
+  <tr>
+    <td>Circle</td>
+    <td><input type="text" placeholder="e.g., 1 layer, 4 neurons"></td>
+    <td><input type="text" placeholder="e.g., 200"></td>
+    <td><input type="text" placeholder="Needs curve..."></td>
+  </tr>
+  <tr>
+    <td>XOR</td>
+    <td><input type="text" placeholder="e.g., 1 layer, 4 neurons"></td>
+    <td><input type="text" placeholder="e.g., 300"></td>
+    <td><input type="text" placeholder="Non-linear split..."></td>
+  </tr>
+  <tr>
+    <td>Spiral</td>
+    <td><input type="text" placeholder="e.g., 3 layers, 8-8-6"></td>
+    <td><input type="text" placeholder="e.g., 500"></td>
+    <td><input type="text" placeholder="Complex intertwined..."></td>
+  </tr>
+</table>
+
+<h4>Your observation (3–4 sentences): Which dataset needed the most complex architecture? Why? Connect to the chapter's opening idea about when simple classifiers aren't enough.</h4>
+<textarea placeholder="Write your observation here..."></textarea>
+
+<!-- ============================================================ -->
+<!-- PART 2 -->
+<!-- ============================================================ -->
+<h2>Part 2: Written Analysis <span class="points-badge">50 points</span></h2>
+
+<p>Refer to the <strong>GP09 demo results</strong> for these questions. You do not need to re-run any code — use the comparison table and observations from class.</p>
+
+<!-- Q1 -->
+<h3>Question 1: The Grand Comparison <span class="points-badge">15 pts</span></h3>
+
+<p>Reference — classical classifier results (identical every run):</p>
+<table>
+  <tr><th>Model</th><th>Accuracy</th><th>Precision</th><th>Recall</th><th>Caught</th></tr>
+  <tr><td>Logistic Regression</td><td>81.10%</td><td>55.24%</td><td>20.10%</td><td>79 / 393</td></tr>
+  <tr><td>k-NN (K=5)</td><td>83.00%</td><td>61.09%</td><td>37.15%</td><td>146 / 393</td></tr>
+  <tr><td>Decision Tree (depth=4)</td><td>85.35%</td><td>76.60%</td><td>36.64%</td><td>144 / 393</td></tr>
+  <tr><td>SVM (linear)</td><td>80.35%</td><td>0.00%</td><td>0.00%</td><td>0 / 393</td></tr>
+  <tr><td><strong>Neural Network</strong></td><td><strong>~86%</strong></td><td><strong>~74%</strong></td><td><strong>~41–45%</strong></td><td><strong>~160–175 / 393</strong></td></tr>
+</table>
+
+<h4>Write 5–6 sentences: Why did the neural network outperform the classical classifiers on recall, even though the accuracy gap was small? When are neural networks worth the added complexity?</h4>
+<textarea class="long" placeholder="Write your analysis here..."></textarea>
+
+<!-- Q2 -->
+<h3>Question 2: The SVM Collapse <span class="points-badge">15 pts</span></h3>
+
+<p>The SVM achieved 80.35% accuracy but caught <strong>zero churners</strong> — 0% precision, 0% recall. It predicted every single customer would stay.</p>
+
+<h4>Write 5–6 sentences explaining: How is 80% accuracy possible while being completely useless? What does this teach about using accuracy as your only metric? How would you explain this to a non-technical bank manager?</h4>
+<textarea class="long" placeholder="Write your analysis here..."></textarea>
+
+<!-- Q3 -->
+<h3>Question 3: Overfitting <span class="points-badge">10 pts</span></h3>
+
+<p>During the MNIST demo, Model 3 (10 epochs) reached over <strong>99% training accuracy</strong> but only about <strong>97% test accuracy</strong>. Meanwhile, Model 1 (5 epochs) achieved similar test accuracy with a much smaller gap.</p>
+
+<h4>Write 3–4 sentences: What is overfitting? Why did more training hurt generalization? Use a real-world analogy.</h4>
+<textarea placeholder="Write your explanation here..."></textarea>
+
+<!-- Q4 -->
+<h3>Question 4: Neural Network Concepts <span class="points-badge">10 pts</span></h3>
+
+<h4>a) What is the role of hidden layers in a neural network? Why can't the input connect directly to the output? (2–3 sentences)</h4>
+<textarea class="short" placeholder="Write your explanation here..."></textarea>
+
+<h4>b) What is backpropagation, and why is it necessary for training? (2–3 sentences)</h4>
+<textarea class="short" placeholder="Write your explanation here..."></textarea>
+
+<!-- ============================================================ -->
+<!-- PART 3 -->
+<!-- ============================================================ -->
+<h2>Part 3: Ethics Reflection <span class="points-badge">20 points</span></h2>
+
+<div class="ethics-box">
+  <strong>The Black Box Problem</strong><br><br>
+  The neural network caught significantly more churners than the decision tree — but when a flagged customer asks "why do you think I'm leaving?", the neural network can't answer. The decision tree can: <em>"Your account has been inactive for 3 months, you have only one product, and you're in the 45–55 age group."</em>
+</div>
+
+<p><strong>Choose ONE prompt and write 6–8 sentences:</strong></p>
+
+<div class="prompt-select">
+  <label>
+    <input type="radio" name="ethics_prompt" value="A">
+    <strong>Prompt A:</strong> The neural network caught roughly 30 more churners than the decision tree. If each customer is worth $500/year, that's about $15,000. Is that financial gain worth deploying a model that can't explain its decisions? Who benefits from the more accurate model? Who might be harmed by the less explainable one?
+  </label>
+  <label>
+    <input type="radio" name="ethics_prompt" value="B">
+    <strong>Prompt B:</strong> You're advising a Miami credit union that serves a largely immigrant community. Many members are already skeptical of institutions. Would you recommend the neural network or the decision tree for their churn model? How does trust factor into this decision?
+  </label>
+</div>
+
+<textarea class="long" placeholder="Write your ethics reflection here (6–8 sentences)..."></textarea>
+
+<!-- SUBMISSION -->
+<div class="submission-box">
+  <h3 style="margin-top:0">Submission Instructions</h3>
+  <ol>
+    <li>Complete all three parts in this document</li>
+    <li>Include screenshots for Part 1 tasks (paste images or attach separately)</li>
+    <li>Print this page to PDF: <strong>File → Print → Save as PDF</strong></li>
+    <li>Name the file: <strong>NG09_YourLastName.pdf</strong></li>
+    <li>Submit through Canvas by the due date</li>
+  </ol>
+</div>
+
+<div class="footer">
+  CAI1001C: Artificial Intelligence (AI) Thinking · Miami Dade College · Chapter 9: Neural Networks
+</div>
+
+</body>
+</html>

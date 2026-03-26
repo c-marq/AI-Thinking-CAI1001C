@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chapter 10 Group Lab: Computer Vision with Google AI Studio</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;600;700&family=Source+Serif+4:wght@400;600&display=swap');
+  
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  
+  body {
+    font-family: 'Source Sans 3', sans-serif;
+    font-size: 14px;
+    line-height: 1.6;
+    color: #1a1a1a;
+    max-width: 850px;
+    margin: 0 auto;
+    padding: 40px 30px;
+    background: #fff;
+  }
+  
+  .header {
+    border-bottom: 3px solid #0d7377;
+    padding-bottom: 16px;
+    margin-bottom: 24px;
+  }
+  .header h1 {
+    font-family: 'Source Serif 4', serif;
+    font-size: 24px;
+    font-weight: 700;
+    color: #0d7377;
+    margin-bottom: 4px;
+  }
+  .header .subtitle {
+    font-size: 15px;
+    color: #555;
+  }
+  
+  .student-info {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 24px;
+    padding: 16px;
+    background: #f0fafa;
+    border-radius: 8px;
+  }
+  .student-info label {
+    font-weight: 600;
+    font-size: 13px;
+    color: #0d7377;
+    display: block;
+    margin-bottom: 2px;
+  }
+  .student-info input {
+    width: 100%;
+    padding: 6px 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+    font-family: inherit;
+  }
+  
+  .instructions {
+    background: #fff8e1;
+    border-left: 4px solid #f9a825;
+    padding: 14px 18px;
+    margin-bottom: 24px;
+    border-radius: 0 6px 6px 0;
+  }
+  .instructions strong {
+    color: #e65100;
+  }
+  
+  h2 {
+    font-family: 'Source Serif 4', serif;
+    font-size: 20px;
+    font-weight: 700;
+    color: #0d7377;
+    margin-top: 32px;
+    margin-bottom: 12px;
+    padding-bottom: 6px;
+    border-bottom: 2px solid #e0f2f1;
+  }
+  
+  h3 {
+    font-size: 16px;
+    font-weight: 700;
+    color: #333;
+    margin-top: 20px;
+    margin-bottom: 8px;
+  }
+  
+  p { margin-bottom: 10px; }
+  
+  .task {
+    background: #f5f5f5;
+    border-radius: 8px;
+    padding: 16px 18px;
+    margin-bottom: 16px;
+    border-left: 4px solid #0d7377;
+  }
+  .task .task-label {
+    font-weight: 700;
+    color: #0d7377;
+    font-size: 14px;
+    margin-bottom: 6px;
+  }
+  
+  textarea {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-family: inherit;
+    font-size: 14px;
+    line-height: 1.5;
+    resize: vertical;
+    min-height: 80px;
+    margin-top: 6px;
+    margin-bottom: 8px;
+  }
+  textarea.short { min-height: 50px; }
+  textarea.long { min-height: 120px; }
+  
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 12px 0 16px 0;
+    font-size: 13px;
+  }
+  th {
+    background: #0d7377;
+    color: #fff;
+    padding: 8px 10px;
+    text-align: left;
+    font-weight: 600;
+  }
+  td {
+    padding: 8px 10px;
+    border-bottom: 1px solid #ddd;
+  }
+  td input, td textarea {
+    width: 100%;
+    padding: 4px 6px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    font-family: inherit;
+    font-size: 13px;
+  }
+  td textarea {
+    min-height: 40px;
+    margin: 0;
+  }
+  tr:nth-child(even) { background: #f9f9f9; }
+  
+  .connection-box {
+    background: #e8f5e9;
+    border-left: 4px solid #2e7d32;
+    padding: 12px 16px;
+    margin: 16px 0;
+    border-radius: 0 6px 6px 0;
+    font-size: 13px;
+  }
+  .connection-box strong { color: #1b5e20; }
+  
+  .wrap-up {
+    background: #e3f2fd;
+    border-left: 4px solid #1565c0;
+    padding: 14px 18px;
+    margin-top: 24px;
+    border-radius: 0 6px 6px 0;
+  }
+  
+  .footer {
+    margin-top: 40px;
+    padding-top: 16px;
+    border-top: 2px solid #e0e0e0;
+    font-size: 12px;
+    color: #888;
+    text-align: center;
+  }
+  
+  ol, ul {
+    margin-left: 20px;
+    margin-bottom: 10px;
+  }
+  li { margin-bottom: 4px; }
+  
+  @media print {
+    body { padding: 20px; font-size: 12px; }
+    .header { padding-bottom: 10px; margin-bottom: 16px; }
+    textarea { border: 1px solid #999; min-height: 60px; }
+    .task { break-inside: avoid; }
+    h2 { break-after: avoid; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="header">
+  <h1>Chapter 10 Group Lab: Computer Vision with Google AI Studio</h1>
+  <div class="subtitle">CAI1001C: Artificial Intelligence (AI) Thinking · Miami Dade College</div>
+</div>
+
+<!-- STUDENT INFO -->
+<div class="student-info">
+  <div>
+    <label>Group Members</label>
+    <input type="text" placeholder="Name 1, Name 2, Name 3...">
+  </div>
+  <div>
+    <label>Date</label>
+    <input type="text" placeholder="MM/DD/YYYY">
+  </div>
+</div>
+
+<!-- INSTRUCTIONS -->
+<div class="instructions">
+  <strong>What you're doing:</strong> You just saw YOLO detect objects using bounding boxes and fixed categories. Now you'll try a completely different approach — uploading images to Google AI Studio and <em>asking</em> a multimodal AI (Gemini) to describe what it sees. Instead of bounding boxes, you'll get natural language descriptions. Compare how these two approaches handle the same task: understanding images.
+  <br><br>
+  <strong>What you need:</strong> A laptop or phone with a browser. Go to <strong>aistudio.google.com</strong> and sign in with a Google account. Select a Gemini model (any available version is fine). Each group member should have 3–5 images ready on their phone or laptop (photos of everyday objects, food, places, etc.).
+  <br><br>
+  <strong>Submission:</strong> Complete this worksheet as a group. Type your answers in the fields below, then <strong>Print → Save as PDF</strong> and submit via Canvas.
+</div>
+
+<!-- PART 1: FIRST CONTACT -->
+<h2>Part 1: First Contact with Gemini Vision</h2>
+
+<p>Start by uploading a simple, clear image — a single object on a plain background, or a well-lit photo of something common.</p>
+
+<div class="task">
+  <div class="task-label">Task 1.1: Upload a Simple Image</div>
+  <p>Upload one image to Google AI Studio. Type this prompt: <strong>"What objects do you see in this image?"</strong></p>
+  
+  <table>
+    <tr>
+      <th style="width: 30%;">What image did you upload?</th>
+      <th style="width: 70%;">What did Gemini say?</th>
+    </tr>
+    <tr>
+      <td><input type="text" placeholder="e.g., Photo of my coffee mug on a desk"></td>
+      <td><textarea class="short" placeholder="Paste or summarize Gemini's response"></textarea></td>
+    </tr>
+  </table>
+</div>
+
+<div class="task">
+  <div class="task-label">Task 1.2: Ask a Follow-Up Question</div>
+  <p>Now ask Gemini something more specific about the same image. Try one of these prompts (or make up your own):</p>
+  <ul>
+    <li>"Describe the colors and lighting in this image"</li>
+    <li>"What is happening in this scene?"</li>
+    <li>"How many objects can you count?"</li>
+  </ul>
+  
+  <table>
+    <tr>
+      <th style="width: 30%;">What prompt did you use?</th>
+      <th style="width: 70%;">What did Gemini say?</th>
+    </tr>
+    <tr>
+      <td><input type="text" placeholder="Your follow-up prompt"></td>
+      <td><textarea class="short" placeholder="Gemini's response"></textarea></td>
+    </tr>
+  </table>
+</div>
+
+<div class="connection-box">
+  <strong>🔗 Connection to the GP Demo:</strong> YOLO gave you bounding boxes with labels like "person (88%)" — structured, precise, but limited to 80 categories. Gemini gives you natural language descriptions — flexible and detailed, but less structured. Already you can see these are fundamentally different approaches to the same problem.
+</div>
+
+<!-- PART 2: COMPARE APPROACHES -->
+<h2>Part 2: YOLO vs. Gemini — Same Image, Different Results</h2>
+
+<div class="task">
+  <div class="task-label">Task 2.1: Upload a Complex Image</div>
+  <p>Upload an image with <strong>multiple objects</strong> — a busy desk, a kitchen counter, a street scene, a cafeteria tray. Ask Gemini: <strong>"List every object you can identify in this image."</strong></p>
+  
+  <table>
+    <tr>
+      <th style="width: 25%;">Image description</th>
+      <th style="width: 40%;">What Gemini identified</th>
+      <th style="width: 35%;">What would YOLO probably detect? (Think about the 80 COCO categories)</th>
+    </tr>
+    <tr>
+      <td><input type="text" placeholder="Describe the image"></td>
+      <td><textarea class="short" placeholder="List what Gemini found"></textarea></td>
+      <td><textarea class="short" placeholder="Which items are in COCO's 80 classes?"></textarea></td>
+    </tr>
+  </table>
+</div>
+
+<div class="task">
+  <div class="task-label">Task 2.2: What Can Gemini Do That YOLO Can't?</div>
+  <p>Based on your results so far, list at least <strong>two things</strong> Gemini can do that YOLO cannot, and <strong>one thing</strong> YOLO does that Gemini doesn't.</p>
+  
+  <h3>Gemini can, but YOLO can't:</h3>
+  <textarea class="short" placeholder="Example: Gemini can describe the mood or context of a scene..."></textarea>
+  
+  <h3>YOLO does, but Gemini doesn't:</h3>
+  <textarea class="short" placeholder="Example: YOLO draws exact bounding boxes showing WHERE each object is..."></textarea>
+</div>
+
+<!-- PART 3: TEST THE LIMITS -->
+<h2>Part 3: Testing Gemini's Limits</h2>
+
+<p>Every AI system has weaknesses. Let's find Gemini's. Each group member should try <strong>one</strong> of the following tests (divide them up).</p>
+
+<div class="task">
+  <div class="task-label">Task 3.1: The Tricky Image Test</div>
+  <p>Upload an image that's <strong>challenging</strong> — blurry, taken from an unusual angle, dimly lit, or showing something uncommon. Ask Gemini to describe what it sees.</p>
+  
+  <table>
+    <tr>
+      <th style="width: 25%;">What made the image tricky?</th>
+      <th style="width: 40%;">What did Gemini say?</th>
+      <th style="width: 35%;">Was it accurate? What did it get wrong?</th>
+    </tr>
+    <tr>
+      <td><input type="text" placeholder="e.g., Very dark photo, weird angle"></td>
+      <td><textarea class="short" placeholder="Gemini's response"></textarea></td>
+      <td><textarea class="short" placeholder="Accurate / partially wrong / completely wrong"></textarea></td>
+    </tr>
+  </table>
+</div>
+
+<div class="task">
+  <div class="task-label">Task 3.2: The Impossible Question Test</div>
+  <p>Upload any image and ask Gemini something it <strong>can't possibly know</strong> from the image alone. Examples:</p>
+  <ul>
+    <li>"What does this food taste like?"</li>
+    <li>"How old is this person?"</li>
+    <li>"What will happen next in this scene?"</li>
+    <li>"Who took this photo?"</li>
+  </ul>
+  
+  <table>
+    <tr>
+      <th style="width: 30%;">Your impossible question</th>
+      <th style="width: 40%;">What did Gemini say?</th>
+      <th style="width: 30%;">Did it admit it couldn't know, or did it guess?</th>
+    </tr>
+    <tr>
+      <td><input type="text" placeholder="Your question"></td>
+      <td><textarea class="short" placeholder="Gemini's response"></textarea></td>
+      <td><textarea class="short" placeholder="Admitted uncertainty / made a guess / stated it as fact"></textarea></td>
+    </tr>
+  </table>
+</div>
+
+<div class="task">
+  <div class="task-label">Task 3.3: The Text-in-Image Test</div>
+  <p>Upload an image that contains <strong>visible text</strong> — a sign, a menu, a book cover, a label. Ask Gemini: <strong>"What text can you see in this image?"</strong></p>
+  
+  <table>
+    <tr>
+      <th style="width: 25%;">What text was actually in the image?</th>
+      <th style="width: 40%;">What text did Gemini read?</th>
+      <th style="width: 35%;">Was it accurate? Any errors?</th>
+    </tr>
+    <tr>
+      <td><input type="text" placeholder="The actual text"></td>
+      <td><textarea class="short" placeholder="What Gemini reported"></textarea></td>
+      <td><textarea class="short" placeholder="Correct / minor errors / major errors"></textarea></td>
+    </tr>
+  </table>
+</div>
+
+<div class="connection-box">
+  <strong>🔗 Connection to Chapter Concepts:</strong> Remember the confidence threshold from the YOLO demo? YOLO at least gives you a number (e.g., 62% confidence) so you know when it's uncertain. Gemini often states things confidently even when guessing. Which approach is more honest about its limitations?
+</div>
+
+<!-- PART 4: GROUP DISCUSSION -->
+<h2>Part 4: Group Reflection</h2>
+
+<div class="task">
+  <div class="task-label">Task 4.1: When Would You Use Each Tool?</div>
+  <p>As a group, discuss and fill in this table:</p>
+  
+  <table>
+    <tr>
+      <th style="width: 40%;">Scenario</th>
+      <th style="width: 30%;">Better tool: YOLO or Gemini?</th>
+      <th style="width: 30%;">Why?</th>
+    </tr>
+    <tr>
+      <td>A security camera monitoring a parking lot 24/7</td>
+      <td><input type="text" placeholder="YOLO / Gemini"></td>
+      <td><textarea class="short" placeholder="Reason"></textarea></td>
+    </tr>
+    <tr>
+      <td>A personal assistant describing a photo to a blind user</td>
+      <td><input type="text" placeholder="YOLO / Gemini"></td>
+      <td><textarea class="short" placeholder="Reason"></textarea></td>
+    </tr>
+    <tr>
+      <td>Counting cars on I-95 for a traffic report</td>
+      <td><input type="text" placeholder="YOLO / Gemini"></td>
+      <td><textarea class="short" placeholder="Reason"></textarea></td>
+    </tr>
+    <tr>
+      <td>Helping a restaurant owner figure out what's in a photo of their kitchen</td>
+      <td><input type="text" placeholder="YOLO / Gemini"></td>
+      <td><textarea class="short" placeholder="Reason"></textarea></td>
+    </tr>
+  </table>
+</div>
+
+<div class="task">
+  <div class="task-label">Task 4.2: The Biggest Surprise</div>
+  <p>What was the most surprising thing your group discovered during this lab? Something Gemini got right that you didn't expect, or something it got wrong that surprised you.</p>
+  <textarea class="long" placeholder="Describe your group's most surprising finding..."></textarea>
+</div>
+
+<!-- WRAP-UP -->
+<div class="wrap-up">
+  <h3>Wrap-Up Discussion</h3>
+  <p>Your instructor will ask:</p>
+  <ol>
+    <li>Did any group find something Gemini was completely wrong about? What happened?</li>
+    <li>When Gemini answered an "impossible question," did it admit uncertainty or state a guess as fact? Why does that matter?</li>
+    <li>For a real-world application like airport security — would you want YOLO's structured bounding boxes or Gemini's natural language descriptions? Could you use both?</li>
+  </ol>
+  <p><em>Save this worksheet — your homework builds on this exploration with a deeper Google AI Studio investigation.</em></p>
+</div>
+
+<!-- FOOTER -->
+<div class="footer">
+  CAI1001C: Artificial Intelligence (AI) Thinking · Miami Dade College · Chapter 10: Computer Vision
+</div>
+
+</body>
+</html>
