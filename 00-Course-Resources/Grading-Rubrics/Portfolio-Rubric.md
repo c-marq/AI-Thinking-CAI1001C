@@ -1,4 +1,4 @@
-# Final Portfolio Rubric (Slim Version)
+# Final Portfolio Rubric
 **CAI1001C: AI Thinking | 100 Points Total**
 
 Each row is one rubric criterion. Performance levels: **Excellent** (full points), **Proficient** (~75%), **Developing** (~50%), **Incomplete** (0).
