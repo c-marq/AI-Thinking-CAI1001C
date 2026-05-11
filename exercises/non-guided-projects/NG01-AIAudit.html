@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NG01: AI System Audit — Individual Assignment</title>
+<style>
+  body { font-family: 'Segoe UI', Arial, sans-serif; max-width: 880px; margin: 0 auto; padding: 30px; color: #2c3e50; line-height: 1.55; background: #fafbfc; }
+  .doc { background: white; padding: 36px 40px; border-radius: 8px; box-shadow: 0 2px 12px rgba(0,0,0,0.05); }
+  .doc-header { background: linear-gradient(135deg, #6C3483 0%, #4A235A 100%); color: white; padding: 24px 28px; border-radius: 6px; margin-bottom: 24px; }
+  .doc-header .course-line { font-size: 0.85em; opacity: 0.85; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 4px; }
+  .doc-header h1 { margin: 0; font-size: 1.7em; }
+  .doc-header .subtitle { margin-top: 6px; font-size: 0.95em; opacity: 0.9; }
+  .badge { display: inline-block; background: rgba(255,255,255,0.2); padding: 3px 10px; border-radius: 12px; font-size: 0.8em; margin-top: 10px; }
+
+  .meta-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; background: #f4f8fb; padding: 16px; border-radius: 6px; margin-bottom: 24px; }
+  .meta-grid label { display: block; font-weight: 600; color: #1A5276; font-size: 0.78em; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 5px; }
+  .field { background: white; border: 1px solid #d8dde3; padding: 8px 10px; border-radius: 4px; min-height: 22px; outline: none; font-size: 0.95em; }
+  .field:focus { border-color: #6C3483; box-shadow: 0 0 0 2px rgba(108,52,131,0.15); }
+
+  h2 { color: #4A235A; margin-top: 36px; border-bottom: 2px solid #e8d5f0; padding-bottom: 8px; }
+
+  .box { padding: 16px 20px; margin: 18px 0; border-radius: 4px; }
+  .box-green { background: #D5F5E3; border-left: 5px solid #27AE60; }
+  .box-blue { background: #D6EAF8; border-left: 5px solid #2E86C1; }
+  .box-yellow { background: #FEF9E7; border-left: 5px solid #F1C40F; }
+  .box-red { background: #FADBD8; border-left: 5px solid #E74C3C; }
+  .box .label { display: block; font-weight: 700; margin-bottom: 8px; font-size: 1em; }
+  .box-green .label { color: #1E8449; }
+  .box-blue .label { color: #1A5276; }
+  .box-yellow .label { color: #7D6608; }
+  .box-red .label { color: #922B21; }
+
+  .activity { margin: 28px 0; border: 1px solid #d8dde3; border-radius: 6px; overflow: hidden; }
+  .activity-header { background: #6C3483; color: white; padding: 12px 18px; font-weight: 700; display: flex; justify-content: space-between; align-items: center; }
+  .activity-header .num { background: rgba(255,255,255,0.25); padding: 2px 10px; border-radius: 10px; font-size: 0.85em; }
+  .activity-body { padding: 18px 20px; }
+
+  .answer-box { background: white; border: 2px dashed #ccc; border-radius: 4px; padding: 12px; min-height: 70px; margin-top: 10px; outline: none; font-size: 0.96em; }
+  .answer-box.tall { min-height: 110px; }
+  .answer-box.xtall { min-height: 160px; }
+  .answer-box:focus { border-color: #6C3483; border-style: solid; background: #fcfafd; }
+  .answer-box:empty::before { content: attr(data-placeholder); color: #aaa; font-style: italic; }
+
+  .screenshot-box { background: #fafbfc; border: 2px dashed #c0c6ce; border-radius: 4px; padding: 16px; min-height: 160px; margin-top: 10px; outline: none; text-align: center; color: #888; font-style: italic; }
+  .screenshot-box:focus { border-color: #6C3483; border-style: solid; background: #fcfafd; }
+  .screenshot-box img { max-width: 100%; height: auto; display: block; margin: 6px auto; }
+  .screenshot-box:not(:empty) { color: inherit; font-style: normal; text-align: left; padding: 10px; }
+  .screenshot-box:empty::before { content: attr(data-placeholder); }
+
+  .picker-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 14px; }
+  .picker-box { background: #f4f8fb; border: 1px solid #d8dde3; border-radius: 4px; padding: 14px; }
+  .picker-box label { display: block; font-weight: 600; color: #1A5276; font-size: 0.85em; margin-bottom: 6px; }
+  .picker-box .picker-input { background: white; border: 1px solid #d8dde3; border-radius: 3px; padding: 8px; min-height: 24px; outline: none; }
+  .picker-box .picker-input:focus { border-color: #6C3483; background: #fcfafd; }
+  .picker-box .picker-input:empty::before { content: attr(data-placeholder); color: #bbb; font-style: italic; }
+
+  table.dim-table { width: 100%; border-collapse: collapse; margin-top: 12px; }
+  table.dim-table th, table.dim-table td { border: 1px solid #d8dde3; padding: 10px 12px; text-align: left; vertical-align: top; }
+  table.dim-table th { background: #4A235A; color: white; font-size: 0.85em; }
+  table.dim-table .dim-input { min-height: 50px; outline: none; padding: 4px; }
+  table.dim-table .dim-input:focus { background: #fcfafd; }
+  table.dim-table .dim-input:empty::before { content: attr(data-placeholder); color: #bbb; font-style: italic; font-size: 0.9em; }
+
+  .submit-note { background: #FEF9E7; border: 1px solid #F1C40F; padding: 14px 18px; border-radius: 4px; margin-top: 30px; font-size: 0.92em; }
+  .rubric-note { background: #f4f8fb; border-left: 4px solid #6C3483; padding: 14px 18px; border-radius: 4px; margin-top: 20px; font-size: 0.9em; }
+
+  @media print {
+    body { background: white; padding: 0; }
+    .doc { box-shadow: none; padding: 20px; }
+    .browser-only, .submit-note { display: none; }
+    .answer-box, .screenshot-box, .field, .picker-input { border-style: solid; border-color: #aaa; background: white; }
+    .activity { page-break-inside: avoid; }
+    textarea { resize: none; overflow: visible !important; }
+    .doc-header { background: #6C3483 !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    .activity-header { background: #6C3483 !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    .box, table.dim-table th { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  }
+
+  /* === Expandable text inputs === */
+  textarea {
+    font-family: inherit; font-size: inherit; line-height: inherit; color: inherit;
+    box-sizing: border-box; width: 100%; outline: none; resize: vertical;
+    overflow: hidden; display: block;
+  }
+  textarea::placeholder { color: #aaa; font-style: italic; opacity: 1; }
+  textarea.cat-input, textarea.dim-input, textarea.cmp-input,
+  textarea.craap-verdict, textarea.craap-rating, textarea.picker-input {
+    resize: none; min-height: 22px;
+  }
+  textarea.cat-input::placeholder, textarea.dim-input::placeholder,
+  textarea.cmp-input::placeholder, textarea.craap-verdict::placeholder,
+  textarea.craap-rating::placeholder, textarea.picker-input::placeholder {
+    color: #bbb; font-size: 0.9em;
+  }
+  input.field {
+    width: 100%; box-sizing: border-box; font-family: inherit; font-size: 0.95em;
+  }
+
+</style>
+</head>
+<body>
+
+<div class="doc">
+
+<div class="doc-header">
+  <div class="course-line">CAI 1001C — AI Thinking — Summer 2026</div>
+  <h1>NG01: AI System Audit</h1>
+  <div class="subtitle">Non-Guided Project — Chapters 1 &amp; 2 — Privacy, Power, and Informed Consent</div>
+  <div class="badge">Individual Work · 30 points · Due Sunday May 17, 11:59 PM EST</div>
+</div>
+
+<div class="meta-grid">
+  <div>
+    <label>Your Name</label>
+    <input type="text" class="field">
+  </div>
+  <div>
+    <label>Date Submitted</label>
+    <input type="text" class="field">
+  </div>
+  <div>
+    <label>Section</label>
+    <input type="text" class="field">
+  </div>
+</div>
+
+<div class="box box-blue">
+  <span class="label">💡 WHAT THIS ASSIGNMENT IS ABOUT</span>
+  In class, your group used a no-code AI tool (Google AI Studio) and evaluated a public IoT dataset. You experienced AI from both sides: as a user, and as a data analyst looking in.
+  <br><br>
+  Now go deeper, on your own. Pick <strong>one real AI system you use regularly</strong> &mdash; not one we used in class &mdash; and audit it. You&rsquo;re going to figure out what it does, what data it collects about you, what it can infer that you never told it, and whether you really agreed to all of it.
+  <br><br>
+  No coding. This is a thinking and investigating assignment.
+</div>
+
+<div class="box box-yellow">
+  <span class="label">⚠️ HOW TO PICK YOUR SYSTEM</span>
+  Good candidates: Spotify, Netflix, TikTok, Instagram, Snapchat, YouTube, Google Maps, Waze, Uber/Lyft, Amazon, Apple Photos, Google Photos, Siri, Alexa, Gmail (smart compose), Grammarly, Duolingo, a fitness tracker app, a smart home device, a banking app&rsquo;s fraud alerts.
+  <br><br>
+  <strong>Don&rsquo;t pick Google AI Studio</strong> &mdash; we already used it in class. Pick something that&rsquo;s part of your real daily life.
+</div>
+
+<!-- ACTIVITY 1 — PICK -->
+<div class="activity">
+  <div class="activity-header">
+    <span>Section 1 — Pick Your System</span>
+    <span class="num">5 pts</span>
+  </div>
+  <div class="activity-body">
+    <div class="picker-row">
+      <div class="picker-box">
+        <label>The AI system I&rsquo;m auditing:</label>
+        <textarea class="picker-input" placeholder="e.g., Spotify" rows="2"></textarea>
+      </div>
+      <div class="picker-box">
+        <label>How often I use it:</label>
+        <textarea class="picker-input" placeholder="e.g., daily, multiple times per day, weekly" rows="2"></textarea>
+      </div>
+    </div>
+
+    <p style="margin-top: 16px;"><strong>1.1</strong> &nbsp; In two or three sentences, what does this system do for you? Skip any jargon &mdash; describe what it actually accomplishes in your life.</p>
+    <textarea class="answer-box tall" placeholder="Plain-language description of what this system does for you..."></textarea>
+  </div>
+</div>
+
+<!-- ACTIVITY 2 — CATEGORY -->
+<div class="activity">
+  <div class="activity-header">
+    <span>Section 2 — Application Category (Chapter 1 Framework)</span>
+    <span class="num">5 pts</span>
+  </div>
+  <div class="activity-body">
+    <div class="box box-blue">
+      <span class="label">💡 REMINDER — THE FIVE CATEGORIES</span>
+      <strong>Recognition</strong> (identifies patterns) · <strong>Prediction</strong> (forecasts what&rsquo;s likely) · <strong>Generation</strong> (creates new content) · <strong>Recommendation</strong> (suggests what you&rsquo;d like) · <strong>Optimization</strong> (finds best solution among many)
+    </div>
+
+    <p><strong>2.1</strong> &nbsp; Which category best fits the system you chose? (A system can fit more than one &mdash; name your primary, and any others that apply.)</p>
+    <textarea class="answer-box" placeholder="Primary category: ... Secondary (if any): ..."></textarea>
+
+    <p style="margin-top: 16px;"><strong>2.2</strong> &nbsp; Justify your classification with <strong>two specific examples</strong> of things this system has actually done for you. Be concrete.</p>
+    <textarea class="answer-box tall" placeholder="Example 1: ... &#10;Example 2: ..."></textarea>
+  </div>
+</div>
+
+<!-- ACTIVITY 3 — DATA PRACTICES -->
+<div class="activity">
+  <div class="activity-header">
+    <span>Section 3 — Data Practices (Chapter 2 Framework)</span>
+    <span class="num">8 pts</span>
+  </div>
+  <div class="activity-body">
+    <div class="box box-green">
+      <span class="label">✅ DO THIS — FIND THE EVIDENCE</span>
+      Open the app or website. Go to its <strong>Settings</strong> and find the privacy section &mdash; OR look up its public Privacy Policy. Read enough to answer the questions below.
+      <br><br>
+      Take <strong>at least one screenshot</strong> of where you found this information &mdash; the settings screen or the relevant section of the privacy policy. This is your evidence.
+    </div>
+
+    <p><strong>3.1</strong> &nbsp; Screenshot &mdash; the privacy settings or policy section you read:</p>
+    <div class="screenshot-box" contenteditable="true" data-placeholder="Click here, then paste your screenshot (Ctrl+V on Windows / Cmd+V on Mac)"></div>
+
+    <p style="margin-top: 16px;"><strong>3.2</strong> &nbsp; Using Chapter 2&rsquo;s collection-method framework, classify what kind of data collection this system does:</p>
+
+    <table class="dim-table">
+      <thead>
+        <tr>
+          <th style="width: 28%;">Collection Method</th>
+          <th style="width: 16%;">Does this system do it?</th>
+          <th>What data does it collect this way? (concrete examples)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Active Collection</strong><br><span style="font-size: 0.85em; color: #555;">You knowingly provide data (forms, accounts, settings you chose)</span></td>
+          <td><textarea class="dim-input" placeholder="Yes / No" rows="2"></textarea></td>
+          <td><textarea class="dim-input" placeholder="e.g., I created an account, I rated 5 songs..." rows="2"></textarea></td>
+        </tr>
+        <tr>
+          <td><strong>Passive Collection</strong><br><span style="font-size: 0.85em; color: #555;">Data collected without you doing anything (background tracking, sensors)</span></td>
+          <td><textarea class="dim-input" placeholder="Yes / No" rows="2"></textarea></td>
+          <td><textarea class="dim-input" placeholder="e.g., listening time, location, what I skip..." rows="2"></textarea></td>
+        </tr>
+        <tr>
+          <td><strong>Third-Party / Combined</strong><br><span style="font-size: 0.85em; color: #555;">Data acquired from other companies or pieced together from multiple sources</span></td>
+          <td><textarea class="dim-input" placeholder="Yes / No / Unclear" rows="2"></textarea></td>
+          <td><textarea class="dim-input" placeholder="e.g., uses my Google login, shares with advertisers..." rows="2"></textarea></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ACTIVITY 4 — INFERENCES -->
+<div class="activity">
+  <div class="activity-header">
+    <span>Section 4 — What Can It Learn That You Didn&rsquo;t Tell It?</span>
+    <span class="num">5 pts</span>
+  </div>
+  <div class="activity-body">
+    <div class="box box-yellow">
+      <span class="label">⚠️ THINK BACK TO MARIA&rsquo;S THERMOSTAT</span>
+      Maria never told her thermostat her sleep schedule, when she went to work, or that her family was at a quinceañera last Thursday. But the thermostat figured all of that out from temperature readings and motion data alone. Your AI system probably does the same kind of inference.
+    </div>
+
+    <p><strong>4.1</strong> &nbsp; List <strong>three things</strong> your chosen AI system probably knows about you that you never explicitly told it. Be specific &mdash; not just &ldquo;my preferences&rdquo; but <em>what</em> preferences and <em>how</em> it could know them.</p>
+    <textarea class="answer-box xtall" placeholder="1. The system probably knows ... because ... &#10;&#10;2. The system probably knows ... because ... &#10;&#10;3. The system probably knows ..."></textarea>
+  </div>
+</div>
+
+<!-- ACTIVITY 5 — ETHICS STRESS TEST -->
+<div class="activity">
+  <div class="activity-header">
+    <span>Section 5 — Ethics Stress Test</span>
+    <span class="num">5 pts</span>
+  </div>
+  <div class="activity-body">
+    <div class="box box-red">
+      <span class="label">🛑 THREE HARD QUESTIONS</span>
+      Most people never ask these. You&rsquo;re going to answer all three.
+    </div>
+
+    <p><strong>5.1 &nbsp; Consent.</strong> &nbsp; When you first signed up, did you actually read the terms / privacy policy? If yes, what stood out? If no, why not?</p>
+    <textarea class="answer-box" placeholder="Honest answer..."></textarea>
+
+    <p style="margin-top: 16px;"><strong>5.2 &nbsp; Third-party access.</strong> &nbsp; Based on what you found in Section 3, who else might have access to your data from this system? (advertisers, partner companies, government requests, law enforcement, anyone else)</p>
+    <textarea class="answer-box" placeholder="Based on the privacy policy or settings, who can see this data..."></textarea>
+
+    <p style="margin-top: 16px;"><strong>5.3 &nbsp; Breach scenario.</strong> &nbsp; If this company had a data breach tomorrow and everything they have on you was published online, what&rsquo;s the worst thing that could happen to you specifically? (Be honest &mdash; this varies a lot by what the system collects.)</p>
+    <textarea class="answer-box tall" placeholder="Your honest worst-case scenario..."></textarea>
+  </div>
+</div>
+
+<!-- ACTIVITY 6 — REFLECTION -->
+<div class="activity">
+  <div class="activity-header">
+    <span>Section 6 — Closing Reflection</span>
+    <span class="num">2 pts</span>
+  </div>
+  <div class="activity-body">
+    <div class="box box-blue">
+      <span class="label">💡 THINK ABOUT IT</span>
+      Now that you&rsquo;ve audited this system, you know more about it than 99% of its users. So what?
+    </div>
+
+    <p><strong>6.1</strong> &nbsp; Will you change anything about how you use this system after this audit? Why or why not? Be honest &mdash; &ldquo;no, the value still outweighs the privacy cost for me&rdquo; is a valid answer if you can defend it.</p>
+    <textarea class="answer-box tall" placeholder="Your honest reflection..."></textarea>
+
+    <p style="margin-top: 16px;"><strong>6.2</strong> &nbsp; In one or two sentences: what would <em>real</em> informed consent look like for this product? What would the company have to do for you to feel like you genuinely understood and agreed to its data practices?</p>
+    <textarea class="answer-box" placeholder="One or two sentences..."></textarea>
+  </div>
+</div>
+
+<div class="rubric-note">
+  <strong>How this is graded (30 pts total):</strong>
+  Section 1 (system pick + description) — 5 pts ·
+  Section 2 (category + justification) — 5 pts ·
+  Section 3 (data practices + evidence screenshot) — 8 pts ·
+  Section 4 (inferences) — 5 pts ·
+  Section 5 (ethics stress test) — 5 pts ·
+  Section 6 (reflection) — 2 pts.
+  <br><br>
+  Rubric tiers per section: <strong>Excellent</strong> = full points, specific, defended with evidence. <strong>Good</strong> = mostly there but missing detail or evidence. <strong>Needs Work</strong> = partial credit for honest attempt. Process and honest reasoning are rewarded — surface-level &ldquo;safe&rdquo; answers earn less than thoughtful answers that admit complexity.
+</div>
+
+<div class="submit-note browser-only">
+  <strong>📄 To submit:</strong> Choose <strong>File → Print</strong> in your browser and select <strong>Save as PDF</strong>. Upload the PDF to Canvas under <em>NG01: AI System Audit</em> by <strong>Sunday May 17, 11:59 PM EST</strong>.
+</div>
+
+</div>
+
+
+<script>
+(function() {
+  function autoGrow(el) {
+    el.style.height = 'auto';
+    el.style.height = (el.scrollHeight + 2) + 'px';
+  }
+  function init() {
+    document.querySelectorAll('textarea').forEach(function(ta) {
+      ta.addEventListener('input', function() { autoGrow(ta); });
+      autoGrow(ta);
+    });
+  }
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else { init(); }
+  // Ensure textareas show full content when printing
+  window.addEventListener('beforeprint', function() {
+    document.querySelectorAll('textarea').forEach(function(ta) {
+      ta.style.height = 'auto';
+      ta.style.height = ta.scrollHeight + 'px';
+    });
+  });
+})();
+</script>
+
+</body>
+</html>

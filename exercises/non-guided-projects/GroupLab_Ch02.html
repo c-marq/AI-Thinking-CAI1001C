@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GRP02: Source Detective — Group Worksheet</title>
+<style>
+  body { font-family: 'Segoe UI', Arial, sans-serif; max-width: 880px; margin: 0 auto; padding: 30px; color: #2c3e50; line-height: 1.55; background: #fafbfc; }
+  .doc { background: white; padding: 36px 40px; border-radius: 8px; box-shadow: 0 2px 12px rgba(0,0,0,0.05); }
+  .doc-header { background: linear-gradient(135deg, #2E86C1 0%, #1A5276 100%); color: white; padding: 24px 28px; border-radius: 6px; margin-bottom: 24px; }
+  .doc-header .course-line { font-size: 0.85em; opacity: 0.85; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 4px; }
+  .doc-header h1 { margin: 0; font-size: 1.7em; }
+  .doc-header .subtitle { margin-top: 6px; font-size: 0.95em; opacity: 0.9; }
+  .badge { display: inline-block; background: rgba(255,255,255,0.2); padding: 3px 10px; border-radius: 12px; font-size: 0.8em; margin-top: 10px; }
+
+  .meta-grid { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 12px; background: #f4f8fb; padding: 16px; border-radius: 6px; margin-bottom: 24px; }
+  .meta-grid label { display: block; font-weight: 600; color: #1A5276; font-size: 0.78em; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 5px; }
+  .field { background: white; border: 1px solid #d8dde3; padding: 8px 10px; border-radius: 4px; min-height: 22px; outline: none; font-size: 0.95em; }
+  .field:focus { border-color: #2E86C1; box-shadow: 0 0 0 2px rgba(46,134,193,0.15); }
+
+  h2 { color: #1A5276; margin-top: 36px; border-bottom: 2px solid #d4e6f1; padding-bottom: 8px; }
+
+  .box { padding: 16px 20px; margin: 18px 0; border-radius: 4px; }
+  .box-green { background: #D5F5E3; border-left: 5px solid #27AE60; }
+  .box-blue { background: #D6EAF8; border-left: 5px solid #2E86C1; }
+  .box-yellow { background: #FEF9E7; border-left: 5px solid #F1C40F; }
+  .box-red { background: #FADBD8; border-left: 5px solid #E74C3C; }
+  .box .label { display: block; font-weight: 700; margin-bottom: 8px; font-size: 1em; }
+  .box-green .label { color: #1E8449; }
+  .box-blue .label { color: #1A5276; }
+  .box-yellow .label { color: #7D6608; }
+  .box-red .label { color: #922B21; }
+
+  .activity { margin: 28px 0; border: 1px solid #d8dde3; border-radius: 6px; overflow: hidden; }
+  .activity-header { background: #2E86C1; color: white; padding: 12px 18px; font-weight: 700; display: flex; justify-content: space-between; align-items: center; }
+  .activity-header .num { background: rgba(255,255,255,0.25); padding: 2px 10px; border-radius: 10px; font-size: 0.85em; }
+  .activity-body { padding: 18px 20px; }
+
+  .answer-box { background: white; border: 2px dashed #ccc; border-radius: 4px; padding: 12px; min-height: 70px; margin-top: 10px; outline: none; font-size: 0.96em; }
+  .answer-box.tall { min-height: 110px; }
+  .answer-box:focus { border-color: #2E86C1; border-style: solid; background: #fbfdff; }
+  .answer-box:empty::before { content: attr(data-placeholder); color: #aaa; font-style: italic; }
+
+  .screenshot-box { background: #fafbfc; border: 2px dashed #c0c6ce; border-radius: 4px; padding: 16px; min-height: 160px; margin-top: 10px; outline: none; text-align: center; color: #888; font-style: italic; }
+  .screenshot-box:focus { border-color: #2E86C1; border-style: solid; background: #fbfdff; }
+  .screenshot-box img { max-width: 100%; height: auto; display: block; margin: 6px auto; }
+  .screenshot-box:not(:empty) { color: inherit; font-style: normal; text-align: left; padding: 10px; }
+  .screenshot-box:empty::before { content: attr(data-placeholder); }
+
+  .craap-row { display: grid; grid-template-columns: 140px 1fr 110px; gap: 12px; padding: 12px; border-bottom: 1px solid #ecf0f4; align-items: start; }
+  .craap-row:last-child { border-bottom: none; }
+  .craap-letter { font-weight: 700; font-size: 0.95em; color: #1A5276; }
+  .craap-letter .big { font-size: 1.8em; display: block; color: #2E86C1; line-height: 1; margin-bottom: 4px; }
+  .craap-questions { font-size: 0.88em; color: #555; line-height: 1.4; }
+  .craap-verdict { background: white; border: 2px dashed #ccc; border-radius: 4px; padding: 8px; min-height: 60px; outline: none; font-size: 0.92em; text-align: center; }
+  .craap-verdict:focus { border-color: #2E86C1; border-style: solid; }
+  .craap-verdict:empty::before { content: attr(data-placeholder); color: #bbb; font-style: italic; }
+  .craap-rating { background: #f4f8fb; border: 2px dashed #c0c6ce; border-radius: 4px; padding: 8px; min-height: 60px; outline: none; text-align: center; font-weight: 600; color: #1A5276; }
+  .craap-rating:focus { background: white; border-color: #2E86C1; border-style: solid; }
+  .craap-rating:empty::before { content: "✅ / ⚠️ / ❌"; color: #999; font-weight: normal; font-style: italic; }
+
+  table.cmp-table { width: 100%; border-collapse: collapse; margin-top: 12px; }
+  table.cmp-table th, table.cmp-table td { border: 1px solid #d8dde3; padding: 10px 12px; text-align: left; vertical-align: top; }
+  table.cmp-table th { background: #1A5276; color: white; font-size: 0.85em; }
+  table.cmp-table .cmp-input { min-height: 50px; outline: none; padding: 4px; }
+  table.cmp-table .cmp-input:focus { background: #fbfdff; }
+  table.cmp-table .cmp-input:empty::before { content: attr(data-placeholder); color: #bbb; font-style: italic; font-size: 0.9em; }
+
+  .submit-note { background: #FEF9E7; border: 1px solid #F1C40F; padding: 14px 18px; border-radius: 4px; margin-top: 30px; font-size: 0.92em; }
+
+  @media print {
+    body { background: white; padding: 0; }
+    .doc { box-shadow: none; padding: 20px; }
+    .browser-only, .submit-note { display: none; }
+    .answer-box, .screenshot-box, .field, .craap-verdict, .craap-rating { border-style: solid; border-color: #aaa; background: white; }
+    .activity { page-break-inside: avoid; }
+    textarea { resize: none; overflow: visible !important; }
+    .doc-header { background: #2E86C1 !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    .activity-header { background: #2E86C1 !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    .box, table.cmp-table th { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  }
+
+  /* === Expandable text inputs === */
+  textarea {
+    font-family: inherit; font-size: inherit; line-height: inherit; color: inherit;
+    box-sizing: border-box; width: 100%; outline: none; resize: vertical;
+    overflow: hidden; display: block;
+  }
+  textarea::placeholder { color: #aaa; font-style: italic; opacity: 1; }
+  textarea.cat-input, textarea.dim-input, textarea.cmp-input,
+  textarea.craap-verdict, textarea.craap-rating, textarea.picker-input {
+    resize: none; min-height: 22px;
+  }
+  textarea.cat-input::placeholder, textarea.dim-input::placeholder,
+  textarea.cmp-input::placeholder, textarea.craap-verdict::placeholder,
+  textarea.craap-rating::placeholder, textarea.picker-input::placeholder {
+    color: #bbb; font-size: 0.9em;
+  }
+  input.field {
+    width: 100%; box-sizing: border-box; font-family: inherit; font-size: 0.95em;
+  }
+
+</style>
+</head>
+<body>
+
+<div class="doc">
+
+<div class="doc-header">
+  <div class="course-line">CAI 1001C — AI Thinking — Summer 2026</div>
+  <h1>GRP02: Source Detective</h1>
+  <div class="subtitle">Group Worksheet — Chapter 2: Digital Literacy &amp; IoT Data</div>
+  <div class="badge">In-Class Group Lab · 4 points · Submit as PDF</div>
+</div>
+
+<div class="meta-grid">
+  <div>
+    <label>Group Member 1</label>
+    <input type="text" class="field">
+  </div>
+  <div>
+    <label>Group Member 2</label>
+    <input type="text" class="field">
+  </div>
+  <div>
+    <label>Group Member 3</label>
+    <input type="text" class="field">
+  </div>
+  <div>
+    <label>Group Member 4</label>
+    <input type="text" class="field">
+  </div>
+  <div>
+    <label>Date</label>
+    <input type="text" class="field">
+  </div>
+  <div>
+    <label>Lead Driver</label>
+    <input type="text" class="field">
+  </div>
+  <div>
+    <label>Presenter</label>
+    <input type="text" class="field">
+  </div>
+  <div>
+    <label>QA Reviewer</label>
+    <input type="text" class="field">
+  </div>
+</div>
+
+<div class="box box-blue">
+  <span class="label">💡 WHY ARE WE DOING THIS?</span>
+  In the demo you just saw how a smart thermostat&rsquo;s data tells a detailed story about someone&rsquo;s life — schedule, occupancy, habits. Now you&rsquo;re going to be data detectives yourselves. You&rsquo;ll find a real-world IoT or smart-device dataset, evaluate whether it&rsquo;s trustworthy using the <strong>CRAAP test</strong> from Chapter 2, and figure out what someone could learn about the people in that data.
+</div>
+
+<div class="box box-yellow">
+  <span class="label">⚠️ TOOL FOR THIS LAB</span>
+  You&rsquo;re using <strong>Google Dataset Search</strong> &mdash; a free tool for finding public datasets. Open <strong>datasetsearch.research.google.com</strong> in your browser. No sign-in needed.
+</div>
+
+<!-- ACTIVITY 1 -->
+<div class="activity">
+  <div class="activity-header">
+    <span>Activity 1 — Find an IoT or Smart-Device Dataset</span>
+    <span class="num">8 min</span>
+  </div>
+  <div class="activity-body">
+    <div class="box box-green">
+      <span class="label">✅ DO THIS</span>
+      Search Google Dataset Search for one of: <em>smart thermostat data, fitness tracker data, smart home energy, IoT sensor, wearable health, smart meter readings</em> — or a similar IoT-related search of your own. Find a dataset that looks interesting, then click into its detail page.
+    </div>
+
+    <p><strong>1.1</strong> &nbsp; What did you search for?</p>
+    <textarea class="answer-box" placeholder="The search query the group used..."></textarea>
+
+    <p style="margin-top: 16px;"><strong>1.2</strong> &nbsp; Which dataset did you pick? Give its title and the organization that published it.</p>
+    <textarea class="answer-box" placeholder="Dataset title, publisher / hosting site (e.g., Kaggle, data.gov, university research lab)..."></textarea>
+
+    <p style="margin-top: 16px;"><strong>1.3</strong> &nbsp; Screenshot the dataset&rsquo;s detail page (the landing page with description, license, last update, etc.):</p>
+    <div class="screenshot-box" contenteditable="true" data-placeholder="Click here, then paste your screenshot (Ctrl+V on Windows / Cmd+V on Mac)"></div>
+  </div>
+</div>
+
+<!-- ACTIVITY 2 -->
+<div class="activity">
+  <div class="activity-header">
+    <span>Activity 2 — Apply the CRAAP Test</span>
+    <span class="num">15 min</span>
+  </div>
+  <div class="activity-body">
+    <div class="box box-blue">
+      <span class="label">💡 THE CRAAP TEST</span>
+      Chapter 2&rsquo;s five-criterion check for source quality: <strong>C</strong>urrency, <strong>R</strong>elevance, <strong>A</strong>uthority, <strong>A</strong>ccuracy, <strong>P</strong>urpose. Rate each one ✅ (good), ⚠️ (questionable), or ❌ (poor) — and write a one-sentence verdict.
+    </div>
+
+    <div style="border: 1px solid #d8dde3; border-radius: 4px; overflow: hidden;">
+      <div class="craap-row" style="background: #f4f8fb; border-bottom: 2px solid #2E86C1;">
+        <div style="font-weight: 700; color: #1A5276;">Criterion</div>
+        <div style="font-weight: 700; color: #1A5276;">Your verdict — one sentence</div>
+        <div style="font-weight: 700; color: #1A5276; text-align: center;">Rating</div>
+      </div>
+
+      <div class="craap-row">
+        <div class="craap-letter">
+          <span class="big">C</span>urrency
+          <div class="craap-questions">When was it published? Is it still being updated?</div>
+        </div>
+        <textarea class="craap-verdict" placeholder="One-sentence verdict..." rows="2"></textarea>
+        <textarea class="craap-rating" rows="2"></textarea>
+      </div>
+
+      <div class="craap-row">
+        <div class="craap-letter">
+          <span class="big">R</span>elevance
+          <div class="craap-questions">Does it actually contain the kind of IoT data the title implies? Right level of detail?</div>
+        </div>
+        <textarea class="craap-verdict" placeholder="One-sentence verdict..." rows="2"></textarea>
+        <textarea class="craap-rating" rows="2"></textarea>
+      </div>
+
+      <div class="craap-row">
+        <div class="craap-letter">
+          <span class="big">A</span>uthority
+          <div class="craap-questions">Who collected/published it? Are they credible (university, agency, known researcher)?</div>
+        </div>
+        <textarea class="craap-verdict" placeholder="One-sentence verdict..." rows="2"></textarea>
+        <textarea class="craap-rating" rows="2"></textarea>
+      </div>
+
+      <div class="craap-row">
+        <div class="craap-letter">
+          <span class="big">A</span>ccuracy
+          <div class="craap-questions">Is collection methodology documented? Are there known errors or limitations listed?</div>
+        </div>
+        <textarea class="craap-verdict" placeholder="One-sentence verdict..." rows="2"></textarea>
+        <textarea class="craap-rating" rows="2"></textarea>
+      </div>
+
+      <div class="craap-row">
+        <div class="craap-letter">
+          <span class="big">P</span>urpose
+          <div class="craap-questions">Why does this dataset exist? Research? Sales? Are there obvious incentives that could bias it?</div>
+        </div>
+        <textarea class="craap-verdict" placeholder="One-sentence verdict..." rows="2"></textarea>
+        <textarea class="craap-rating" rows="2"></textarea>
+      </div>
+    </div>
+
+    <p style="margin-top: 18px;"><strong>2.6</strong> &nbsp; Overall verdict: would you trust this dataset for an AI project?</p>
+    <textarea class="answer-box" placeholder="Yes / No / With caveats — and why..."></textarea>
+  </div>
+</div>
+
+<!-- ACTIVITY 3 -->
+<div class="activity">
+  <div class="activity-header">
+    <span>Activity 3 — What Could Someone Learn About People in This Data?</span>
+    <span class="num">10 min</span>
+  </div>
+  <div class="activity-body">
+    <div class="box box-green">
+      <span class="label">✅ THINK LIKE A DETECTIVE</span>
+      Remember Maria&rsquo;s thermostat. The raw data was just temperature readings, but someone could infer her sleep schedule, when she was home, whether the apartment was empty. Look at the dataset you picked — what could a curious analyst figure out about the people behind the data, even if names and addresses aren&rsquo;t included?
+    </div>
+
+    <p><strong>3.1</strong> &nbsp; What columns or fields does this dataset contain? (Just the names — no need to dig into values.)</p>
+    <textarea class="answer-box" placeholder="e.g., timestamp, temperature, humidity, device_id, user_id..."></textarea>
+
+    <p style="margin-top: 16px;"><strong>3.2</strong> &nbsp; List <strong>three things</strong> someone could infer about a person in this dataset that the dataset doesn&rsquo;t directly state:</p>
+    <textarea class="answer-box tall" placeholder="1. ... &#10;2. ... &#10;3. ..."></textarea>
+
+    <p style="margin-top: 16px;"><strong>3.3</strong> &nbsp; Is the dataset anonymized? If it is, do you think the anonymization is strong enough — or could someone still re-identify individuals?</p>
+    <textarea class="answer-box" placeholder="What the dataset claims about anonymization, and the group's honest take..."></textarea>
+  </div>
+</div>
+
+<!-- ACTIVITY 4 -->
+<div class="activity">
+  <div class="activity-header">
+    <span>Activity 4 — Find a Competitor and Compare</span>
+    <span class="num">8 min</span>
+  </div>
+  <div class="activity-body">
+    <div class="box box-green">
+      <span class="label">✅ DO THIS</span>
+      Search again for a <em>different</em> dataset on the same topic. Find one. Then compare the two side by side and decide which one you&rsquo;d recommend for a hypothetical AI project.
+    </div>
+
+    <table class="cmp-table">
+      <thead>
+        <tr>
+          <th style="width: 28%;">Criterion</th>
+          <th style="width: 36%;">Dataset A (from Activity 1)</th>
+          <th style="width: 36%;">Dataset B (new)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Title &amp; publisher</strong></td>
+          <td><textarea class="cmp-input" placeholder="..." rows="2"></textarea></td>
+          <td><textarea class="cmp-input" placeholder="..." rows="2"></textarea></td>
+        </tr>
+        <tr>
+          <td><strong>Size / rows / time span</strong></td>
+          <td><textarea class="cmp-input" placeholder="..." rows="2"></textarea></td>
+          <td><textarea class="cmp-input" placeholder="..." rows="2"></textarea></td>
+        </tr>
+        <tr>
+          <td><strong>License / usage terms</strong></td>
+          <td><textarea class="cmp-input" placeholder="..." rows="2"></textarea></td>
+          <td><textarea class="cmp-input" placeholder="..." rows="2"></textarea></td>
+        </tr>
+        <tr>
+          <td><strong>Strongest CRAAP score</strong></td>
+          <td><textarea class="cmp-input" placeholder="Which letter rated best?" rows="2"></textarea></td>
+          <td><textarea class="cmp-input" placeholder="Which letter rated best?" rows="2"></textarea></td>
+        </tr>
+        <tr>
+          <td><strong>Weakest CRAAP score</strong></td>
+          <td><textarea class="cmp-input" placeholder="Which letter rated worst?" rows="2"></textarea></td>
+          <td><textarea class="cmp-input" placeholder="Which letter rated worst?" rows="2"></textarea></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <p style="margin-top: 16px;"><strong>4.1</strong> &nbsp; Which would you recommend? Why?</p>
+    <textarea class="answer-box" placeholder="The group's recommendation, in one or two sentences..."></textarea>
+  </div>
+</div>
+
+<!-- ACTIVITY 5 -->
+<div class="activity">
+  <div class="activity-header">
+    <span>Activity 5 — Privacy Stress Test</span>
+    <span class="num">5 min</span>
+  </div>
+  <div class="activity-body">
+    <div class="box box-red">
+      <span class="label">🛑 PRIVACY CHECK</span>
+      Imagine this dataset got into the wrong hands. Who would want it? How could it be misused?
+    </div>
+
+    <p><strong>5.1</strong> &nbsp; Name two specific groups or actors (companies, institutions, individuals) who might want this data and what they&rsquo;d do with it:</p>
+    <textarea class="answer-box tall" placeholder="1. [Who]: ... they could ... &#10;2. [Who]: ... they could ..."></textarea>
+
+    <p style="margin-top: 16px;"><strong>5.2</strong> &nbsp; If you were the person whose data is in this dataset, would you have wanted to know it was being collected and shared? Why or why not?</p>
+    <textarea class="answer-box" placeholder="The group's honest reaction..."></textarea>
+  </div>
+</div>
+
+<!-- SHARE-OUT PREP -->
+<div class="activity">
+  <div class="activity-header">
+    <span>Share-Out Prep</span>
+    <span class="num">For class share-out</span>
+  </div>
+  <div class="activity-body">
+    <p>Your <strong>Presenter</strong> will share <em>one</em> finding with the class. What&rsquo;s the most surprising or troubling thing the group uncovered about the dataset you chose?</p>
+    <textarea class="answer-box tall" placeholder="One or two sentences the Presenter can say out loud..."></textarea>
+  </div>
+</div>
+
+<div class="submit-note browser-only">
+  <strong>📄 To submit:</strong> Once your group has filled this out, choose <strong>File → Print</strong> in your browser and select <strong>Save as PDF</strong> as the destination. Upload the PDF to the Canvas assignment <em>GRP02: Source Detective</em> before the end of class (9:20 PM).
+</div>
+
+</div>
+
+
+<script>
+(function() {
+  function autoGrow(el) {
+    el.style.height = 'auto';
+    el.style.height = (el.scrollHeight + 2) + 'px';
+  }
+  function init() {
+    document.querySelectorAll('textarea').forEach(function(ta) {
+      ta.addEventListener('input', function() { autoGrow(ta); });
+      autoGrow(ta);
+    });
+  }
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else { init(); }
+  // Ensure textareas show full content when printing
+  window.addEventListener('beforeprint', function() {
+    document.querySelectorAll('textarea').forEach(function(ta) {
+      ta.style.height = 'auto';
+      ta.style.height = ta.scrollHeight + 'px';
+    });
+  });
+})();
+</script>
+
+</body>
+</html>

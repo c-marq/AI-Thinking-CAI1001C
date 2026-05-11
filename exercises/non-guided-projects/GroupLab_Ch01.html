@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GRP01: Meet Your AI Assistant — Group Worksheet</title>
+<style>
+  body { font-family: 'Segoe UI', Arial, sans-serif; max-width: 880px; margin: 0 auto; padding: 30px; color: #2c3e50; line-height: 1.55; background: #fafbfc; }
+  .doc { background: white; padding: 36px 40px; border-radius: 8px; box-shadow: 0 2px 12px rgba(0,0,0,0.05); }
+  .doc-header { background: linear-gradient(135deg, #2E86C1 0%, #1A5276 100%); color: white; padding: 24px 28px; border-radius: 6px; margin-bottom: 24px; }
+  .doc-header .course-line { font-size: 0.85em; opacity: 0.85; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 4px; }
+  .doc-header h1 { margin: 0; font-size: 1.7em; }
+  .doc-header .subtitle { margin-top: 6px; font-size: 0.95em; opacity: 0.9; }
+  .badge { display: inline-block; background: rgba(255,255,255,0.2); padding: 3px 10px; border-radius: 12px; font-size: 0.8em; margin-top: 10px; }
+
+  .meta-grid { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 12px; background: #f4f8fb; padding: 16px; border-radius: 6px; margin-bottom: 24px; }
+  .meta-grid label { display: block; font-weight: 600; color: #1A5276; font-size: 0.78em; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 5px; }
+  .field { background: white; border: 1px solid #d8dde3; padding: 8px 10px; border-radius: 4px; min-height: 22px; outline: none; font-size: 0.95em; }
+  .field:focus { border-color: #2E86C1; box-shadow: 0 0 0 2px rgba(46,134,193,0.15); }
+
+  h2 { color: #1A5276; margin-top: 36px; border-bottom: 2px solid #d4e6f1; padding-bottom: 8px; }
+
+  .box { padding: 16px 20px; margin: 18px 0; border-radius: 4px; }
+  .box-green { background: #D5F5E3; border-left: 5px solid #27AE60; }
+  .box-blue { background: #D6EAF8; border-left: 5px solid #2E86C1; }
+  .box-yellow { background: #FEF9E7; border-left: 5px solid #F1C40F; }
+  .box-red { background: #FADBD8; border-left: 5px solid #E74C3C; }
+  .box .label { display: block; font-weight: 700; margin-bottom: 8px; font-size: 1em; }
+  .box-green .label { color: #1E8449; }
+  .box-blue .label { color: #1A5276; }
+  .box-yellow .label { color: #7D6608; }
+  .box-red .label { color: #922B21; }
+
+  .activity { margin: 28px 0; border: 1px solid #d8dde3; border-radius: 6px; overflow: hidden; }
+  .activity-header { background: #2E86C1; color: white; padding: 12px 18px; font-weight: 700; display: flex; justify-content: space-between; align-items: center; }
+  .activity-header .num { background: rgba(255,255,255,0.25); padding: 2px 10px; border-radius: 10px; font-size: 0.85em; }
+  .activity-body { padding: 18px 20px; }
+
+  .answer-box { background: white; border: 2px dashed #ccc; border-radius: 4px; padding: 12px; min-height: 70px; margin-top: 10px; outline: none; font-size: 0.96em; }
+  .answer-box.tall { min-height: 110px; }
+  .answer-box:focus { border-color: #2E86C1; border-style: solid; background: #fbfdff; }
+  .answer-box:empty::before { content: attr(data-placeholder); color: #aaa; font-style: italic; }
+
+  .screenshot-box { background: #fafbfc; border: 2px dashed #c0c6ce; border-radius: 4px; padding: 16px; min-height: 160px; margin-top: 10px; outline: none; text-align: center; color: #888; font-style: italic; }
+  .screenshot-box:focus { border-color: #2E86C1; border-style: solid; background: #fbfdff; }
+  .screenshot-box img { max-width: 100%; height: auto; display: block; margin: 6px auto; }
+  .screenshot-box:not(:empty) { color: inherit; font-style: normal; text-align: left; padding: 10px; }
+  .screenshot-box:empty::before { content: attr(data-placeholder); }
+
+  .category-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; margin: 14px 0; }
+  .category-grid label { display: block; padding: 8px 10px; background: white; border: 1px solid #d8dde3; border-radius: 4px; cursor: pointer; text-align: center; font-size: 0.88em; }
+  .category-grid input[type="checkbox"] { margin-right: 4px; }
+
+  .prompt-row { display: grid; grid-template-columns: 60px 1fr; gap: 12px; align-items: start; margin-bottom: 12px; }
+  .prompt-row .num-circle { width: 32px; height: 32px; border-radius: 50%; background: #2E86C1; color: white; display: flex; align-items: center; justify-content: center; font-weight: 700; margin: 4px auto; }
+
+  table.cat-table { width: 100%; border-collapse: collapse; margin-top: 12px; }
+  table.cat-table th, table.cat-table td { border: 1px solid #d8dde3; padding: 8px 10px; text-align: left; vertical-align: top; }
+  table.cat-table th { background: #1A5276; color: white; font-size: 0.85em; }
+  table.cat-table td { font-size: 0.9em; }
+  table.cat-table .cat-input { min-height: 22px; outline: none; padding: 4px; }
+  table.cat-table .cat-input:focus { background: #fbfdff; }
+  table.cat-table .cat-input:empty::before { content: attr(data-placeholder); color: #bbb; font-style: italic; font-size: 0.9em; }
+
+  .submit-note { background: #FEF9E7; border: 1px solid #F1C40F; padding: 14px 18px; border-radius: 4px; margin-top: 30px; font-size: 0.92em; }
+
+  @media print {
+    body { background: white; padding: 0; }
+    .doc { box-shadow: none; padding: 20px; }
+    .browser-only, .submit-note { display: none; }
+    .answer-box, .screenshot-box, .field { border-style: solid; border-color: #aaa; background: white; }
+    .activity { page-break-inside: avoid; }
+    textarea { resize: none; overflow: visible !important; }
+    .doc-header { background: #2E86C1 !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    .activity-header { background: #2E86C1 !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    .box, table.cat-table th { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  }
+
+  /* === Expandable text inputs === */
+  textarea {
+    font-family: inherit; font-size: inherit; line-height: inherit; color: inherit;
+    box-sizing: border-box; width: 100%; outline: none; resize: vertical;
+    overflow: hidden; display: block;
+  }
+  textarea::placeholder { color: #aaa; font-style: italic; opacity: 1; }
+  textarea.cat-input, textarea.dim-input, textarea.cmp-input,
+  textarea.craap-verdict, textarea.craap-rating, textarea.picker-input {
+    resize: none; min-height: 22px;
+  }
+  textarea.cat-input::placeholder, textarea.dim-input::placeholder,
+  textarea.cmp-input::placeholder, textarea.craap-verdict::placeholder,
+  textarea.craap-rating::placeholder, textarea.picker-input::placeholder {
+    color: #bbb; font-size: 0.9em;
+  }
+  input.field {
+    width: 100%; box-sizing: border-box; font-family: inherit; font-size: 0.95em;
+  }
+
+</style>
+</head>
+<body>
+
+<div class="doc">
+
+<div class="doc-header">
+  <div class="course-line">CAI 1001C — AI Thinking — Summer 2026</div>
+  <h1>GRP01: Meet Your AI Assistant</h1>
+  <div class="subtitle">Group Worksheet — Chapter 1: Welcome to the Age of AI</div>
+  <div class="badge">In-Class Group Lab · 4 points · Submit as PDF</div>
+</div>
+
+<div class="meta-grid">
+  <div>
+    <label>Group Member 1</label>
+    <input type="text" class="field">
+  </div>
+  <div>
+    <label>Group Member 2</label>
+    <input type="text" class="field">
+  </div>
+  <div>
+    <label>Group Member 3</label>
+    <input type="text" class="field">
+  </div>
+  <div>
+    <label>Group Member 4</label>
+    <input type="text" class="field">
+  </div>
+  <div>
+    <label>Date</label>
+    <input type="text" class="field">
+  </div>
+  <div>
+    <label>Lead Driver</label>
+    <input type="text" class="field">
+  </div>
+  <div>
+    <label>Presenter</label>
+    <input type="text" class="field">
+  </div>
+  <div>
+    <label>QA Reviewer</label>
+    <input type="text" class="field">
+  </div>
+</div>
+
+<div class="box box-blue">
+  <span class="label">💡 WHY ARE WE DOING THIS?</span>
+  In the demo you just saw Python code running in Colab — the &ldquo;builder side&rdquo; of AI. Now you&rsquo;re going to experience the &ldquo;user side&rdquo;: a no-code AI tool called <strong>Google AI Studio</strong>. Your job as a group is to explore what AI feels like as a tool, try a few different kinds of prompts, and classify what AI Studio actually <em>does</em> using the five categories from Chapter 1: <strong>Recognition, Prediction, Generation, Recommendation, Optimization</strong>.
+</div>
+
+<div class="box box-yellow">
+  <span class="label">⚠️ BEFORE YOU START</span>
+  Each group member needs a free Google account. Open <strong>aistudio.google.com</strong> in your browser and sign in. If you&rsquo;ve never used AI Studio before, that&rsquo;s the point — explore. Don&rsquo;t worry about &ldquo;doing it right.&rdquo;
+</div>
+
+<!-- ACTIVITY 1 -->
+<div class="activity">
+  <div class="activity-header">
+    <span>Activity 1 — First Impressions</span>
+    <span class="num">5 min</span>
+  </div>
+  <div class="activity-body">
+    <div class="box box-green">
+      <span class="label">✅ DO THIS</span>
+      Open Google AI Studio. Look at the home page for 60 seconds without clicking anything. <strong>Take a screenshot</strong> of what you see.
+    </div>
+
+    <p><strong>1.1</strong> &nbsp; Paste your screenshot here:</p>
+    <div class="screenshot-box" contenteditable="true" data-placeholder="Click here, then paste your screenshot (Ctrl+V on Windows / Cmd+V on Mac)"></div>
+
+    <p style="margin-top: 18px;"><strong>1.2</strong> &nbsp; What do you notice on the home page? What can you tell about what AI Studio is for, just from looking?</p>
+    <textarea class="answer-box" placeholder="Type the group's observations here..."></textarea>
+  </div>
+</div>
+
+<!-- ACTIVITY 2 -->
+<div class="activity">
+  <div class="activity-header">
+    <span>Activity 2 — Try Three Different Prompts</span>
+    <span class="num">15 min</span>
+  </div>
+  <div class="activity-body">
+    <div class="box box-green">
+      <span class="label">✅ DO THIS</span>
+      Start a new chat in AI Studio. Try <strong>three different kinds of prompts</strong>, one of each:
+      <ul style="margin: 8px 0 0 0;">
+        <li><strong>Creative</strong> — ask it to write a poem, story, or song about something Miami-specific</li>
+        <li><strong>Factual</strong> — ask it a question that has a verifiable right answer</li>
+        <li><strong>Analytical</strong> — give it data or a scenario and ask it to draw a conclusion</li>
+      </ul>
+      Screenshot each output.
+    </div>
+
+    <div class="prompt-row">
+      <div class="num-circle">1</div>
+      <div>
+        <p style="margin: 4px 0;"><strong>Creative Prompt</strong> — what did you ask?</p>
+        <textarea class="answer-box" placeholder="Paste or type your prompt here..."></textarea>
+        <p style="margin: 12px 0 4px 0;">Screenshot of the response:</p>
+        <div class="screenshot-box" contenteditable="true" data-placeholder="Paste screenshot here"></div>
+      </div>
+    </div>
+
+    <div class="prompt-row">
+      <div class="num-circle">2</div>
+      <div>
+        <p style="margin: 4px 0;"><strong>Factual Prompt</strong> — what did you ask?</p>
+        <textarea class="answer-box" placeholder="Paste or type your prompt here..."></textarea>
+        <p style="margin: 12px 0 4px 0;">Screenshot of the response:</p>
+        <div class="screenshot-box" contenteditable="true" data-placeholder="Paste screenshot here"></div>
+      </div>
+    </div>
+
+    <div class="prompt-row">
+      <div class="num-circle">3</div>
+      <div>
+        <p style="margin: 4px 0;"><strong>Analytical Prompt</strong> — what did you ask?</p>
+        <textarea class="answer-box" placeholder="Paste or type your prompt here..."></textarea>
+        <p style="margin: 12px 0 4px 0;">Screenshot of the response:</p>
+        <div class="screenshot-box" contenteditable="true" data-placeholder="Paste screenshot here"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ACTIVITY 3 -->
+<div class="activity">
+  <div class="activity-header">
+    <span>Activity 3 — Classify Each Response</span>
+    <span class="num">10 min</span>
+  </div>
+  <div class="activity-body">
+    <div class="box box-blue">
+      <span class="label">💡 CHAPTER 1 FRAMEWORK</span>
+      The five categories of AI applications are: <strong>Recognition</strong> (identifies patterns), <strong>Prediction</strong> (forecasts what's likely), <strong>Generation</strong> (creates new content), <strong>Recommendation</strong> (suggests what you'd like), <strong>Optimization</strong> (finds best solution).
+    </div>
+
+    <p>For each prompt you tried, decide which category best describes what AI Studio did. <em>Tip: a single response can fit more than one category — note both if it applies.</em></p>
+
+    <table class="cat-table">
+      <thead>
+        <tr>
+          <th style="width: 80px;">Prompt #</th>
+          <th style="width: 200px;">Best-Fit Category</th>
+          <th>Why does it fit? (justify with what AI Studio actually did)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>1 — Creative</strong></td>
+          <td><textarea class="cat-input" placeholder="Category..." rows="2"></textarea></td>
+          <td><textarea class="cat-input" placeholder="Brief justification..." rows="2"></textarea></td>
+        </tr>
+        <tr>
+          <td><strong>2 — Factual</strong></td>
+          <td><textarea class="cat-input" placeholder="Category..." rows="2"></textarea></td>
+          <td><textarea class="cat-input" placeholder="Brief justification..." rows="2"></textarea></td>
+        </tr>
+        <tr>
+          <td><strong>3 — Analytical</strong></td>
+          <td><textarea class="cat-input" placeholder="Category..." rows="2"></textarea></td>
+          <td><textarea class="cat-input" placeholder="Brief justification..." rows="2"></textarea></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ACTIVITY 4 -->
+<div class="activity">
+  <div class="activity-header">
+    <span>Activity 4 — Group Discussion</span>
+    <span class="num">8 min</span>
+  </div>
+  <div class="activity-body">
+    <div class="box box-green">
+      <span class="label">✅ DISCUSS AND DOCUMENT</span>
+      Each group member shares ONE AI system they use daily that isn&rsquo;t AI Studio. Capture them below and classify each into one of the five categories.
+    </div>
+
+    <table class="cat-table">
+      <thead>
+        <tr>
+          <th style="width: 130px;">Member</th>
+          <th style="width: 240px;">AI System They Use Daily</th>
+          <th style="width: 160px;">Category</th>
+          <th>One thing it does that proves the category</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><textarea class="cat-input" placeholder="Name..." rows="2"></textarea></td>
+          <td><textarea class="cat-input" placeholder="e.g., Spotify" rows="2"></textarea></td>
+          <td><textarea class="cat-input" placeholder="Category..." rows="2"></textarea></td>
+          <td><textarea class="cat-input" placeholder="What it does..." rows="2"></textarea></td>
+        </tr>
+        <tr>
+          <td><textarea class="cat-input" placeholder="Name..." rows="2"></textarea></td>
+          <td><textarea class="cat-input" placeholder="e.g., Google Maps" rows="2"></textarea></td>
+          <td><textarea class="cat-input" placeholder="Category..." rows="2"></textarea></td>
+          <td><textarea class="cat-input" placeholder="What it does..." rows="2"></textarea></td>
+        </tr>
+        <tr>
+          <td><textarea class="cat-input" placeholder="Name..." rows="2"></textarea></td>
+          <td><textarea class="cat-input" placeholder="e.g., Instagram" rows="2"></textarea></td>
+          <td><textarea class="cat-input" placeholder="Category..." rows="2"></textarea></td>
+          <td><textarea class="cat-input" placeholder="What it does..." rows="2"></textarea></td>
+        </tr>
+        <tr>
+          <td><textarea class="cat-input" placeholder="Name..." rows="2"></textarea></td>
+          <td><textarea class="cat-input" placeholder="e.g., Face ID" rows="2"></textarea></td>
+          <td><textarea class="cat-input" placeholder="Category..." rows="2"></textarea></td>
+          <td><textarea class="cat-input" placeholder="What it does..." rows="2"></textarea></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ACTIVITY 5 -->
+<div class="activity">
+  <div class="activity-header">
+    <span>Activity 5 — Closing Reflection</span>
+    <span class="num">7 min</span>
+  </div>
+  <div class="activity-body">
+    <div class="box box-red">
+      <span class="label">🛑 STOP AND THINK</span>
+      What surprised the group about AI Studio? One thing you didn&rsquo;t expect. One thing it did well. One thing it got wrong or did poorly.
+    </div>
+
+    <p><strong>What surprised us:</strong></p>
+    <textarea class="answer-box tall" placeholder="The group's biggest 'huh, didn't expect that' moment..."></textarea>
+
+    <p style="margin-top: 16px;"><strong>What it did well:</strong></p>
+    <textarea class="answer-box" placeholder="A specific thing AI Studio handled really well..."></textarea>
+
+    <p style="margin-top: 16px;"><strong>What it got wrong or did poorly:</strong></p>
+    <textarea class="answer-box" placeholder="A specific failure, error, or weakness you noticed..."></textarea>
+  </div>
+</div>
+
+<!-- SHARE-OUT PREP -->
+<div class="activity">
+  <div class="activity-header">
+    <span>Share-Out Prep</span>
+    <span class="num">For class share-out</span>
+  </div>
+  <div class="activity-body">
+    <p>Your <strong>Presenter</strong> will share <em>one</em> thing from this worksheet with the whole class. Decide as a group: what&rsquo;s the most interesting finding?</p>
+    <textarea class="answer-box tall" placeholder="Write the headline finding here — one or two sentences the Presenter can say out loud..."></textarea>
+  </div>
+</div>
+
+<div class="submit-note browser-only">
+  <strong>📄 To submit:</strong> Once your group has filled this out, choose <strong>File → Print</strong> in your browser and select <strong>Save as PDF</strong> as the destination. Upload the PDF to the Canvas assignment <em>GRP01: Meet Your AI Assistant</em> before the end of class (9:20 PM).
+</div>
+
+</div>
+
+
+<script>
+(function() {
+  function autoGrow(el) {
+    el.style.height = 'auto';
+    el.style.height = (el.scrollHeight + 2) + 'px';
+  }
+  function init() {
+    document.querySelectorAll('textarea').forEach(function(ta) {
+      ta.addEventListener('input', function() { autoGrow(ta); });
+      autoGrow(ta);
+    });
+  }
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else { init(); }
+  // Ensure textareas show full content when printing
+  window.addEventListener('beforeprint', function() {
+    document.querySelectorAll('textarea').forEach(function(ta) {
+      ta.style.height = 'auto';
+      ta.style.height = ta.scrollHeight + 'px';
+    });
+  });
+})();
+</script>
+
+</body>
+</html>
